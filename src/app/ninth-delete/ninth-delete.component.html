@@ -1,0 +1,12 @@
+<section>
+  <h2>選擇欲刪除的任務:</h2>
+  <ul>
+    @for(task of taskService.tasksArray;track $index){
+      <li [class.deleted]="task.selected">
+        <input type="checkbox" [(ngModel)]="task.selected">
+        {{taskService.getTaskStatus(task.completed)}} {{task.title}}
+      </li>
+    }
+  </ul>
+  <button (click)="deleteTask()">🗑️ 刪除任務</button>
+</section>

@@ -1,0 +1,220 @@
+// 子分頁盒子
+.web-box {
+  // 排版
+  display: flex;
+  justify-content: center; // 預設水平:水平置中
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+
+  // 背景色(子分頁)
+  background: linear-gradient(130deg, #3cddf6 0%, #9773d0 100% transparent);
+}
+
+.page-box {
+  // 排版
+  display: flex;
+  flex-direction: column; // 垂直排列
+  justify-self: center; // 垂直置中
+  align-items: center; // 水平置中
+  gap: 50px;
+
+  // 盒模型
+  width: 50%;
+  height: auto;
+  padding-top: 16px;
+  padding-bottom: 5%;
+  box-sizing: border-box;
+  // 背景色
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  // 陰影
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+  // RWD: 手機版時變寬
+  @media (max-width: 600px) {
+    width: 95%; // 手機版改佔 95%
+    padding: 16px;
+  }
+}
+
+
+.exercies-first-box {
+  // 排版
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.exercies-second-box {
+  // 排版
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.exercies-third-box {
+  // 排版
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.box-header {
+  // 排版
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  margin-bottom: 5%;
+  padding: 2%;
+  box-sizing: border-box;
+
+  // 文字樣式
+  font-size: clamp(25px, 4vw, 50px);
+  font-weight: bold;
+  color: white;
+
+  // 背景色
+  background-color: #0f172a;
+  border-left: 1px solid #38bdf8; // 左邊發光
+  border-right: 1px solid #38bdf8; // 右邊發光
+  border-bottom: 2px solid #38bdf8; // 底部發光
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); //陰影
+
+  // 省略號
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+button {
+  // 排版
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  padding: 8px 16px;
+  box-sizing: border-box;
+
+  // 背景色
+  background: linear-gradient(135deg, rgb(135, 255, 255) 0%, rgb(0, 149, 255) 100%);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+  border: none;
+  border-radius: 8px;
+
+  //文字樣式
+  font-size: clamp(12px, 2vw, 24px);
+  font-weight: bold;
+  color: #1e1b4b;
+
+  //省略號
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(2px);
+    background: #0f172a;
+    color: #3cddf6;
+  }
+}
+
+.content-box {
+  // 排版
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 8px;
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.button-group {
+  // 排版
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.img-box {
+  // 排版
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+
+  // 修飾
+  border: 1px solid rgb(135, 255, 255);
+
+  img{
+    // 盒模型
+    width:100%;
+  }
+}
+
+.tech-card {
+  // 盒模型
+  width: 80%;
+  padding: 24px;
+  box-sizing: border-box;
+
+  // 背景色
+  background: rgba(30, 41, 59, 0.95); // 深色
+  backdrop-filter: blur(12px); // 毛玻璃
+
+  // 文字樣式
+  color: #e2e8f0;
+
+  border: 1px solid rgba(56, 189, 248, 0.5); // 極細亮藍邊框
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); // 陰影比大卡片還強
+  border-radius: 8px; // 圓角
+
+}

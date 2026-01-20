@@ -1,0 +1,92 @@
+<div class="web-box">
+  <!-- 頁面標題 -->
+  <h1>{{webHeader}}</h1>
+  <!-- 載入判斷 -->
+  @if(isLoading){
+  <!-- <p class="loading">載入中...</p> -->
+  <div class="loading-spinner"></div>
+  }@else {
+  <!-- 功能區塊 -->
+  <div class="function-box">
+    <!-- 選擇時段按鈕區塊 -->
+    @if (weatherList.length > 0) {
+    <div class="time-box">
+      <button [class.active]="currentDayIndex === 0" (click)="selectDay(0)">
+        {{ weatherList[0].dayparts[0].startTime | date:'MM/dd HH:mm' }}
+        <br>
+        <small>時段一</small>
+      </button>
+
+      <button [class.active]="currentDayIndex === 1" (click)="selectDay(1)">
+        {{ weatherList[0].dayparts[1].startTime | date:'MM/dd HH:mm' }}
+        <br>
+        <small>時段二</small>
+      </button>
+
+      <button [class.active]="currentDayIndex === 2" (click)="selectDay(2)">
+        {{ weatherList[0].dayparts[2].startTime | date:'MM/dd HH:mm' }}
+        <br>
+        <small>時段三</small>
+      </button>
+    </div>
+    }
+    <!-- 搜尋區塊 -->
+    <div class="search-box">
+      <!-- 輸入查詢 -->
+      <input class="search-input" type="text" [(ngModel)]="inputData" (input)="onInputChange()"
+        [placeholder]="inputPrompt">
+      <!-- 下拉式選單 -->
+      <select [(ngModel)]="selectData" (change)="onSelectChange()">
+        <option value="">{{selectPrompt}}</option>
+        @for (city of weatherList; track city.cityId) {
+        <option [value]="city.cityId">{{city.city}}</option>
+        }
+      </select>
+      <button (click)="resetFilter()">顯示全部</button>
+    </div>
+    <!-- 排序、清除排序按鈕區塊 -->
+    <div class="button-box">
+      <button class="button-sort" (click)="isSortByMinTemp()">依最低溫度排序</button>
+      <button class="button-sort" (click)="isSortByMaxTemp()">依最高溫度排序</button>
+      <button class="button-sort" (click)="isSortByPop()">依降雨機率排序</button>
+      <button (click)="resetSort()">清除排序</button>
+    </div>
+  </div>
+  <!-- 天氣卡片區塊 -->
+  <div class="weather-box">
+    @if (filteredList.length === 0) {
+    <div class="no-data">
+      <p>找不到與「{{ inputData }}」相關的縣市，請重新輸入。</p>
+    </div>
+    }
+    <!-- @for為每個縣市產生一個區塊 -->
+    @for (city of filteredList; track city.city) {
+    @for (dayparts of city.dayparts;track dayparts.daypartsId){
+    <div class="weather-card">
+      <!-- 卡片標題區塊 -->
+      <div class="card-header">
+        <!-- 顯示縣市名稱 -->
+        <h3>{{ city.city }}</h3>
+        <!-- 顯示預報時間 -->
+        <p class="forecast-time">{{ dayparts.startTime | date:'MM/dd HH:mm' }}~{{ dayparts.endTime | date:'MM/dd
+          HH:mm'}} </p>
+      </div>
+      <!-- 卡片內容區塊 -->
+      <div class="card-box">
+        <!-- 天氣狀況 -->
+        <p class="status">{{dayparts.weatherIcon + dayparts.status }}</p>
+        <!-- 溫度範圍 -->
+        <div class="temp">
+          <span>{{ dayparts.minTemp }}°C</span> - <span>{{ dayparts.maxTemp }}°C</span>
+        </div>
+        <!-- 降雨機率 -->
+        <p [class]="getRainClass(dayparts.pop)">降雨機率: {{ dayparts.pop }}%</p>
+        <!-- 舒適度 -->
+        <p class="comfort">{{ dayparts.comfortIndex }}</p>
+      </div>
+    </div>
+    }
+    }
+  </div>
+  }
+</div>

@@ -1,0 +1,94 @@
+// 子分頁盒子
+.web-box {
+  // 排版
+  display: flex;
+  justify-content: center; // 預設水平:水平置中
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+
+  // 背景色(子分頁)
+  background: linear-gradient(130deg, #3cddf6 0%, #9773d0 100% transparent);
+}
+
+.page-box {
+  // 排版
+  display: flex;
+  flex-direction: column; // 垂直排列
+  justify-self: center; // 垂直置中
+  align-items: center; // 水平置中
+  gap: 50px;
+
+  // 盒模型
+  width: 50%;
+  height: auto;
+  padding-top: 16px;
+  padding-bottom: 5%;
+  box-sizing: border-box;
+  // 背景色
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  // 陰影
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+  // RWD: 手機版時變寬
+  @media (max-width: 600px) {
+    width: 95%; // 手機版改佔 95%
+    padding: 16px;
+  }
+}
+
+.button-box {
+  // 排版
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  // 盒模型
+  width: 80%;
+  height: auto;
+  font-size: clamp(24px,2vw,32px);
+
+  // 不斷行
+  flex-wrap:nowrap;
+  overflow-x: auto;
+}
+
+button {
+  // 排版
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // 盒模型
+  padding: 12px 24px;
+
+  // 文字樣式
+  font-size: clamp(16px,2vw,24px);
+  font-weight: bold;
+  color: white;
+
+  // 裝飾
+  background: #0072ff;
+  border: 1px solid #00c6ff;
+  box-shadow: 0 0 10px rgba(0, 114, 255, 0.3);
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+
+  // 動畫過渡
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00c6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 198, 255, 0.6);
+}
+
+button:active {
+  transform: translateY(0);
+  text-shadow: 0 0 10px white;
+}

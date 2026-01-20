@@ -1,0 +1,22 @@
+<div class="web-box">
+  <div class="page-box">
+    <div class="calculator-box">
+      <h1 class="bmi-calculator">BMI計算機</h1>
+      <div class="user-attribute-box">
+        <p>身高:
+          <input [placeholder]="heightPrompt" type="number" [(ngModel)]="inputHeightData">
+        </p>
+        <p>體重:
+          <input [placeholder]="weightPrompt" type="number" [(ngModel)]="inputWeightData">
+        </p>
+        <p>BMI: {{ user.bmi }}</p>
+      </div>
+      <div class="output-box inner-card">
+        <h1>{{ outputResult() }}</h1>
+      </div>
+      <div class="cal-button-box">
+        <button class="button-calculate" (click)="calculateBMI()">計算</button>
+      </div>
+    </div>
+  </div>
+</div>

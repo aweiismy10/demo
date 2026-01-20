@@ -1,0 +1,61 @@
+.total-box {
+  // 排版
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  gap: 15px;
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  bottom: 0px;
+  margin: 0 auto 10%;
+  padding: 16px;
+  box-sizing: border-box;
+
+  // 裝飾
+  background: rgba(30, 41, 59, 0.95); // 比大卡片的背景更亮 更不透明
+  border: 1px solid rgba(56, 189, 248, 0.5); // 極細亮藍邊框
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); // 陰影比大卡片還強
+  border-radius: 8px;
+}
+
+.user-data {
+  // 排版
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  gap: 10px;
+
+  // 盒模型
+  width: 100%;
+  box-sizing: border-box;
+
+  p {
+    //排版
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+
+    // 盒模型
+    width: 100%;
+    box-sizing: border-box;
+
+    // 文字樣式
+    font-size: clamp(16px, 2vw, 32px);
+
+    //省略號
+    white-space: nowrap; // 文字不斷行
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    input {
+      font-size: clamp(16px, 2vw, 32px);
+      max-width: 40cqw;
+    }
+  }
+}

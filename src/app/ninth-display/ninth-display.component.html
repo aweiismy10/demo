@@ -1,0 +1,10 @@
+<section>
+  <h2>顯示未完成任務:</h2>
+  <ul>
+    @for(task of displayIncompleteTasks(); track $index){
+      <li>
+        {{task.title}}
+      </li>
+    }
+  </ul>
+</section>

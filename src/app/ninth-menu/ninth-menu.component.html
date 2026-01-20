@@ -1,0 +1,10 @@
+<section>
+  <h2>當前清單任務列表:</h2>
+  <ul>
+    @for(task of taskService.tasksArray;track $index){
+      <li>
+        {{taskService.getTaskStatus(task.completed)}} {{task.title}}
+      </li>
+    }
+  </ul>
+</section>

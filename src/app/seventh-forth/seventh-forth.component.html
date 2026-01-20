@@ -1,0 +1,9 @@
+<div class="total-box">
+  <h1>頁面B(組件)</h1>
+  <div class="user-data">
+    <p>使用者名稱:<input type="text" [(ngModel)]="userData.userName"></p>
+    <p>使用者Email:<input type="text" [(ngModel)]="userData.userEmail"></p>
+    <p>使用者地址:<input type="text" [(ngModel)]="userData.userAddress"></p>
+  </div>
+  <button (click)="sendData(userData)">送出資料</button>
+</div>

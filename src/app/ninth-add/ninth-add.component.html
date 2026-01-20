@@ -1,0 +1,7 @@
+  <section>
+    <h2>輸入以新增任務</h2>
+    <div class="input-container">
+      <input type="text" [(ngModel)]="taskService.inputTaskName" [placeholder]="inputPrompt">
+      <button (click)="addTask()">➕ 新增任務</button>
+    </div>
+  </section>

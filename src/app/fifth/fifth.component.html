@@ -1,0 +1,21 @@
+<div class="web-box">
+  <div class="page-box">
+    <div class="calculator-box">
+      <h1 class="level-calculator">等級計算機</h1>
+      <div class="role-attribute-box">
+        <p>等級:{{role.level}}</p>
+        <p>攻擊力:{{role.atk}}</p>
+        <p>防禦力:{{role.def}}</p>
+        <div class="level-setter-box">
+          <input class="input-style" [placeholder]="inputPrompt" type="number" [(ngModel)]="inputData">
+          <button class="button-level-setter" (click)="buttonLevelSetter()">修改等級</button>
+        </div>
+      </div>
+      <div class="level-button-box">
+        <button class="button-level-up" (click)="buttonLevelUp()">升級</button>
+        <button class="button-level-down" (click)="buttonLevelDown()">降級</button>
+        <button class="button-level-reset" (click)="buttonLevelReset()">重置</button>
+      </div>
+    </div>
+  </div>
+</div>

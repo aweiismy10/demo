@@ -1,0 +1,15 @@
+main {
+  // 排版:因為有導航欄，所以要有padding-top
+  padding-top: 64px;
+
+  // 盒模型:長寬設定
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+
+  //文字
+  color: white; //預設白色文字
+
+  // 背景色
+  background: linear-gradient(130deg, #193539 0%, #9773d0 100%);
+}

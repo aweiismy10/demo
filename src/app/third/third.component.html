@@ -1,0 +1,87 @@
+<!-- 視窗框架 -->
+<div class="web-box">
+  <div class="page-box">
+    <!-- 履歷框架 -->
+    <div class="resume-framework">
+      <!-- 履歷標頭 -->
+      <div class="header-framework">
+        <!-- 頭像與姓名區塊 -->
+        <div class="photo-and-name-box">
+          <!-- 頭像區塊 -->
+          <div class="photo-box">
+            <!-- 圖片 -->
+            <img src="profile_picture.png" class="img-profile-picture">
+          </div>
+          <!-- 姓名與職稱區塊 -->
+          <div class="name-and-job-box">
+            <!-- 姓名與職稱 -->
+            <h1 class="name-text">{{resume.name}}</h1>
+            <h1 class="job-text">{{resume.jobTitle}}</h1>
+          </div>
+        </div>
+        <!-- 聯絡資訊區塊 -->
+        <div class="contact-box">
+          <h1 class="header-section-title">聯絡資訊</h1>
+          <p class="header-section-content-text">電話: {{resume.phone}}</p>
+          <p class="header-section-content-text">信箱: {{resume.email}}</p>
+          <p class="header-section-content-text">地址: {{resume.address}}</p>
+        </div>
+        <!-- 技能專長區塊-->
+        <div class="skill-box">
+          <h1 class="header-section-title">技能專長</h1>
+          <ul class="header-list-style">
+            <li *ngFor="let skill of resume.skills">{{skill}}</li>
+          </ul>
+        </div>
+        <!-- 語言能力區塊 -->
+        <div class="language-box">
+          <h1 class="header-section-title">語言能力</h1>
+          <ul class="header-list-style">
+            <li *ngFor="let language of resume.languages">{{language}}</li>
+          </ul>
+        </div>
+        <!-- 興趣愛好區塊 -->
+        <div class="hobby-box">
+          <h1 class="header-section-title">興趣愛好</h1>
+          <ul class="header-list-style">
+            <li *ngFor="let hobby of resume.hobbies">{{hobby}}</li>
+          </ul>
+        </div>
+      </div>
+      <!-- 履歷內容 -->
+      <div class="content-framework">
+        <!-- 個人簡介區塊 -->
+        <div class="introduction-box">
+          <h2 class="content-section-title">個人簡介 PROFILE</h2>
+          <p class="introduction-text">
+            {{resume.introduction}}
+          </p>
+        </div>
+        <!-- 工作經歷區塊 -->
+        <div class="work-experience-box" *ngFor="let exp of resume.experiences">
+          <h2 class="content-section-title">工作經歷 WORK EXPERIENCE</h2>
+          <!-- 工作經歷職稱 -->
+          <h4 class="experience-job-title">{{exp.title}}</h4>
+          <!-- 工作經歷公司名稱(年月) -->
+          <h6 class="experience-company-name">{{exp.company}} ({{exp.duration}})</h6>
+          <!-- 工作經歷內容描述 -->
+          <ul class="content-list-style">
+            <li *ngFor="let detail of exp.details">{{detail}}</li>
+          </ul>
+        </div>
+        <!-- 教育背景區塊 -->
+        <div class="education-box" *ngFor="let edu of resume.educations">
+          <h2 class="content-section-title">教育背景 EDUCATION</h2>
+          <!-- 教育背景學位 -->
+          <h4 class="degree-title">{{edu.degree}}</h4>
+          <!-- 入學至畢業時間 -->
+          <h6 class="school-name">{{edu.school}} ({{edu.duration}})</h6>
+          <!-- 教育背景修習內容描述 -->
+          <ul class="content-list-style">
+            <li *ngFor="let detail of edu.details">{{detail}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

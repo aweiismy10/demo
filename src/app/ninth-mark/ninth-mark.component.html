@@ -1,0 +1,12 @@
+<section>
+  <h2>選擇欲標記完成的任務:</h2>
+  <ul>
+    @for(task of taskService.tasksArray;track $index){
+      <li [class.selected]="task.selected">
+        <input type="checkbox" [(ngModel)]="task.selected">
+        {{taskService.getTaskStatus(task.completed)}} {{task.title}}
+      </li>
+    }
+  </ul>
+  <button (click)="markAsComplete()">✅ 標記完成</button>
+</section>

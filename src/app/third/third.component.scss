@@ -1,0 +1,332 @@
+// 顏色變數
+$primary-blue: rgb(4, 37, 67);
+$text-gray: rgb(80, 80, 80);
+
+
+// ----------------------------------------
+// 共用: 標頭&內容:區塊樣式模板mixin
+@mixin section-box($width, $height) {
+  width: $width;
+  height: $height;
+  box-sizing: border-box;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 子分頁盒子
+.web-box {
+  // 排版
+  display: flex;
+  justify-content: center; // 預設水平:水平置中
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+
+  // 背景色(子分頁)
+  background: linear-gradient(130deg, #3cddf6 0%, #9773d0 100% transparent);
+}
+
+.page-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  width: 80%;
+  height: auto;
+
+  padding-top: 8vh;
+  padding-bottom: 8vh;
+  font-weight: bold;
+  box-sizing: border-box;
+
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+
+}
+
+// ---------------------------------------
+// 履歷框架區塊
+.resume-framework {
+  // A4紙張大小
+  width: 100%;
+  max-width: 595px;
+  aspect-ratio: 595/842;
+  box-sizing: border-box;
+  // A4紙張顏色與邊框
+  background-color: #ffffff;
+  border: $primary-blue 1px solid;
+
+
+  border: 1px solid rgba(56, 189, 248, 0.8);
+  box-shadow: 0 4px 8px rgba(191, 191, 191, 0.3);
+
+  // 加入父層 Flexbox 樣式
+  display: flex;
+  flex-direction: row; // (預設)設定排列方向：row (由左到右)
+  // overflow: hidden; // 隱藏超出區塊的部分
+
+
+}
+
+// ---------------------------------------
+// 履歷標頭與內容區塊
+.header-framework {
+  // 履歷標頭(子)區塊寬與邊框
+  width: 35%;
+  background-color: $primary-blue;
+  height: 100%;
+  box-sizing: border-box;
+
+  // 加入 Flexbox 樣式
+  display: flex;
+  flex-direction: column; // 設定排列方向：column (由上到下)
+  justify-content: center; // 垂直置中對齊
+  align-items: center; // 水平置中對齊
+  gap: 4px; // 設定子元素之間的間距(取代margin)
+}
+
+.content-framework {
+  // 履歷內容(子)區塊寬與邊框
+  width: 65%;
+  padding: 45px 15px;
+  height: 100%;
+  box-sizing: border-box;
+
+  // 加入 Flexbox 樣式
+  display: flex;
+  flex-direction: column; // 設定排列方向：column (由上到下)
+  justify-content: space-around;
+  align-items: center; // 水平置中對齊
+  gap: 35px; // 設定子元素之間的間距
+}
+
+// ---------------------------------------
+// 頭像、姓名、職稱區塊
+.photo-and-name-box {
+  @include section-box(100%, 32%);
+}
+
+// 頭像區塊
+.photo-box {
+  // 頭像區塊寬高
+  @include section-box(100%, 64%);
+
+  // 加入 Flexbox 樣式
+  display: flex;
+  flex-direction: column;
+  // 子元素水平置中對齊
+  align-items: center;
+
+  // 頭像圖片
+  .img-profile-picture {
+    // 頭像圖片寬高
+    width: 75%;
+    aspect-ratio: 1/1;
+    // 頭像圓形
+    border-radius: 50%;
+    // 頭像圖片邊框
+    border: 2px solid #ffffff;
+    // 頭像圖片外距
+    margin: 15px 0;
+  }
+}
+
+// 姓名與職稱區塊
+.name-and-job-box {
+  // 姓名與職稱區塊寬高
+  @include section-box(100%, 24%);
+}
+
+// 姓名職稱樣式
+.name-text {
+  // 姓名大小
+  font-size: 25px;
+  // 姓名顏色
+  color: #ffffff;
+  // 姓名水平置中
+  text-align: center;
+  // 減少上下外距
+  margin: 5px 0;
+
+  font-weight: bold;
+}
+
+.job-text {
+  // 職稱大小
+  font-size: 12px;
+  // 職稱顏色
+  color: #7ec6e3;
+  // 職稱水平置中
+  text-align: center;
+  // 減少上下外距
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+// ============================================
+// 聯絡資訊區塊
+.contact-box {
+  // 聯絡資訊區塊寬高
+  @include section-box(80%, 16%);
+}
+
+// 技能區塊
+.skill-box {
+  // 技能區塊寬高
+  @include section-box(80%, 22%);
+}
+
+// 語言區塊
+.language-box {
+  // 語言區塊寬高
+  @include section-box(80%, 12%);
+}
+
+// 興趣區塊
+.hobby-box {
+  // 興趣區塊寬高
+  @include section-box(80%, 16%);
+}
+
+// ---------------------------------------
+// 個人簡介區塊
+.introduction-box {
+  // 個人簡介區塊寬高
+  @include section-box(90%, 25%);
+  white-space: wrap;
+}
+
+.introduction-text {
+  // 個人簡介內容文字顏色
+  color: $text-gray;
+  // 文字粗體
+  font-weight: bold;
+}
+
+// 工作經歷區塊
+.work-experience-box {
+  // 工作經歷區塊寬高
+  @include section-box(90%, 30%);
+}
+
+.experience-job-title {
+  // 工作經歷職稱文字顏色
+  color: $primary-blue;
+  // 工作經歷職稱上下外距
+  margin: 5px 0;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.experience-company-name {
+  // 工作經歷公司名稱文字顏色
+  color: $text-gray;
+  // 工作經歷公司名稱上下外距
+  margin: 5px 0;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+// 教育背景區塊
+.education-box {
+  // 教育背景區塊寬高
+  @include section-box(90%, 30%);
+}
+
+.degree-title {
+  // 學位名稱文字顏色
+  color: $primary-blue;
+  // 學位名稱上下外距
+  margin: 5px 0;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.school-name {
+  // 學校名稱文字顏色
+  color: $text-gray;
+  // 學校名稱上下外距
+  margin: 5px 0;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+// ---------------------------------------
+// 共用:區塊標題樣式模板mixin
+@mixin section-title($font-size, $color, $border-bottom-width, $border-bottom-color, $margin-bottom) {
+  // 區塊標題大小
+  font-size: $font-size;
+  // 區塊標題顏色
+  color: $color;
+  // 區塊標題底線
+  border-bottom: $border-bottom-width solid $border-bottom-color;
+  // 區塊標題下方外距
+  margin-bottom: $margin-bottom;
+
+  font-weight: bold;
+}
+
+// 標頭區塊標題樣式
+.header-section-title {
+  @include section-title(16px, #ffffff, 2px, #ffffff, 5px);
+}
+
+// 內容區塊標題樣式
+.content-section-title {
+  @include section-title(23px, $primary-blue, 3px, $primary-blue, 10px);
+}
+
+// 標頭區塊內容文字樣式
+.header-section-content-text {
+  // 內容文字大小
+  font-size: 12px;
+  // 內容文字顏色
+  color: #ffffff;
+  margin: 7px 0;
+  font-weight: bold;
+}
+
+// ---------------------------------------
+// 共用:清單文字樣式模板mixin
+@mixin list-style($font-size, $color, $margin-top, $margin-bottom) {
+  // 清單文字大小
+  font-size: $font-size;
+  // 清單文字顏色
+  color: $color;
+  // 文字粗體
+  font-weight: bold;
+  // 清單文字內距(點點往前移)
+  padding-left: 15px;
+  // 清單文字上下外距
+  margin: $margin-top $margin-bottom;
+  // 統一行高
+  line-height: 1.5;
+  // 清單小圓點樣式(circle:空心圓 disc:實心圓 none:無點)
+  list-style-type: disc;
+}
+
+// 標頭區塊清單文字樣式
+.header-list-style {
+  @include list-style(12px, #ffffff, 10%, 0);
+}
+
+// 內容區塊清單文字樣式
+.content-list-style {
+  @include list-style(15px, $text-gray, 7%, 0);
+}
+
+// 清單li的上下外距
+li {
+  margin: 4px 0;
+}
+
+// ---------------------------------------

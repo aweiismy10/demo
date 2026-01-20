@@ -1,0 +1,383 @@
+// 子分頁盒子
+.web-box {
+  // 排版
+  display: flex;
+  justify-content: center; // 預設水平:水平置中
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+
+  // 背景色(子分頁)
+  background: linear-gradient(130deg, #3cddf6 0%, #9773d0 100% transparent);
+}
+
+// 子分頁主要內容盒子
+.page-box {
+  display: flex;
+  flex-direction: column; // 垂直排列
+  justify-content: space-around; // 平均分配垂直空間
+  align-items: center; // 水平(主軸的垂直)置中
+  gap: 50px; // 元素間距
+
+  // 盒模型
+  width: 80%;
+  height: auto;
+  padding-top: 16px;
+  padding-bottom: 5%;
+  margin: auto;
+  box-sizing: border-box;
+
+  // 文字樣式
+  color: #ffffff;
+  font-weight: bold;
+
+  // 背景色
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+
+  // 毛玻璃效果
+  backdrop-filter: blur(10px); // 標準Chrome等等瀏覽器寫法
+  -webkit-backdrop-filter: blur(10px); // Safari/iOS寫法
+
+  // 頁面陰影
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+
+  // RWD: 手機版時變寬
+  @media (max-width: 600px) {
+    width: 95%; // 手機版改佔 95%
+    padding: 16px;
+  }
+}
+
+.exercies-first-box {
+  // 排版
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  //盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+
+  //文字樣式
+  color: white;
+
+  //背景色
+  background: transparent;
+
+}
+
+.exercies-second-box {
+  // 排版
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  //盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+
+  //文字樣式
+  color: white;
+
+  //背景色
+  background: transparent;
+}
+
+.exercies-third-box {
+  // 排版
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  //盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+
+  //文字樣式
+  color: white;
+
+  //背景色
+  background: transparent;
+
+}
+
+.box-header-box {
+  // 排版
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  padding: 8px;
+  margin-bottom: 5%;
+  border-bottom: 1px solid #38bdf8;
+  border-right: 1px solid #38bdf8;
+  border-left: 1px solid #38bdf8;
+  box-sizing: border-box;
+
+  // 文字樣式
+  color: white;
+  font-size: clamp(16px, 2vw, 50px);
+  font-weight: bold;
+  text-shadow: 0 0 10px white,0 0 20px white;
+
+  // 背景色
+  background-color: #0f172a;
+
+  // 陰影
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+
+  // 省略號
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+.photo-box {
+  // 排版
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  // 盒模型
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+
+  // 圖片樣式
+  .img-first {
+    // 盒模型(寫死高寬)
+    width: 200px;
+    max-width: 38.1%; // 200/(500+24)
+    aspect-ratio: 1/1; // 保持寬高比例(高是200px)
+    margin-right: 4.8%; // 24px
+    margin-bottom: 7.2%; // 36px(36/500)
+  }
+
+  .img-second {
+    // 盒模型
+    width: 300px;
+    max-width: 57.2%; // 300/(500+24)
+    aspect-ratio: 3/2; // 保持寬高比例(高是200px)
+    margin-bottom: 7.2%; // 36px(36/500)
+  }
+}
+
+.blank {
+  // 盒模型
+  width: 524px;
+  max-width: 100%;
+  aspect-ratio: 131/25; // 保持寬高比例
+  border: 1px solid rgb(255, 255, 255);
+  margin-bottom: 3.6%;
+}
+
+
+.input-button-box {
+  // 排版
+  display: flex;
+  justify-content: center; // 主軸(垂直置中)
+  align-items: center; // 次軸(水平置中)
+  gap: 8px; // 元素間距
+
+  //盒模型
+  width: 100%;
+  height: clamp(16px, 3vw, 20px); // 最大20px，視窗縮小也跟著縮小
+  box-sizing: border-box;
+}
+
+.input-display {
+  // 盒模型
+  width: 380px;
+  max-width: 73%;
+  height: 100%; // 配合父容器高度
+  padding: 0 4%;
+  box-sizing: border-box;
+
+  // 文字樣式
+  line-height: 1; // 文字內元素行高
+}
+
+.button-display {
+  // 排版
+  display: flex;
+  align-items: center; // 垂直置中按鈕文字
+  justify-content: center; // 水平置中按鈕文字
+
+  // 盒模型
+  width: 120px;
+  max-width: 23%;
+  height: 100%; // 配合父容器高度
+  box-sizing: border-box;
+
+  // 文字樣式
+  line-height: 1.6;
+  font-size: clamp(8px, 2vw, 12px);
+}
+
+.login-box {
+  // 排版
+  display: flex; // flexbox 排版
+  flex-direction: column; // 垂直排列
+  justify-content: space-around; // 垂直平均分配空間
+  align-items: center; // 水平置中
+
+  // 盒模型
+  width: clamp(200px, 80vw, 500px); // 寬度響應式：最小200px 最大500px
+  max-width: 95%; // 最大寬度不超過父容器
+  min-height: clamp(250px, 80vw, 500px); // 最小高度，內容多自動展開
+  padding: clamp(8px, 2vw, 20px); // 內邊距響應式
+  box-sizing: border-box; // padding 不增加寬度
+
+  // 背景色
+  background-color: blue;
+
+  h1 {
+    // 盒模型
+    padding: clamp(4px, 2vw, 8px); // 內邊距響應式
+    margin: 0; // 移除預設 margin
+
+    // 文字樣式
+    font-size: clamp(16px, 4vw, 40px); // 字體響應式
+    font-weight: bold; // 粗體
+    text-align: center; // 文字置中
+    color: white; // 白色文字
+  }
+
+  p {
+    // 排版
+    display: flex; // flexbox 排版
+    flex-direction: row; // 水平排列
+    justify-content: center; // 水平置中
+    align-items: center; // 垂直置中
+    gap: clamp(4px, 1vw, 8px); // 元素間距響應式
+
+    // 盒模型
+    width: 100%; // 佔滿寬度
+    padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 16px); // 上下和左右內邊距
+    margin: 0; // 移除預設 margin
+    box-sizing: border-box; // padding 不增加寬度
+
+    span {
+      // 排版
+      display: flex; // flexbox 排版
+      align-items: center; // 垂直置中
+      justify-content: center; // 水平置中
+      white-space: nowrap; // 禁止換行
+      flex-shrink: 0; // 不會被壓縮
+
+      // 文字樣式
+      font-size: clamp(8px, 2vw, 14px); // 字體響應式
+      color: white; // 白色文字
+    }
+
+    input {
+      // 排版
+      flex: 1; // 填滿剩餘空間
+      min-width: 0; // 允許小於內容寬度
+
+      // 盒模型
+      height: clamp(20px, 5vh, 40px); // 高度響應式
+      padding: 0 clamp(8px, 1vw, 12px); // 左右內邊距響應式
+      box-sizing: border-box; // padding 不增加寬度
+      border-radius: 4px; // 圓角
+      border: none; // 移除邊框
+
+      // 文字樣式
+      font-size: clamp(12px, 2vw, 14px); // 字體響應式
+    }
+  }
+}
+
+.button-login {
+  // 排版
+  display: flex; // flexbox 排版
+  align-items: center; // 垂直置中文字
+  justify-content: center; // 水平置中文字
+
+  // 盒模型
+  width: 70%;
+  padding: 1% 1%; // 內邊距響應式
+  box-sizing: border-box; // padding 不增加寬度
+  border-radius: 20px; // 圓角
+
+  // 文字樣式
+  font-size: clamp(12px, 2vw, 15px); // 字體響應式
+  color: white; // 白色文字
+
+  // 背景色
+  background-color: red;
+}
+
+.div-Item1 {
+  color: white;
+  height: 100%;
+  max-height: 80px;
+  background-color: blue;
+  text-align: center;
+}
+
+.div-Item2 {
+  align-self: self-end;
+  background-color: chartreuse;
+  text-align: center;
+  color: #0f172a;
+  margin-top: 54px;
+}
+
+.div-Item3 {
+  align-self: center;
+  background-color: red;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.div-Item4 {
+  align-self: self-start;
+  background-color: green;
+  text-align: center;
+}
+
+.div-Item5 {
+  height: 100%;
+  max-height:80px;
+  background-color: yellow;
+  color: #0f172a;
+  text-align: center;
+}
+
+
+.tech-card {
+  // 盒模型
+  width: 60%;
+  padding: 24px;
+
+  //文字樣式
+  color: #e2e8f0;
+
+  // 深色毛玻璃
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(12px);
+
+  // 邊框
+  border: 1px solid rgba(56, 189, 248, 0.5); // 極細亮藍邊框
+  // 陰影
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); // 強烈的黑色陰影
+  // 圓角
+  border-radius: 8px; // 微圓角
+}
