@@ -1,80 +1,82 @@
 import { Routes } from '@angular/router';
 import { MainViewComponent } from './main-view/main-view.component';
-import { HtmlExerciseComponent } from './features/first/html-exercise.component';
-import { SecondComponent } from './second/second.component';
-import { ThirdComponent } from './third/third.component';
-import { ForthComponent } from './forth/forth.component';
-import { FifthComponent } from './fifth/fifth.component';
-import { SixthComponent } from './sixth/sixth.component';
-import { SeventhComponent } from './seventh/seventh.component';
-import { SeventhFirstComponent } from './seventh-first/seventh-first.component';
-import { SeventhSecondComponent } from './seventh-second/seventh-second.component';
-import { SeventhThirdComponent } from './seventh-third/seventh-third.component';
-import { SeventhForthComponent } from './seventh-forth/seventh-forth.component';
-import { EighthComponent } from './eighth/eighth.component';
-import { NinthComponent } from './ninth/ninth.component';
-import { NinthMenuComponent } from './ninth-menu/ninth-menu.component';
-import { NinthAddComponent } from './ninth-add/ninth-add.component';
-import { NinthDisplayComponent } from './ninth-display/ninth-display.component';
-import { NinthMarkComponent } from './ninth-mark/ninth-mark.component';
-import { NinthDeleteComponent } from './ninth-delete/ninth-delete.component';
-import { TenthComponent } from './tenth/tenth.component';
-import { EleventhComponent } from './eleventh/eleventh.component';
-import { TwelfthComponent } from './twelfth/twelfth.component';
-import { TwelfthFirstComponent } from './twelfth-first/twelfth-first.component';
-import { ThirteenthComponent } from './thirteenth/thirteenth.component';
-import { ThirteenthFirstComponent } from './thirteenth-first/thirteenth-first.component';
-import { ForteenthComponent } from './forteenth/forteenth.component';
-import { FifteenthComponent } from './fifteenth/fifteenth.component';
-import { SixteenthComponent } from './sixteenth/sixteenth.component';
-import { SeventeenthComponent } from './seventeenth/seventeenth.component';
+import { HtmlExerciseComponent } from './features/html-exercise/html-exercise.component';
+import { CssExerciseComponent } from './features/css-exercise/css-exercise.component';
+import { ResumeExerciseComponent } from './features/resume-exercise/resume-exercise.component';
+import { BindingExerciseComponent } from './features/binding-exercise/binding-exercise.component';
+import { LevelCalculatorComponent } from './features/level-calculator/level-calculator.component';
+import { BmiCalculatorComponent } from './features/bmi-calculator/bmi-calculator.component';
+import { IoDemoComponent } from './features/io-demo/io-demo.component';
+import { InputDemoPageComponent } from './features/io-demo/pages/input-demo-page/input-demo-page.component';
+import { OutputDemoPageComponent } from './features/io-demo/pages/output-demo-page/output-demo-page.component';
+import { ArrayDemoComponent } from './features/array-demo/array-demo.component';
+import { TodoComponent } from './features/todo/todo.component';
+import { ListAllComponent } from './features/todo/pages/list-all/list-all.component';
+import { ListPendingComponent } from './features/todo/pages/list-pending/list-pending.component';
+import { AddTodoComponent } from './features/todo/pages/add-todo/add-todo.component';
+import { MarkDoneComponent } from './features/todo/pages/mark-done/mark-done.component';
+import { DeleteTodoComponent } from './features/todo/pages/delete-todo/delete-todo.component';
+import { WeatherComponent } from './features/weather/weather.component';
+import { WeatherPageComponent } from './features/weather/pages/weather-page/weather-page.component';
+import { MatTableDemoComponent } from './features/mat-table-demo/mat-table-demo.component';
+import { MatDialogDemoComponent } from './features/mat-dialog-demo/pages/mat-dialog-demo/mat-dialog-democomponent';
+import { SubjectDemoComponent } from './features/subject-demo/pages/subject-demo/subject-demo.component';
+import { SubjectChildComponent } from './features/subject-demo/components/subject-child/subject-child.component';
+import { LoadingDemoComponent } from './features/mat-spinner-demo/loading-demo/loading-demo.component';
+import { MatDrawerDemoComponent } from './features/mat-drawer-demo/mat-drawer-demo.component';
+import { MatToolbarDemoComponent } from './features/mat-toolbar-demo/mat-toolbar-demo.component';
+import { MatRadioDemoComponent } from './features/mat-radio-demo/mat-radio-demo.component';
+import { CheckboxDemoComponent } from './features/checkbox-demo/checkbox-demo.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   { path: 'main-view', component: MainViewComponent },
-  { path: 'first', component: HtmlExerciseComponent },
-  { path: 'second', component: SecondComponent },
-  { path: 'third', component: ThirdComponent },
-  { path: 'forth', component: ForthComponent },
-  { path: 'fifth', component: FifthComponent },
-  { path: 'sixth', component: SixthComponent },
+  { path: '', redirectTo: '/main-view', pathMatch: 'full' }, // app.component.html預設導向此主頁
+  { path: 'html-exercise', component: HtmlExerciseComponent },
+  { path: 'css-exercise', component: CssExerciseComponent },
+  { path: 'resume-exercise', component: ResumeExerciseComponent },
+  { path: 'binding-exercise', component: BindingExerciseComponent },
+  { path: 'level-calculator', component: LevelCalculatorComponent },
+  { path: 'bmi-calculator', component: BmiCalculatorComponent },
   {
-    path: 'seventh', component: SeventhComponent,
+    path: 'io-demo', component: IoDemoComponent,
     children: [
-      { path: '', redirectTo: 'seventh-first', pathMatch: 'full' },
-      { path: 'seventh-first', component: SeventhFirstComponent },
-      { path: 'seventh-second', component: SeventhSecondComponent },
-      { path: 'seventh-third', component: SeventhThirdComponent },
-      { path: 'seventh-forth', component: SeventhForthComponent },
+      { path: '', redirectTo: 'input-demo-page', pathMatch: 'full' },
+      { path: 'input-demo-page', component: InputDemoPageComponent },
+      { path: 'output-demo-page', component: OutputDemoPageComponent },
     ]
   },
-  { path: 'eighth', component: EighthComponent },
+  { path: 'array-demo', component: ArrayDemoComponent },
   {
-    path: 'ninth', component: NinthComponent,
+    path: 'todo', component: TodoComponent,
     children: [
-      { path: '', redirectTo: 'ninth-menu', pathMatch: 'full' },
-      { path: 'ninth-menu', component: NinthMenuComponent },
-      { path: 'ninth-add', component: NinthAddComponent },
-      { path: 'ninth-display', component: NinthDisplayComponent },
-      { path: 'ninth-mark', component: NinthMarkComponent },
-      { path: 'ninth-delete', component: NinthDeleteComponent },
+      { path: '', redirectTo: 'list-all', pathMatch: 'full' },
+      { path: 'list-all', component: ListAllComponent },
+      { path: 'list-pending', component: ListPendingComponent },
+      { path: 'add-todo', component: AddTodoComponent },
+      { path: 'mark-done', component: MarkDoneComponent },
+      { path: 'delete-todo', component: DeleteTodoComponent },
     ]
   },
-  { path: 'tenth', component: TenthComponent },
-  { path: 'eleventh', component: EleventhComponent },
-  { path: 'twelfth', component: TwelfthComponent },
-  { path: 'twelfth-first', component: TwelfthFirstComponent },
-  {
-    path: 'thirteenth', component: ThirteenthComponent,
+  { path: 'weather', component: WeatherComponent,
     children: [
-      { path: '', redirectTo: 'thirteenth-first', pathMatch: 'full' },
-      { path: 'thirteenth-first', component: ThirteenthFirstComponent },
+      { path: '', redirectTo: 'weather-page', pathMatch: 'full'},
+      { path: 'weather-page', component: WeatherPageComponent}
     ]
   },
-  { path: 'forteenth', component: ForteenthComponent },
-  { path: 'fifteenth', component: FifteenthComponent },
-  { path: 'sixteenth', component: SixteenthComponent},
-  { path: 'seventeenth', component: SeventeenthComponent },
-  { path: '', redirectTo: '/main-view', pathMatch: 'full' },
+  { path: 'mat-table-demo', component: MatTableDemoComponent },
+  { path: 'mat-dialog-demo', component: MatDialogDemoComponent },
+  {
+    path: 'subject-demo', component: SubjectDemoComponent,
+    children: [
+      { path: '', redirectTo: 'subject-child', pathMatch: 'full' },
+      { path: 'subject-child', component: SubjectChildComponent },
+    ]
+  },
+  { path: 'loading-demo', component: LoadingDemoComponent },
+  { path: 'mat-drawer-demo', component: MatDrawerDemoComponent },
+  { path: 'mat-toolbar-demo', component: MatToolbarDemoComponent},
+  { path: 'mat-radio-demo', component: MatRadioDemoComponent },
+  { path: 'checkbox-demo', component: CheckboxDemoComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
