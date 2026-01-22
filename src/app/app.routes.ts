@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { MainViewComponent } from './main-view/main-view.component';
+import { MainViewComponent } from './home/main-view/main-view.component';
 import { HtmlExerciseComponent } from './features/html-exercise/html-exercise.component';
 import { CssExerciseComponent } from './features/css-exercise/css-exercise.component';
 import { ResumeExerciseComponent } from './features/resume-exercise/resume-exercise.component';
@@ -27,7 +27,7 @@ import { MatDrawerDemoComponent } from './features/mat-drawer-demo/mat-drawer-de
 import { MatToolbarDemoComponent } from './features/mat-toolbar-demo/mat-toolbar-demo.component';
 import { MatRadioDemoComponent } from './features/mat-radio-demo/mat-radio-demo.component';
 import { CheckboxDemoComponent } from './features/checkbox-demo/checkbox-demo.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   { path: 'main-view', component: MainViewComponent },

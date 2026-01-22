@@ -1,7 +1,8 @@
-.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+.mat-mdc-radio-button~.mat-mdc-radio-button {
   margin-left: 16px;
 }
 
-.radio-white{
-  --mdc-form-field-label-text-color:#fff;
+.radio-white {
+  --mat-sys-on-surface: #5dfaff; // label-text-color
+  --mat-sys-primary: rgb(116, 218, 255); // selected-focus-icon-color
 }
