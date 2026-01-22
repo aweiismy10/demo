@@ -1,6 +1,6 @@
 div {
-  height: 100vh;
-  width: 100vw;
+  height: auto;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
@@ -21,4 +21,19 @@ h2 {
   font-weight: bold;
 
   color: aliceblue;
+}
+
+table {
+  width: 100%;
+  --mat-sys-surface: transparent;
+  --mat-sys-on-surface: white;
+  --mat-sys-outline: white;
+  border: 1px solid white;
+  --mat-sys-title-small-size: clamp(48px,2vw,80px);
+}
+.mat-column-position {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
 }

@@ -1,4 +1,32 @@
 <div>
-  <h1>練習題</h1>
-  <h2>不知道放什麼</h2>
+  <input type="text" (input)="changeData($event)">
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> 題目名稱 </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Link Column -->
+      <ng-container matColumnDef="link">
+        <th mat-header-cell *matHeaderCellDef> 連結 </th>
+        <td mat-cell *matCellDef="let element"> <a [routerLink]="element.link" routerLinkActive="active">查看</a> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
 </div>

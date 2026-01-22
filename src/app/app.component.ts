@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { WebHeaderComponent } from './layout/web-header/web-header.component';
+import { TopNavBarDemoComponent } from './layout/top-nav-bar-demo/top-nav-bar-demo.component';
 
 @Component({
   selector: 'app-root',
-  imports: [WebHeaderComponent,RouterOutlet],
+  imports: [TopNavBarDemoComponent,RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

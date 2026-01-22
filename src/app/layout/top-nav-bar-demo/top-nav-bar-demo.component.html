@@ -7,7 +7,10 @@
     </div>
 
     <div class="dropdown-content">
-      <a routerLink="/html-exercise" routerLinkActive="active">html練習</a>
+      @for(item of navbar;track $index){
+      <a [routerLink]="item.link" routerLinkActive="active">{{item.name}}</a>
+      }
+      <!-- <a routerLink="/html-exercise" routerLinkActive="active">html練習</a>
       <a routerLink="/css-exercise" routerLinkActive="active">css練習</a>
       <a routerLink="/resume-exercise" routerLinkActive="active">履歷製作練習</a>
       <a routerLink="/binding-exercise" routerLinkActive="active">繫結<br>(資料綁定)</a>
@@ -24,7 +27,7 @@
       <a routerLink="/mat-drawer-demo" routerLinkActive="active">&#64;angular/material<br>sidenav</a>
       <a routerLink="/mat-toolbar-demo" routerLinkActive="active">&#64;angular/material<br>toolbar</a>
       <a routerLink="/mat-radio-demo" routerLinkActive="active">&#64;angular/material<br>radio</a>
-      <a routerLink="/checkbox-demo" routerLinkActive="active">checkbox陣列練習</a>
+      <a routerLink="/checkbox-demo" routerLinkActive="active">checkbox陣列練習</a> -->
     </div>
   </div>
 </nav>
