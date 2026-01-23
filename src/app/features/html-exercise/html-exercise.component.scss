@@ -1,29 +1,15 @@
-// 子分頁盒子
-.web-box{
-  // 排版
-  display: flex;
-  justify-content: center; //預設水平:水平置中
-
-  // 盒模型
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-
-  // 背景色(子分頁)
-  background: linear-gradient(130deg, #3cddf6 0%, #9773d0 100%);
-}
-
-// 子分頁主要內容盒子
+// 子路由內容容器
 .page-box {
   // 排版
   display: flex;
   flex-direction: column; // 垂直排列
   align-items: flex-start; // 水平靠左
+  align-content: center;
   gap: 8px; // 元素間距
 
   // 盒模型
   height: auto; // 高度自適應
-  width: 50%; // 寬度為視窗寬度的50%
+  width: 50vw; // 寬度為父層寬度的50%
   padding-left: 5%; // 左側內距
   padding-top: 16px; // 上側內距
 

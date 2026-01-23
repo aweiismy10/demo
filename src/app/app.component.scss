@@ -1,15 +1,16 @@
+header {
+  position: sticky; // 佔據空間，讓main自動從他之下排列
+  height: 64px; // 導航欄高度64px
+  top: 0;
+  z-index: 1000;
+}
+
 main {
-  // 排版:因為有導航欄，所以要有padding-top
-  padding-top: 64px;
+  // 排版
+  display: flex;
+  flex-direction: column; // 垂直排列
+  justify-content: flex-start; // 從容器最上面開始排
+  align-items: center; // 水平置中
 
-  // 盒模型:長寬設定
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-
-  //文字
-  color: white; //預設白色文字
-
-  // 背景色
-  background: linear-gradient(130deg, #193539 0%, #9773d0 100%);
+  min-height: calc(100vh - 64px); // 確保主要頁面內容最小高度都有"視窗扣除導航欄的高度"
 }

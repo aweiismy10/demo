@@ -1,26 +1,73 @@
-div {
-  height: auto;
-  width: 100%;
-
+section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  height: auto;
+  width: 100%;
 }
 
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-h1 {
-  font-size: 100px;
-  font-weight: bold;
+  padding: 48px;
+  margin: 8px;
 
-  color: aliceblue;
+  border: 1px solid #abedff;
+  border-radius: 48px;
+
+  h1 {
+    font-size: clamp(48px, 8vw, 104px);
+    font-weight: bold;
+  }
 }
 
-h2 {
-  font-size: 60px;
+form {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  padding: 32px;
+  margin: 8px;
+
+  font-size: clamp(16px, 2vw, 32px);
   font-weight: bold;
 
-  color: aliceblue;
+  label{
+    transition: all 0.5s ease;
+
+    &:hover {
+      text-shadow: 0 0 8px #dd6eff;
+    }
+  }
+
+  input {
+    width: clamp(160px, 24vw, 250px);
+    padding-left: 8px;
+    // backdrop-filter: blur(8px);
+
+    background-color: #45334c;
+    outline: none;
+    border: 2px solid #8b44a0;
+    border-radius: 48px;
+
+    transition: all 0.5s ease;
+
+    &:focus {
+      width: clamp(200px, 24vw, 300px); // 寬度拉長
+      background-color: #00000045; // 遮罩 略透明
+      border-color: #dd6eff; // 發光
+      box-shadow: 0 0 10px #dd6eff;
+    }
+
+    &::placeholder {
+      color: rgb(176, 176, 176); // 提示字顏色
+    }
+  }
 }
 
 table {
@@ -29,8 +76,9 @@ table {
   --mat-sys-on-surface: white;
   --mat-sys-outline: white;
   border: 1px solid white;
-  --mat-sys-title-small-size: clamp(48px,2vw,80px);
+  --mat-sys-title-small-size: clamp(48px, 2vw, 80px);
 }
+
 .mat-column-position {
   width: 32px;
   border-right: 1px solid currentColor;

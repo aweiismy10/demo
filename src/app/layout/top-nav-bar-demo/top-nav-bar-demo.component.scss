@@ -8,7 +8,7 @@
 
   //盒模型
   width: 100%;
-  height: 64px;
+  height: auto; // 高度不設，讓外層header處理
   border-radius: 8px; // 圓角
   box-sizing: border-box;
 
