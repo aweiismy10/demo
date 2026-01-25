@@ -27,57 +27,66 @@ import { MatDrawerDemoComponent } from './features/mat-drawer-demo/mat-drawer-de
 import { MatToolbarDemoComponent } from './features/mat-toolbar-demo/mat-toolbar-demo.component';
 import { MatRadioDemoComponent } from './features/mat-radio-demo/mat-radio-demo.component';
 import { CheckboxDemoComponent } from './features/checkbox-demo/checkbox-demo.component';
+import { QuestionnaireComponent } from './features/questionnaire/questionnaire.component';
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
+import { ListComponent } from './features/questionnaire/pages/frontend/list/list.component';
 
 export const routes: Routes = [
   { path: 'main-view', component: MainViewComponent, data: { theme: 'theme-main' } },
   { path: '', redirectTo: '/main-view', pathMatch: 'full' }, // app.component.html預設導向此主頁
-  { path: 'html-exercise', component: HtmlExerciseComponent, data: { theme: 'theme-indigo' }  },
-  { path: 'css-exercise', component: CssExerciseComponent, data: { theme: 'theme-sunset' }  },
-  { path: 'resume-exercise', component: ResumeExerciseComponent, data: { theme: 'theme-sunset' }  },
-  { path: 'binding-exercise', component: BindingExerciseComponent, data: { theme: 'dark-theme' }  },
-  { path: 'level-calculator', component: LevelCalculatorComponent, data: { theme: 'dark-theme' }  },
-  { path: 'bmi-calculator', component: BmiCalculatorComponent, data: { theme: 'dark-theme' }  },
+  { path: 'html-exercise', component: HtmlExerciseComponent, data: { theme: 'theme-indigo' } },
+  { path: 'css-exercise', component: CssExerciseComponent, data: { theme: 'theme-sunset' } },
+  { path: 'resume-exercise', component: ResumeExerciseComponent, data: { theme: 'theme-sunset' } },
+  { path: 'binding-exercise', component: BindingExerciseComponent, data: { theme: 'dark-theme' } },
+  { path: 'level-calculator', component: LevelCalculatorComponent, data: { theme: 'dark-theme' } },
+  { path: 'bmi-calculator', component: BmiCalculatorComponent, data: { theme: 'dark-theme' } },
   {
     path: 'io-demo', component: IoDemoComponent,
     children: [
       { path: '', redirectTo: 'input-demo-page', pathMatch: 'full' },
       { path: 'input-demo-page', component: InputDemoPageComponent, data: { theme: 'dark-theme' } },
-      { path: 'output-demo-page', component: OutputDemoPageComponent, data: { theme: 'dark-theme' }  },
+      { path: 'output-demo-page', component: OutputDemoPageComponent, data: { theme: 'dark-theme' } },
     ]
   },
-  { path: 'array-demo', component: ArrayDemoComponent, data: { theme: 'dark-theme' }  },
+  { path: 'array-demo', component: ArrayDemoComponent, data: { theme: 'dark-theme' } },
   {
     path: 'todo', component: TodoComponent,
     children: [
       { path: '', redirectTo: 'list-all', pathMatch: 'full' },
-      { path: 'list-all', component: ListAllComponent, data: { theme: 'dark-theme' }  },
-      { path: 'list-pending', component: ListPendingComponent, data: { theme: 'dark-theme' }  },
-      { path: 'add-todo', component: AddTodoComponent, data: { theme: 'dark-theme' }  },
-      { path: 'mark-done', component: MarkDoneComponent, data: { theme: 'dark-theme' }  },
-      { path: 'delete-todo', component: DeleteTodoComponent, data: { theme: 'dark-theme' }  },
+      { path: 'list-all', component: ListAllComponent, data: { theme: 'dark-theme' } },
+      { path: 'list-pending', component: ListPendingComponent, data: { theme: 'dark-theme' } },
+      { path: 'add-todo', component: AddTodoComponent, data: { theme: 'dark-theme' } },
+      { path: 'mark-done', component: MarkDoneComponent, data: { theme: 'dark-theme' } },
+      { path: 'delete-todo', component: DeleteTodoComponent, data: { theme: 'dark-theme' } },
     ]
   },
   {
     path: 'weather', component: WeatherComponent,
     children: [
       { path: '', redirectTo: 'weather-page', pathMatch: 'full' },
-      { path: 'weather-page', component: WeatherPageComponent, data: { theme: 'dark-theme' }  }
+      { path: 'weather-page', component: WeatherPageComponent, data: { theme: 'dark-theme' } }
     ]
   },
-  { path: 'mat-table-demo', component: MatTableDemoComponent, data: { theme: 'dark-theme' }  },
-  { path: 'mat-dialog-demo', component: MatDialogDemoComponent, data: { theme: 'dark-theme' }  },
+  { path: 'mat-table-demo', component: MatTableDemoComponent, data: { theme: 'dark-theme' } },
+  { path: 'mat-dialog-demo', component: MatDialogDemoComponent, data: { theme: 'dark-theme' } },
   {
     path: 'subject-demo', component: SubjectDemoComponent,
     children: [
       { path: '', redirectTo: 'subject-child', pathMatch: 'full' },
-      { path: 'subject-child', component: SubjectChildComponent, data: { theme: 'dark-theme' }  },
+      { path: 'subject-child', component: SubjectChildComponent, data: { theme: 'dark-theme' } },
     ]
   },
-  { path: 'loading-demo', component: LoadingDemoComponent, data: { theme: 'dark-theme' }  },
-  { path: 'mat-drawer-demo', component: MatDrawerDemoComponent, data: { theme: 'dark-theme' }  },
-  { path: 'mat-toolbar-demo', component: MatToolbarDemoComponent, data: { theme: 'dark-theme' }  },
-  { path: 'mat-radio-demo', component: MatRadioDemoComponent, data: { theme: 'dark-theme' }  },
-  { path: 'checkbox-demo', component: CheckboxDemoComponent, data: { theme: 'dark-theme' }  },
-  { path: '**', component: PageNotFoundComponent, data: { theme: 'dark-theme' }  }
+  { path: 'loading-demo', component: LoadingDemoComponent, data: { theme: 'dark-theme' } },
+  { path: 'mat-drawer-demo', component: MatDrawerDemoComponent, data: { theme: 'dark-theme' } },
+  { path: 'mat-toolbar-demo', component: MatToolbarDemoComponent, data: { theme: 'dark-theme' } },
+  { path: 'mat-radio-demo', component: MatRadioDemoComponent, data: { theme: 'dark-theme' } },
+  { path: 'checkbox-demo', component: CheckboxDemoComponent, data: { theme: 'dark-theme' } },
+  {
+    path: 'questionnaire', component: QuestionnaireComponent, data: { theme: 'dark-theme' },
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: ListComponent, data: { theme: 'dark-theme' } }
+    ]
+  },
+  { path: '**', component: PageNotFoundComponent, data: { theme: 'dark-theme' } }
 ];
