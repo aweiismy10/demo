@@ -18,7 +18,7 @@ body {
 
 //-------------------------------------------------------------------------
 .theme-main {
-  background-image: linear-gradient(135deg, #193539 0%, #9773d0 70%,#dd6eff 100%);
+  background-image: linear-gradient(135deg, #672323 0%, #d073bf 70%, #e88cff 100%);
   color: white;
 }
 
@@ -36,12 +36,24 @@ body {
 
 //-------------------------------------------------------------------------
 .theme-tech {
-  background-image: linear-gradient(circle, #2e3192, #1bffff);
+  background-image: radial-gradient(circle, #7378ff, #1bffff);
   color: #333333;
 }
 
 //-------------------------------------------------------------------------
 .theme-indigo {
-  background-image: linear-gradient(130deg, #3cddf6 0%, #9773d0 100%);
+  background-image: linear-gradient(135deg, #3cddf6 0%, #9773d0 100%);
   color: #333333;
+}
+
+//-------------------------------------------------------------------------
+.theme-petalpink {
+  background-image: linear-gradient(135deg, #c14ed0, #fd9b9b, #d53474);
+  color: #333333;
+}
+
+//-------------------------------------------------------------------------
+.theme-skyblue {
+  background-image: linear-gradient(135deg, #0f172a 30%, #1b95a8 100%);
+  color: #1bffff;
 }

@@ -1,16 +1,14 @@
-<div class="web-box">
-  <div class="page-box">
-    <h1>陣列顯示</h1>
-    @for(user of userArray;track user.id){
-        <div class="role-box">
-        <h1>{{user.userName}}</h1>
-        <p>擁有道具:</p>
-        <ul>
-          @for(prop of user.props;track prop.id){
-            <li>{{prop.propsName}}  數量:{{prop.amount}}</li>
-          }
-        </ul>
-      </div>
+<div class="page-box">
+  <h1>陣列顯示</h1>
+  @for(user of userArray;track user.id){
+  <div class="role-box">
+    <h1>{{user.userName}}</h1>
+    <p>擁有道具:</p>
+    <ul>
+      @for(prop of user.props;track prop.id){
+      <li>{{prop.propsName}} 數量:{{prop.amount}}</li>
       }
+    </ul>
   </div>
+  }
 </div>

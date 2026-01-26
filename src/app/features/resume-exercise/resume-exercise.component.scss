@@ -15,21 +15,6 @@ $text-gray: rgb(80, 80, 80);
   text-overflow: ellipsis;
 }
 
-// 子分頁盒子
-.web-box {
-  // 排版
-  display: flex;
-  justify-content: center; // 預設水平:水平置中
-
-  // 盒模型
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-
-  // 背景色(子分頁)
-  background: linear-gradient(130deg, #3cddf6 0%, #9773d0 100% transparent);
-}
-
 .page-box {
   display: flex;
   flex-direction: column;
@@ -37,7 +22,7 @@ $text-gray: rgb(80, 80, 80);
   align-items: center;
   gap: 10px;
 
-  width: 80%;
+  width: 50vw;
   height: auto;
 
   padding-top: 8vh;
@@ -45,12 +30,7 @@ $text-gray: rgb(80, 80, 80);
   font-weight: bold;
   box-sizing: border-box;
 
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-
+  background-color: transparent;
 }
 
 // ---------------------------------------
@@ -89,7 +69,7 @@ $text-gray: rgb(80, 80, 80);
   // 加入 Flexbox 樣式
   display: flex;
   flex-direction: column; // 設定排列方向：column (由上到下)
-  justify-content: center; // 垂直置中對齊
+  justify-content: space-around; // 垂直置中對齊
   align-items: center; // 水平置中對齊
   gap: 4px; // 設定子元素之間的間距(取代margin)
 }
@@ -149,7 +129,7 @@ $text-gray: rgb(80, 80, 80);
 // 姓名職稱樣式
 .name-text {
   // 姓名大小
-  font-size: 25px;
+  font-size: clamp(16px,2vw,25px);
   // 姓名顏色
   color: #ffffff;
   // 姓名水平置中
@@ -162,7 +142,7 @@ $text-gray: rgb(80, 80, 80);
 
 .job-text {
   // 職稱大小
-  font-size: 12px;
+  font-size: clamp(8px,1vw,25px);
   // 職稱顏色
   color: #7ec6e3;
   // 職稱水平置中
@@ -288,10 +268,10 @@ $text-gray: rgb(80, 80, 80);
 // 標頭區塊內容文字樣式
 .header-section-content-text {
   // 內容文字大小
-  font-size: 12px;
+  font-size: clamp(8px,1vw,11px);
   // 內容文字顏色
   color: #ffffff;
-  margin: 7px 0;
+  margin: 8px 0;
   font-weight: bold;
 }
 
@@ -316,12 +296,14 @@ $text-gray: rgb(80, 80, 80);
 
 // 標頭區塊清單文字樣式
 .header-list-style {
-  @include list-style(12px, #ffffff, 10%, 0);
+  @include list-style(11px, #ffffff, 10%, 0);
+  white-space: wrap;
 }
 
 // 內容區塊清單文字樣式
 .content-list-style {
-  @include list-style(15px, $text-gray, 7%, 0);
+  @include list-style(14px, $text-gray, 7%, 0);
+  white-space: wrap;
 }
 
 // 清單li的上下外距

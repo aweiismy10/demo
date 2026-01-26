@@ -1,67 +1,26 @@
-// ==========================================
-// 頁面區塊
-// ==========================================
-.web-box {
-  // 排版
+button {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  gap: 20px;
 
-  // 盒模型
-  width: 100%;
-  min-height: 100vh;
-  padding: 20px 0;
+  margin-top: 8vh;
+  padding: 8px 16px;
 
-  // 文字樣式
-  color: #ffffff;
+  color: rgb(255, 228, 228);
 
-  // 裝飾
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-image: linear-gradient(135deg, #ff4f8d 0%, #f93378 100%);
 
-  // 其他
-  overflow: auto;
 
-  h1 {
-    font-size: 2.5em;
-    font-weight: bold;
-    text-shadow: 0 2px 10px rgba(0, 192, 255, 0.5);
-    margin-top: 20px;
-  }
-
-}
-
-.page-box {
-  // 排版
-  display: flex;
-  flex-direction: column; // 垂直排列
-  justify-self: center; // 垂直置中
-  align-items: center; // 水平置中
-  gap: 50px;
-
-  // 盒模型
-  width: 50%;
-  height: 100vh;
-  padding-top: 16px;
-  padding-bottom: 5%;
-  box-sizing: border-box;
-  // 背景色
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-  // 陰影
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  border:1px solid #6dfff36b;
   border-radius: 48px;
+  outline: none;
+  border: 1px solid #ff4f8d;
 
-  overflow-y: auto;
+  transition: all 0.3s ease;
 
-  // RWD: 手機版時變寬
-  @media (max-width: 600px) {
-    width: 95%; // 手機版改佔 95%
-    padding: 16px;
+  &:hover{
+    box-shadow: 0 0 8px #ff4f8d79;
+    text-shadow: 0 0 8px rgb(255, 228, 228);
+    transform: translateY(-2px);
   }
 }
-
-

@@ -1,34 +1,32 @@
-<div class="web-box">
-  <div class="page-box">
-    <div class="exercies-first-box tech-card">
-      <h1 class="box-header">事件繫結</h1>
-      <div>
-        <!-- 使用ts的clickButton方法 -->
-        <button (click)="clickButton()">我是按鈕!點我!</button>
-      </div>
+<div class="page-box">
+  <div class="exercies-first-box tech-card">
+    <h1 class="box-header">事件繫結</h1>
+    <div>
+      <!-- 使用ts的clickButton方法 -->
+      <button (click)="clickButton()">我是按鈕!點我!</button>
     </div>
+  </div>
 
-    <div class="exercies-second-box tech-card">
-      <h1 class="box-header">內嵌繫結</h1>
-      <div class="content-box">
-        <!-- 使用ts的redHeader變數 -->
-        <h1 style="background-color: red;">{{ redHeader }}</h1>
-        <!-- 使用ts的blueContact變數 -->
-        <p style="background-color: blue; color: white;">{{ blueContact }}</p>
-        <!-- 使用ts的imgSrc變數 -->
-        <img [src]="imgSrc" alt="Profile Picture">
-      </div>
+  <div class="exercies-second-box tech-card">
+    <h1 class="box-header">內嵌繫結</h1>
+    <div class="content-box">
+      <!-- 使用ts的redHeader變數 -->
+      <h1 style="background-color: red;">{{ redHeader }}</h1>
+      <!-- 使用ts的blueContact變數 -->
+      <p style="background-color: blue; color: white;">{{ blueContact }}</p>
+      <!-- 使用ts的imgSrc變數 -->
+      <img [src]="imgSrc" alt="Profile Picture">
     </div>
+  </div>
 
-    <div class="exercies-third-box tech-card">
-      <h1 class="box-header">屬性繫結</h1>
-      <div class="button-group">
-        <button (click)="clickButtonImg1()">圖片一</button>
-        <button (click)="clickButtonImg2()">圖片二</button>
-      </div>
-      <div class="img-box">
-        <img [src]="imgSrc2">
-      </div>
+  <div class="exercies-third-box tech-card">
+    <h1 class="box-header">屬性繫結</h1>
+    <div class="button-group">
+      <button (click)="clickButtonImg1()">圖片一</button>
+      <button (click)="clickButtonImg2()">圖片二</button>
+    </div>
+    <div class="img-box">
+      <img [src]="imgSrc2">
     </div>
   </div>
 </div>
