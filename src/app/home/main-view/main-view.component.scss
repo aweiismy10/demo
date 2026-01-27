@@ -1,98 +1,282 @@
-// 定義科技感核心顏色
+// 定義顏色粉、紫、紅等等
 $neon-pink: #ff00ff;
 $neon-purple: #9d00ff;
 $neon-red: #ff0055;
 $glass-bg: rgba(20, 0, 30, 0.7); // 極深紫色半透明
 
-.table-container {
-  border-radius: 24px; // 稍微縮小圓角，更有科技硬朗感
-  overflow: hidden;
-  border: 1px solid rgba($neon-pink, 0.5);
-  background: $glass-bg;
-  backdrop-filter: blur(15px); // 磨砂玻璃感
-  box-shadow:
-    0 0 15px rgba($neon-purple, 0.3),
-    inset 0 0 10px rgba($neon-pink, 0.2);
-  transition: all 0.5s ease;
+//---------------------------------------------------------
+// :host {
+  // 分頁器文字顏色
+  // --mat-paginator-container-text-color: rgba(255, 255, 255, 0.7); // (因為css最下面有寫了)
+  // 分頁器內的圖示顏色 (箭頭)
+  // --mat-paginator-enabled-icon-color: #ff00ff; // (因為css最下面有寫了)
+  // 背景
+  // --mat-paginator-container-background-color: transparent; // (因為css最下面有寫了)
+// }
 
-  &:hover {
-    box-shadow: 0 0 25px rgba($neon-pink, 0.4);
-    border-color: $neon-pink;
+:host ::ng-deep {
+
+  // 針對頁數選擇的標籤(每筆頁數)
+  .mat-mdc-paginator-page-size-label {
+    color: $neon-pink !important;
+  }
+
+  // 下拉選單在分頁器中的特殊文字顏色(選中的數字)
+  .mat-mdc-select-value-text {
+    color: white !important;
+  }
+
+  // // 旁邊四個icon(因為css最下面有寫了)
+  // .mat-mdc-paginator-icon {
+  //   fill: $neon-pink !important;
+  // }
+}
+
+//---------------------------------------------------------
+
+// 頁面容器
+section {
+  display: flex; // 排版
+  flex-direction: column; // 由上至下
+  justify-content: center; // 垂直置中
+  align-items: center; // 水平置中
+
+  width: 100%; // 盒模型
+  height: auto;
+}
+
+// 頁面標題容器
+header {
+  display: flex; // 排版:預設由左至右
+  justify-content: center; // 水平置中
+  align-items: center; // 垂直置中
+
+  padding: 48px; // 盒模型
+  margin: 8px;
+
+  border: 1px solid #abedff; // 裝飾:邊框
+  border-radius: 48px; // 圓角
+
+  h1 {
+    font-size: clamp(48px, 8vw, 104px); // 自適應文字大小
+    font-weight: bold; // 粗體
   }
 }
 
+// 表單容器
+form {
+  display: flex; // 排版
+  flex-direction: row; // 由左至右
+  justify-content: flex-start; // 從容器排版方向開頭排列
+  align-items: center; // 垂直置中
+
+  padding: 32px; // 盒模型:視覺不壅擠
+  margin: 8px;
+  box-sizing: border-box;
+
+  font-size: clamp(16px, 2vw, 32px); // 自適應文字大小
+  font-weight: bold; // 粗體
+
+  background-color: transparent !important; // 保證背景透明
+
+  // 欄位標題元素
+  label {
+    transition: all 0.5s ease; // 動畫過渡
+
+    &:hover {
+      // 鼠標移動到元素上時
+      text-shadow: 0 0 8px #dd6eff; // 文字發光
+      cursor: pointer; // 鼠標懸停變化手指
+    }
+  }
+
+  // has(+ "兄弟")當元素後方有"兄弟"input被focus時
+  label:has(+ input:focus) {
+    text-shadow: 0 0 8px #dd6eff; // 文字發光
+  }
+
+  // 文字輸入框
+  input {
+    width: clamp(160px, 24vw, 250px); // 寬度自適應
+    padding-left: 8px; // 讓左邊有點空間
+    // backdrop-filter: blur(8px);
+
+    background-color: #45334c; // 背景色
+    outline: none; // 移除預設外框
+    border: 2px solid #8b44a0; // 邊框
+    border-radius: 48px; // 圓角
+
+    transition: all 0.5s ease; // 動畫過渡
+
+    &:focus {
+      // 鼠標移動到元素上時
+      width: clamp(200px, 24vw, 300px); // 寬度拉長
+      background-color: #00000045; // 遮罩 略透明
+      border-color: #dd6eff; // 邊框發光
+      box-shadow: 0 0 10px #dd6eff; // 輸入框發光
+    }
+
+    &::placeholder {
+      color: rgb(176, 176, 176); // 提示字顏色
+    }
+  }
+}
+
+// 表格容器
+.table-container {
+  // 把mat-table修改成圓角
+  border-radius: 24px; // 圓角
+  overflow: hidden; // 超出部分切除
+
+  border: 1px solid rgba($neon-pink, 0.5); // 邊框 粉 半透明
+  background: $glass-bg; // 背景色:深紫色
+  backdrop-filter: blur(16px); // 玻璃感
+  box-shadow:
+    0 0 15px rgba($neon-purple, 0.3),
+    inset 0 0 10px rgba($neon-pink, 0.2); // 容器外紫光 內粉光 偏透明
+
+  transition: all 0.5s ease; // 動畫過渡
+
+  &:hover {
+    box-shadow: 0 0 25px rgba($neon-pink, 0.4); // 表格容器發粉光 偏透明
+    border-color: $neon-pink; // 邊框從半透明凝實
+  }
+}
+
+// 表格元素
 table {
-  width: 100%;
+  width: 100%; // 寬度貼父層容器
   background: transparent !important; // 確保表格背景透明以顯示容器背景
 
   // Material 3 Tokens 覆寫
-  --mat-sys-surface: transparent;
-  --mat-sys-on-surface: white;
+  --mat-sys-surface: transparent; // background-color 背景色
+  --mat-sys-on-surface: white; // header-headline-color 標題顏色
 
-  // 表頭設計：紅紫漸層
+  // 表頭(第一列) 紅紫漸層
   .mat-mdc-header-row {
-    background: linear-gradient(90deg, rgba($neon-red, 0.2), rgba($neon-purple, 0.2));
-    border-bottom: 2px solid $neon-pink;
+    background: linear-gradient(90deg, rgba($neon-red, 0.2), rgba($neon-purple, 0.2)); // 背景色
+    border-bottom: 2px solid $neon-pink; // 底線 粉
   }
 
+  // 表頭(第一列) 格內元素
   .mat-mdc-header-cell {
-    color: $neon-pink;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 1.1rem;
-    text-shadow: 0 0 5px $neon-pink;
+    color: white; // 標題文字顏色
+    font-weight: 800; // 粗體
+    text-transform: uppercase; // 定義轉換全大寫(NO)
+    letter-spacing: 2px; // 文字間空隙
+    font-size: clamp(24px, 1vw, 32px); // 自適應文字大小
+    text-shadow: 0 0 5px $neon-pink; // 文字發光
   }
 
   // 單元格設計
   .mat-mdc-cell {
-    color: rgba(255, 255, 255, 0.9);
-    border-bottom: 1px solid rgba($neon-purple, 0.2);
+    color: rgba(255, 255, 255, 0.9); // 文字白色
+    border-bottom: 1px solid rgba($neon-purple, 0.2); // 底線 細 紫色
   }
 
-  // 互動小技巧：Row Hover 效果
+  // 表格(列)
   .mat-mdc-row {
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; // 動畫過渡
 
+    // 鼠標懸停效果
     &:hover {
-      background-color: rgba($neon-pink, 0.1) !important;
+      background-color: rgba($neon-pink, 0.1) !important; // 背景是container的深紫色 鼠標懸停增加粉色(極透明)
 
-      // 科技感：左側出現一條亮線
+      // (列)左側增加一條亮框(紅色)
       border-left: 5px solid $neon-red;
 
       .mat-mdc-cell {
+        // 單元格
         color: #fff;
-        text-shadow: 0 0 8px $neon-pink;
+        text-shadow: 0 0 8px $neon-pink; // 文字發光
       }
     }
   }
 }
 
-// 針對「查看內容」連結的按鈕化
+// 「查看內容」連結的按鈕化
 .mat-column-link {
+
+  // 控制行的"link"(html定義)
   a {
-    color: $neon-pink;
-    text-decoration: none;
-    padding: 6px 16px;
-    border: 1px solid $neon-pink;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
+    display: inline-block; // 行內元素(可以處理部分特殊效果)
+    color: $neon-pink; // 顏色
+    text-decoration: none; // 超連結預設底線去除
+    padding: 8px 16px; // 按鈕內部空隙
+    border: 1px solid rgba($neon-pink, 0.5); // 邊框設計
+    font-size: clamp(12px, 1vw, 20px); // 文字自適應
+    font-weight: bold; // 粗體
+    border-radius: 16px; // 圓角
+    letter-spacing: 1px; // 文字間隙
+    box-shadow: 0 0 5px rgba($neon-pink, 0.2); // 按鈕微弱發光
+    background: rgba(255, 255, 255, 0.1); // 背景色 比背景再微深
+    backdrop-filter: blur(5px); // 模糊背景
+
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); // 貝塞爾曲線(前慢 中快 後慢)
 
     &:hover {
-      background: $neon-pink;
-      color: #000;
-      box-shadow: 0 0 15px $neon-pink;
+      background: $neon-pink; // 背景色(透明>凝實粉色)
+      border-color: $neon-pink; // 邊框顏色 凝實
+      color: #fff; // 文字變白色
+      box-shadow: 0 0 15px $neon-pink; // 按鈕外發光
+      transform: translateY(-2px); // 輕微上浮感
+      text-shadow: 0 0 8px #fff; // 文字發光
+      cursor: pointer; // 鼠標改手指
+    }
+
+    &:active {
+      transform: translateY(0); // 互動彈回
+      box-shadow: 0 0 10px rgba($neon-pink, 0.8); // 外發光
     }
   }
 }
 
-// 分頁器樣式（也要跟著科技化）
-::ng-deep .mat-mdc-paginator {
-  background: transparent !important;
-  color: rgba(255, 255, 255, 0.7) !important;
+// 表頭:字體
+.mat-column-position {
+  // 控制行的"position"(html定義)
+  font-family: 'Courier New', Courier, monospace; // 內建字體
+}
+
+// 分頁器樣式
+:host::ng-deep .mat-mdc-paginator {
+  background-color: transparent !important; // 背景透明
+  color: rgba(255, 255, 255, 0.7) !important; // 文字灰色
 
   .mat-mdc-paginator-icon {
-    fill: $neon-pink !important;
+    // 分頁器圖示
+    fill: $neon-pink !important; // SVG:icon的填充顏色屬性(粉)
+  }
+}
+
+// 表格容器遮罩(動畫)
+.table-container {
+  position: relative; // 相對位置錨定
+
+  &::before {
+    // 建立假元素
+    content: "";
+    position: absolute;
+    // 位置處理(上貼齊左貼齊)
+    top: 0;
+    left: 0;
+    width: 100%; // 寬度貼齊父層
+    height: 2px; // 高度2px(細線感)
+    background: rgba($neon-pink, 0.2); // 背景粉色 偏透明
+    animation: scan 4s linear infinite; // 動畫屬性 掃描(自訂義) 線性無限次播放
+    z-index: 10; // 確保線在表格上方
+    pointer-events: none; // 鼠標穿透元素作用於底層的元素(禁用此元素的互動)
+  }
+}
+
+// 自訂義動畫
+@keyframes scan {
+
+  // 關鍵幀
+  0% {
+    top: 0; // 位置從頂端開始
+  }
+
+  100% {
+    top: 100%; // 到底部
   }
 }
