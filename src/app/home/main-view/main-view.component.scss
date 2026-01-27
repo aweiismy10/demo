@@ -5,31 +5,19 @@ $neon-red: #ff0055;
 $glass-bg: rgba(20, 0, 30, 0.7); // 極深紫色半透明
 
 //---------------------------------------------------------
-// :host {
-  // 分頁器文字顏色
-  // --mat-paginator-container-text-color: rgba(255, 255, 255, 0.7); // (因為css最下面有寫了)
+// 分頁器樣式
+:host::ng-deep .mat-mdc-paginator {
   // 分頁器內的圖示顏色 (箭頭)
-  // --mat-paginator-enabled-icon-color: #ff00ff; // (因為css最下面有寫了)
+  --mat-paginator-enabled-icon-color: $neon-pink; // 分頁器圖示
   // 背景
-  // --mat-paginator-container-background-color: transparent; // (因為css最下面有寫了)
-// }
-
-:host ::ng-deep {
-
-  // 針對頁數選擇的標籤(每筆頁數)
-  .mat-mdc-paginator-page-size-label {
-    color: $neon-pink !important;
-  }
+  --mat-paginator-container-background-color: transparent; // 背景透明
+  // 分頁器文字顏色
+  --mat-paginator-container-text-color: rgba(255, 255, 255, 0.7); // 文字灰色
 
   // 下拉選單在分頁器中的特殊文字顏色(選中的數字)
   .mat-mdc-select-value-text {
     color: white !important;
   }
-
-  // // 旁邊四個icon(因為css最下面有寫了)
-  // .mat-mdc-paginator-icon {
-  //   fill: $neon-pink !important;
-  // }
 }
 
 //---------------------------------------------------------
@@ -235,17 +223,6 @@ table {
 .mat-column-position {
   // 控制行的"position"(html定義)
   font-family: 'Courier New', Courier, monospace; // 內建字體
-}
-
-// 分頁器樣式
-:host::ng-deep .mat-mdc-paginator {
-  background-color: transparent !important; // 背景透明
-  color: rgba(255, 255, 255, 0.7) !important; // 文字灰色
-
-  .mat-mdc-paginator-icon {
-    // 分頁器圖示
-    fill: $neon-pink !important; // SVG:icon的填充顏色屬性(粉)
-  }
 }
 
 // 表格容器遮罩(動畫)
