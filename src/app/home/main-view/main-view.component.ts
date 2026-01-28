@@ -1,18 +1,22 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NavBarDataService } from '../../core/services/nav-bar-data.service';
 import { RouterLink, RouterLinkActive } from "@angular/router";
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-main-view',
-  imports: [FormsModule, MatTableModule, MatPaginatorModule, RouterLink, RouterLinkActive],
+  imports: [FormsModule, MatTableModule, MatPaginatorModule, MatSortModule, RouterLink, RouterLinkActive],
   templateUrl: './main-view.component.html',
   styleUrl: './main-view.component.scss'
 })
 
 export class MainViewComponent implements AfterViewInit {
+  // Table with sorting
+  private _liveAnnouncer = inject(LiveAnnouncer);
   // 注入navbar服務
   constructor(private navbarService: NavBarDataService) { }
   // 宣告mat-table型別的空陣列，用來存取我的個人連結串
@@ -54,6 +58,20 @@ export class MainViewComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    // Table with sorting
+    this.dataSource.sort = this.sort;
+  }
+  //---------------------------------------------------------
+  // Table with sorting
+  @ViewChild(MatSort) sort!: MatSort;
+
+  /** Announce the change in sort state for assistive technology. */
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
   //---------------------------------------------------------
 }
