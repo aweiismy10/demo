@@ -16,7 +16,7 @@
   background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
   // 陰影
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  border:1px solid #6dfff36b;
+  border: 1px solid #6dfff36b;
   border-radius: 48px;
 
   overflow-y: auto;
@@ -45,7 +45,7 @@
     width: 200px;
     padding: 8px 16px;
 
-    color:rgb(152, 240, 255);
+    color: rgb(152, 240, 255);
     font-weight: bold;
 
     background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
@@ -55,14 +55,14 @@
 
     transition: all 0.3s ease;
 
-    &:hover{
+    &:hover {
       color: #1e1b4b;
       transform: translateY(-2px);
       background: linear-gradient(135deg, #7fddff 0%, #52ffff 100%);
       box-shadow: 0 0 10px#7fddff;
     }
 
-    &:active{
+    &:active {
       transform: translateY(0);
     }
   }
@@ -77,11 +77,11 @@
 
     font-size: 1em;
 
-    input{
-      width:80%;
-      padding:8px 16px;
+    input {
+      width: 80%;
+      padding: 8px 16px;
 
-      color:white;
+      color: white;
 
       background: #0f172a3e;
       backdrop-filter: flur(8px);
@@ -92,7 +92,7 @@
 
       transition: all 0.3 ease;
 
-      &:focus{
+      &:focus {
         border: 1px solid #7fddff;
         background: #7070706e;
       }
@@ -100,6 +100,9 @@
   }
 }
 
-.view-result{
+.view-result {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
