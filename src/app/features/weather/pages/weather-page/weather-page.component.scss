@@ -1,6 +1,5 @@
 // ==========================================
 // 頁面區塊
-// ==========================================
 .web-box {
   // 排版
   display: flex;
@@ -10,12 +9,12 @@
   gap: 20px;
 
   // 盒模型
-  width: 90vw;
+  width: 95vw;
   min-height: 100vh;
   padding: 20px 0;
 
   // 文字樣式
-  color: #ffffff;
+  color: white;
 
   // 裝飾
   background: rgba(15, 23, 42, 0.8);
@@ -46,7 +45,6 @@
 
 // ==========================================
 // 功能區塊 (時段、搜尋、排序)
-// ==========================================
 .function-box {
   display: flex;
   flex-direction: column;
@@ -57,7 +55,7 @@
 // 時段選擇按鈕
 .time-box {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   gap: 10px;
   width: 100%;
   max-width: 600px;
@@ -67,8 +65,8 @@
     flex: 1;
     padding: 10px 20px;
     border-radius: 12px;
-    min-width: 120px;
-    color: #fff;
+    min-width: 100px;
+    color: white;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(56, 189, 248, 0.3);
     cursor: pointer;
@@ -112,7 +110,7 @@
     padding: 12px 20px;
     border-radius: 30px;
     font-size: 1em;
-    color: #fff;
+    color: white;
     border: 1px solid rgba(56, 189, 248, 0.4);
     outline: none;
     transition: all 0.3s ease;
@@ -147,7 +145,7 @@
 
     option {
       background-color: #1e293b;
-      color: #fff;
+      color: white;
     }
   }
 
@@ -163,8 +161,8 @@
     transition: all 0.3s ease;
 
     &:hover {
-      color: #fff;
-      border-color: #fff;
+      color: white;
+      border-color: white;
       background: rgba(148, 163, 184, 0.2);
     }
   }
@@ -188,7 +186,7 @@
     cursor: pointer;
 
     &:hover {
-      color: #fff;
+      color: white;
       background: #00c0ff;
     }
   }
@@ -211,7 +209,6 @@
 
 // ==========================================
 // 天氣卡片區
-// ==========================================
 .weather-box {
   display: flex;
   justify-content: center;
@@ -317,7 +314,6 @@
 
 // ==========================================
 // 響應式設計
-// ==========================================
 @media (max-width: 768px) {
   .web-box h1 {
     font-size: 1.8em;
@@ -341,6 +337,10 @@
 }
 
 @media (max-width: 600px) {
+  .time-box {
+    width:95%;
+  }
+
   .search-box {
     flex-direction: column; // 手機版改垂直排列
 
@@ -367,5 +367,7 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
