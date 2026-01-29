@@ -19,7 +19,7 @@
 
   // RWD: 手機版時變寬
   @media (max-width: 600px) {
-    width: 95%; // 手機版改佔 95%
+    width: 95vw; // 手機版改佔 95%
     padding: 16px;
   }
 }
@@ -33,7 +33,7 @@
   gap:32px;
 
   // 盒模型
-  width: 55%;
+  max-width: 80%;
   height: auto;
   margin: 48px 0;
   box-sizing: border-box;
@@ -41,7 +41,7 @@
   // 背景修飾
   background: linear-gradient(135deg, rgba(30, 60, 114, 0.4) 0%, rgba(15, 32, 70, 0.3) 100%);
   box-shadow: 0 4px 10px #00bfff;
-  border-radius: 30px;
+  border-radius: 32px;
 }
 
 .level-calculator {
@@ -263,7 +263,7 @@
 .button-level-down:hover,
 .button-level-reset:hover,
 .button-level-setter:hover {
-  box-shadow: 0 0 10px rgb(74, 145, 226);
+  box-shadow: 0 0 10px rgb(255, 255, 255);
   transform: translateY(-2px);
 }
 

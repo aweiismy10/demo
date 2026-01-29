@@ -10,11 +10,11 @@
       </p>
       <p>BMI: {{ user.bmi }}</p>
     </div>
-    <div class="output-box inner-card">
-      <h1>{{ outputResult() }}</h1>
-    </div>
     <div class="cal-button-box">
       <button class="button-calculate" (click)="calculateBMI()">計算</button>
     </div>
+  </div>
+  <div class="output-box inner-card">
+    <h1>{{ outputResult() }}</h1>
   </div>
 </div>

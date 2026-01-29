@@ -13,13 +13,13 @@
   padding-bottom: 5%;
   box-sizing: border-box;
   // 背景色
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  background-image: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
   // 陰影
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 
   // RWD: 手機版時變寬
   @media (max-width: 600px) {
-    width: 95%; // 手機版改佔 95%
+    width: 95vw; // 手機版改佔 95%
     padding: 16px;
   }
 }
@@ -111,7 +111,7 @@ button {
   box-sizing: border-box;
 
   // 背景色
-  background: linear-gradient(135deg, rgb(135, 255, 255) 0%, rgb(0, 149, 255) 100%);
+  background-image: linear-gradient(135deg, rgb(135, 255, 255) 0%, rgb(0, 149, 255) 100%);
   box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
   border: none;
   border-radius: 8px;
@@ -126,14 +126,19 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
 
+  // 動畫過渡
+  transition: all 0.3s ease;
+
   &:hover {
     transform: translateY(-2px);
+    background-image: linear-gradient(135deg, rgb(0, 149, 255) 0%, rgb(135, 255, 255) 100%);
+    box-shadow: 0 0 16px rgba(135, 255, 255, 0.7);
   }
 
   &:active {
-    transform: translateY(2px);
-    background: #0f172a;
-    color: #3cddf6;
+    transform: translateY(0);
+    background-image: linear-gradient(135deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%);
+    color: rgb(135, 255, 255);
   }
 }
 
@@ -179,9 +184,9 @@ button {
   // 修飾
   border: 1px solid rgb(135, 255, 255);
 
-  img{
+  img {
     // 盒模型
-    width:100%;
+    width: 100%;
   }
 }
 
@@ -192,7 +197,7 @@ button {
   box-sizing: border-box;
 
   // 背景色
-  background: rgba(30, 41, 59, 0.95); // 深色
+  background-color: rgba(30, 41, 59, 0.95); // 深色
   backdrop-filter: blur(12px); // 毛玻璃
 
   // 文字樣式
