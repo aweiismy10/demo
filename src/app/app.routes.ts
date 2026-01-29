@@ -88,5 +88,5 @@ export const routes: Routes = [
       { path: 'list', component: ListComponent, data: { theme: 'theme-sunset' } }
     ]
   },
-  { path: '**', component: PageNotFoundComponent, data: { theme: 'theme-sunset' } }
+  { path: '**', component: PageNotFoundComponent, data: { theme: 'theme-indigo' } }
 ];
