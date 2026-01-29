@@ -30,6 +30,7 @@
 
   // RWD
   @media (max-width: 600px) {
+    width: 95vw;
     padding: 16px;
   }
 }
@@ -308,22 +309,28 @@
 }
 
 .div-Item1 {
-  color: white;
-  height: auto;
+  width: 19%;
   max-height: 80px;
+  aspect-ratio: 1/1;
+  color: white;
   background-color: blue;
   text-align: center;
 }
 
 .div-Item2 {
+  width: 19%;
+  max-width: 80px;
+  aspect-ratio: 3/1;
   align-self: self-end;
   background-color: chartreuse;
   text-align: center;
   color: #0f172a;
-  margin-top: 54px;
 }
 
 .div-Item3 {
+  width: 19%;
+  max-width: 80px;
+  aspect-ratio: 3/1;
   align-self: center;
   background-color: red;
   text-align: center;
@@ -332,16 +339,20 @@
 }
 
 .div-Item4 {
+  width: 19%;
+  max-width: 80px;
+  aspect-ratio: 3/1;
   align-self: self-start;
   background-color: green;
   text-align: center;
 }
 
 .div-Item5 {
-  height: auto;
+  width: 19%;
   max-height: 80px;
-  background-color: yellow;
+  aspect-ratio: 1/1;
   color: #0f172a;
+  background-color: yellow;
   text-align: center;
 }
 

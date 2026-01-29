@@ -20,7 +20,7 @@ $text-gray: rgb(80, 80, 80);
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 
   width: 50vw;
   height: auto;
@@ -31,30 +31,31 @@ $text-gray: rgb(80, 80, 80);
   box-sizing: border-box;
 
   background-color: transparent;
+
+  @media (max-width:600px) {
+    width: 95vw;
+    padding: 16px;
+  }
 }
 
 // ---------------------------------------
 // 履歷框架區塊
 .resume-framework {
+  // 排版
+  display: flex;
+  flex-direction: row; // (預設)設定排列方向：row (由左到右)
+
   // A4紙張大小
   width: 100%;
   max-width: 595px;
   aspect-ratio: 595/842;
   box-sizing: border-box;
   // A4紙張顏色與邊框
-  background-color: #ffffff;
+  background-color: white;
   border: $primary-blue 1px solid;
-
 
   border: 1px solid rgba(56, 189, 248, 0.8);
   box-shadow: 0 4px 8px rgba(191, 191, 191, 0.3);
-
-  // 加入父層 Flexbox 樣式
-  display: flex;
-  flex-direction: row; // (預設)設定排列方向：row (由左到右)
-  // overflow: hidden; // 隱藏超出區塊的部分
-
-
 }
 
 // ---------------------------------------
@@ -66,7 +67,7 @@ $text-gray: rgb(80, 80, 80);
   height: 100%;
   box-sizing: border-box;
 
-  // 加入 Flexbox 樣式
+  // 排版
   display: flex;
   flex-direction: column; // 設定排列方向：column (由上到下)
   justify-content: space-around; // 垂直置中對齊
@@ -81,12 +82,12 @@ $text-gray: rgb(80, 80, 80);
   height: 100%;
   box-sizing: border-box;
 
-  // 加入 Flexbox 樣式
+  // 排版
   display: flex;
   flex-direction: column; // 設定排列方向：column (由上到下)
   justify-content: space-around;
   align-items: center; // 水平置中對齊
-  gap: 35px; // 設定子元素之間的間距
+  gap: 32px; // 設定子元素之間的間距
 }
 
 // ---------------------------------------
@@ -100,7 +101,7 @@ $text-gray: rgb(80, 80, 80);
   // 頭像區塊寬高
   @include section-box(100%, 64%);
 
-  // 加入 Flexbox 樣式
+  // 排版
   display: flex;
   flex-direction: column;
   // 子元素水平置中對齊
@@ -129,9 +130,9 @@ $text-gray: rgb(80, 80, 80);
 // 姓名職稱樣式
 .name-text {
   // 姓名大小
-  font-size: clamp(16px,2vw,25px);
+  font-size: clamp(16px, 2vw, 25px);
   // 姓名顏色
-  color: #ffffff;
+  color: white;
   // 姓名水平置中
   text-align: center;
   // 減少上下外距
@@ -142,13 +143,13 @@ $text-gray: rgb(80, 80, 80);
 
 .job-text {
   // 職稱大小
-  font-size: clamp(8px,1vw,25px);
+  font-size: clamp(8px, 1vw, 25px);
   // 職稱顏色
   color: #7ec6e3;
   // 職稱水平置中
   text-align: center;
   // 減少上下外距
-  margin: 5px 0;
+  margin: 4px 0;
   font-weight: bold;
 }
 
@@ -190,6 +191,12 @@ $text-gray: rgb(80, 80, 80);
   color: $text-gray;
   // 文字粗體
   font-weight: bold;
+  // 文字大小
+  font-size: clamp(8px,1vw,16px);
+  // 文字間隔
+  letter-spacing: 1px;
+  // 行高
+  line-height: 1.5;
 }
 
 // 工作經歷區塊
@@ -204,22 +211,22 @@ $text-gray: rgb(80, 80, 80);
   // 工作經歷職稱上下外距
   margin: 5px 0;
   font-weight: bold;
-  font-size: 14px;
+  font-size: clamp(8px,1vw,16px);
 }
 
 .experience-company-name {
   // 工作經歷公司名稱文字顏色
   color: $text-gray;
   // 工作經歷公司名稱上下外距
-  margin: 5px 0;
+  margin: 4px 0;
   font-weight: bold;
-  font-size: 12px;
+  font-size: clamp(8px,1vw,16px);
 }
 
 // 教育背景區塊
 .education-box {
   // 教育背景區塊寬高
-  @include section-box(90%, 30%);
+  @include section-box(90%, 33%);
 }
 
 .degree-title {
@@ -228,7 +235,7 @@ $text-gray: rgb(80, 80, 80);
   // 學位名稱上下外距
   margin: 5px 0;
   font-weight: bold;
-  font-size: 14px;
+  font-size: clamp(8px,1vw,16px);
 }
 
 .school-name {
@@ -237,14 +244,14 @@ $text-gray: rgb(80, 80, 80);
   // 學校名稱上下外距
   margin: 5px 0;
   font-weight: bold;
-  font-size: 12px;
+  font-size: clamp(8px,1vw,16px);
 }
 
 // ---------------------------------------
 // 共用:區塊標題樣式模板mixin
 @mixin section-title($font-size, $color, $border-bottom-width, $border-bottom-color, $margin-bottom) {
   // 區塊標題大小
-  font-size: $font-size;
+  font-size: clamp(11px,2vw,$font-size);
   // 區塊標題顏色
   color: $color;
   // 區塊標題底線
@@ -268,7 +275,7 @@ $text-gray: rgb(80, 80, 80);
 // 標頭區塊內容文字樣式
 .header-section-content-text {
   // 內容文字大小
-  font-size: clamp(8px,1vw,11px);
+  font-size: clamp(8px, 1vw, 11px);
   // 內容文字顏色
   color: #ffffff;
   margin: 8px 0;
@@ -279,7 +286,7 @@ $text-gray: rgb(80, 80, 80);
 // 共用:清單文字樣式模板mixin
 @mixin list-style($font-size, $color, $margin-top, $margin-bottom) {
   // 清單文字大小
-  font-size: $font-size;
+  font-size: clamp(8px,1vw,$font-size);
   // 清單文字顏色
   color: $color;
   // 文字粗體
