@@ -19,11 +19,58 @@ body {
 //-------------------------------------------------------------------------
 .theme-main {
   background-image: linear-gradient(135deg, #672323 0%, #d073bf 70%, #a049b6 100%);
-  background-size: 400% 400%;
   color: white;
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+}
+//-------------------------------------------------------------------------
+.theme-sunset {
+  background-image: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+  color: #333333;
+  background-size: 400% 400%;
   animation: gradientAnimation 15s ease infinite;
 }
 
+//-------------------------------------------------------------------------
+.theme-ocean {
+  background-image: linear-gradient(135deg, #243b55, #141e30);
+  color: white;
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+}
+
+//-------------------------------------------------------------------------
+.theme-tech {
+  background-image: radial-gradient(circle, #7378ff, #1bffff);
+  color: #333333;
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite; 
+}
+
+//-------------------------------------------------------------------------
+.theme-indigo {
+  background-image: linear-gradient(135deg, #3cddf6 0%, #9773d0 100%);
+  color: #333333;
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+}
+
+//-------------------------------------------------------------------------
+.theme-petalpink {
+  background-image: linear-gradient(135deg, #c14ed0, #fd9b9b, #d53474);
+  color: #333333;
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+}
+
+//-------------------------------------------------------------------------
+.theme-skyblue {
+  background-image: linear-gradient(135deg, #0f172a 30%, #1b95a8 100%);
+  color: #1bffff;
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+}
+//==================
 @keyframes gradientAnimation {
   0% {
     background-position: 0% 50%;
@@ -37,43 +84,7 @@ body {
     background-position: 0% 50%;
   }
 }
-
-
-//-------------------------------------------------------------------------
-.theme-sunset {
-  background-image: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-  color: #333333;
-}
-
-//-------------------------------------------------------------------------
-.theme-ocean {
-  background-image: linear-gradient(135deg, #243b55, #141e30);
-  color: white;
-}
-
-//-------------------------------------------------------------------------
-.theme-tech {
-  background-image: radial-gradient(circle, #7378ff, #1bffff);
-  color: #333333;
-}
-
-//-------------------------------------------------------------------------
-.theme-indigo {
-  background-image: linear-gradient(135deg, #3cddf6 0%, #9773d0 100%);
-  color: #333333;
-}
-
-//-------------------------------------------------------------------------
-.theme-petalpink {
-  background-image: linear-gradient(135deg, #c14ed0, #fd9b9b, #d53474);
-  color: #333333;
-}
-
-//-------------------------------------------------------------------------
-.theme-skyblue {
-  background-image: linear-gradient(135deg, #0f172a 30%, #1b95a8 100%);
-  color: #1bffff;
-}
+//==================
 
 // 首頁的分頁器內部選單樣式
 .mat-mdc-select-panel {

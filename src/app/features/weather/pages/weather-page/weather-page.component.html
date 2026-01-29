@@ -1,4 +1,4 @@
-<div class="web-box">
+<section class="web-box">
   <!-- 頁面標題 -->
   <h1>{{webHeader}}</h1>
   <!-- 載入判斷 -->
@@ -7,10 +7,10 @@
   <div class="loading-spinner"></div>
   }@else {
   <!-- 功能區塊 -->
-  <div class="function-box">
+  <section class="function-box">
     <!-- 選擇時段按鈕區塊 -->
     @if (weatherList.length > 0) {
-    <div class="time-box">
+    <article class="time-box">
       <button [class.active]="currentDayIndex === 0" (click)="selectDay(0)">
         {{ weatherList[0].dayparts[0].startTime | date:'MM/dd HH:mm' }}
         <br>
@@ -28,10 +28,10 @@
         <br>
         <small>時段三</small>
       </button>
-    </div>
+    </article>
     }
     <!-- 搜尋區塊 -->
-    <div class="search-box">
+    <article class="search-box">
       <!-- 輸入查詢 -->
       <input class="search-input" type="text" [(ngModel)]="inputData" (input)="onInputChange()"
         [placeholder]="inputPrompt">
@@ -43,26 +43,26 @@
         }
       </select>
       <button (click)="resetFilter()">顯示全部</button>
-    </div>
+    </article>
     <!-- 排序、清除排序按鈕區塊 -->
-    <div class="button-box">
+    <article class="button-box">
       <button class="button-sort" (click)="isSortByMinTemp()">依最低溫度排序</button>
       <button class="button-sort" (click)="isSortByMaxTemp()">依最高溫度排序</button>
       <button class="button-sort" (click)="isSortByPop()">依降雨機率排序</button>
       <button (click)="resetSort()">清除排序</button>
-    </div>
-  </div>
+    </article>
+  </section>
   <!-- 天氣卡片區塊 -->
-  <div class="weather-box">
+  <section class="weather-box">
     @if (filteredList.length === 0) {
-    <div class="no-data">
+    <article class="no-data">
       <p>找不到與「{{ inputData }}」相關的縣市，請重新輸入。</p>
-    </div>
+    </article>
     }
     <!-- @for為每個縣市產生一個區塊 -->
     @for (city of filteredList; track city.city) {
     @for (dayparts of city.dayparts;track dayparts.daypartsId){
-    <div class="weather-card">
+    <article class="weather-card">
       <!-- 卡片標題區塊 -->
       <div class="card-header">
         <!-- 顯示縣市名稱 -->
@@ -84,9 +84,9 @@
         <!-- 舒適度 -->
         <p class="comfort">{{ dayparts.comfortIndex }}</p>
       </div>
-    </div>
+    </article>
     }
     }
-  </div>
+  </section>
   }
-</div>
+</section>
