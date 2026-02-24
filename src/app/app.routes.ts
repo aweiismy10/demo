@@ -30,6 +30,11 @@ import { CheckboxDemoComponent } from './features/checkbox-demo/checkbox-demo.co
 import { QuestionnaireComponent } from './features/questionnaire/questionnaire.component';
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
 import { ListComponent } from './features/questionnaire/pages/frontend/list/list.component';
+import { FillingComponent } from './features/questionnaire/pages/frontend/filling/filling.component';
+import { ConfirmComponent } from './features/questionnaire/pages/frontend/confirm/confirm.component';
+import { AdminListComponent } from './features/questionnaire/pages/admin/admin-list/admin-list.component';
+import { AdminEditComponent } from './features/questionnaire/pages/admin/admin-edit/admin-edit.component';
+import { StatisticsComponent } from './features/questionnaire/pages/frontend/statistics/statistics.component';
 
 export const routes: Routes = [
   { path: 'main-view', component: MainViewComponent, data: { theme: 'theme-main' } },
@@ -85,7 +90,15 @@ export const routes: Routes = [
     path: 'questionnaire', component: QuestionnaireComponent,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: ListComponent, data: { theme: 'theme-sunset' } }
+      // 前台路由
+      { path: 'list', component: ListComponent, data: { theme: 'theme-sunset' } },
+      { path: 'filling/:id', component: FillingComponent, data: { theme: 'theme-sunset' } },
+      { path: 'confirm', component: ConfirmComponent, data: { theme: 'theme-sunset' } }, // 不帶 ID，因為資料在 Session 裡
+      { path: 'statistics/:id', component: StatisticsComponent },
+      // 後台路由
+      { path: 'admin/list', component: AdminListComponent, data: { theme: 'theme-skyblue' }  },
+      { path: 'admin/create', component: AdminEditComponent, data: { theme: 'theme-skyblue' }  }, // 新增
+      { path: 'admin/edit/:id', component: AdminEditComponent, data: { theme: 'theme-skyblue' }  }, // 編輯
     ]
   },
   { path: '**', component: PageNotFoundComponent, data: { theme: 'theme-indigo' } }

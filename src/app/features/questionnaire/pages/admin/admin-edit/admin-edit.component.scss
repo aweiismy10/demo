@@ -1,0 +1,101 @@
+.container {
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.tab-content {
+  padding: 24px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-top: none; /* 為了和 Tab 接合得更好看 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.date-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+
+  mat-form-field {
+    flex: 1;
+    min-width: 250px;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.text-muted {
+  color: #777;
+}
+
+/* 題目編輯器相關樣式 */
+.q-toolbar {
+  margin-bottom: 20px;
+}
+
+.question-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+
+  .q-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+
+    .q-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #3f51b5;
+    }
+  }
+
+  .q-settings {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+.options-area {
+  background-color: #fff;
+  border: 1px dashed #ccc;
+  padding: 16px;
+  border-radius: 4px;
+
+  .option-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: -10px; /* 抵消 mat-form-field 預設的底部 margin */
+
+    .option-input {
+      flex: 1;
+    }
+  }
+}

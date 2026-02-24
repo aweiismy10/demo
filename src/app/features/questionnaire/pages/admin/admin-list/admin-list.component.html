@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="header-actions">
+    <h2>後台問卷管理</h2>
+    <button mat-flat-button color="primary" routerLink="/questionnaire/admin/create">
+      <mat-icon>add</mat-icon> 新增問卷
+    </button>
+  </div>
+
+  <div class="batch-actions" *ngIf="selection.selected.length > 0">
+    <span>已選取 {{ selection.selected.length }} 筆資料</span>
+    <button mat-stroked-button color="warn" (click)="deleteSelected()">
+      <mat-icon>delete</mat-icon> 刪除勾選項目
+    </button>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> 編號 </th>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> 問卷名稱 </th>
+        <td mat-cell *matCellDef="let row"> {{row.title}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> 狀態 </th>
+        <td mat-cell *matCellDef="let row">
+          <span class="status-badge" [ngClass]="{
+            'ongoing': row.status === SurveyStatus.Ongoing,
+            'ended': row.status === SurveyStatus.Ended,
+            'not-started': row.status === SurveyStatus.NotStarted,
+            'draft': row.status === SurveyStatus.Draft
+          }">
+            {{row.status}}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="startDate">
+        <th mat-header-cell *matHeaderCellDef> 開始時間 </th>
+        <td mat-cell *matCellDef="let row"> {{row.startDate | date:'yyyy-MM-dd'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="endDate">
+        <th mat-header-cell *matHeaderCellDef> 結束時間 </th>
+        <td mat-cell *matCellDef="let row"> {{row.endDate | date:'yyyy-MM-dd'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> 操作 </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button color="primary" [routerLink]="['/questionnaire/admin/edit', row.id]">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

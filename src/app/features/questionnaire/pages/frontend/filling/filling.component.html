@@ -1,0 +1,92 @@
+<div class="container" *ngIf="survey; else loading">
+
+  <mat-card class="survey-header">
+    <mat-card-header>
+      <mat-card-title>{{ survey.title }}</mat-card-title>
+      <mat-card-subtitle>{{ survey.description }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+
+  <form [formGroup]="fillForm" (ngSubmit)="onSubmit()">
+
+    <mat-card class="section-card">
+      <h3>基本資料</h3>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>姓名</mat-label>
+          <input matInput formControlName="name" placeholder="請輸入姓名">
+          <mat-error *ngIf="fillForm.get('name')?.hasError('required')">姓名為必填</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>手機</mat-label>
+          <input matInput formControlName="phone" placeholder="0912345678">
+          <mat-error *ngIf="fillForm.get('phone')?.hasError('required')">手機為必填</mat-error>
+          <mat-error *ngIf="fillForm.get('phone')?.hasError('pattern')">請輸入正確的手機格式</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email">
+          <mat-error *ngIf="fillForm.get('email')?.hasError('required')">Email 為必填</mat-error>
+          <mat-error *ngIf="fillForm.get('email')?.hasError('email')">Email 格式錯誤</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>年齡 (選填)</mat-label>
+          <input matInput formControlName="age" type="number">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+    <div formArrayName="answers">
+      <mat-card class="section-card question-card" *ngFor="let q of survey.questions; let i = index"
+        [formGroupName]="i">
+
+        <h4>
+          {{ i + 1 }}. {{ q.questName }}
+          <span class="required-mark" *ngIf="q.required">*</span>
+        </h4>
+
+        <div [ngSwitch]="q.type" class="options-container">
+
+          <mat-radio-group *ngSwitchCase="QuestionType.Single" formControlName="answer" class="radio-group">
+            <mat-radio-button *ngFor="let opt of q.options" [value]="opt.code">
+              {{ opt.optionName }}
+            </mat-radio-button>
+          </mat-radio-group>
+
+          <div *ngSwitchCase="QuestionType.Multi" class="checkbox-group">
+            <mat-checkbox *ngFor="let opt of q.options" [checked]="isChecked(i, opt.code)"
+              (change)="onCheckboxChange($event, i, opt.code)">
+              {{ opt.optionName }}
+            </mat-checkbox>
+          </div>
+
+          <mat-form-field *ngSwitchCase="QuestionType.Text" appearance="outline" class="full-width">
+            <mat-label>請填寫您的回答</mat-label>
+            <textarea matInput formControlName="answer" rows="3"></textarea>
+          </mat-form-field>
+
+        </div>
+
+        <mat-error *ngIf="answers.at(i).get('answer')?.touched && answers.at(i).get('answer')?.hasError('required')"
+          class="question-error">
+          此題為必填
+        </mat-error>
+      </mat-card>
+    </div>
+
+    <div class="actions">
+      <button mat-button type="button" (click)="goBack()">取消</button>
+      <button mat-flat-button color="primary" type="submit">下一步 (確認資料)</button>
+    </div>
+
+  </form>
+</div>
+
+<ng-template #loading>
+  <div class="container">載入中...</div>
+</ng-template>

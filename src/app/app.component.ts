@@ -30,8 +30,4 @@ export class AppComponent {
         this.document.body.className = theme; // 這裡把class覆蓋在body上
       });
   }
-  //----------------------------------------------------------------
-  // goTop() {
-  //   window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
-  // }
 }

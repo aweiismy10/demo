@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="header-actions">
+    <h2>問卷設定</h2>
+    <button mat-stroked-button color="warn" (click)="goBack()">取消並返回</button>
+  </div>
+
+  <form [formGroup]="surveyForm">
+    <mat-tab-group [(selectedIndex)]="selectedIndex">
+
+      <mat-tab label="問卷設定">
+        <div class="tab-content">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>問卷名稱</mat-label>
+            <input matInput formControlName="title" placeholder="請輸入問卷名稱">
+            <mat-error *ngIf="surveyForm.get('title')?.hasError('required')">名稱為必填</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>問卷說明</mat-label>
+            <textarea matInput formControlName="description" rows="4" placeholder="請描述問卷目的..."></textarea>
+            <mat-error *ngIf="surveyForm.get('description')?.hasError('required')">說明為必填</mat-error>
+          </mat-form-field>
+
+          <div class="date-row">
+            <mat-form-field appearance="outline">
+              <mat-label>開始日期</mat-label>
+              <input matInput [matDatepicker]="startPicker" formControlName="startDate">
+              <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+              <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>結束日期</mat-label>
+              <input matInput [matDatepicker]="endPicker" formControlName="endDate">
+              <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+              <mat-datepicker #endPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="actions">
+            <button mat-flat-button color="primary" type="button" (click)="nextTab()">下一步 (設定題目)</button>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="題目編輯">
+        <div class="tab-content" formArrayName="questions">
+
+          <div class="q-toolbar">
+            <button mat-stroked-button color="primary" type="button" (click)="addQuestion()">
+              <mat-icon>add</mat-icon> 新增題目
+            </button>
+          </div>
+
+          <div *ngFor="let q of questions.controls; let qIndex = index" [formGroupName]="qIndex" class="question-card">
+
+            <div class="q-header">
+              <span class="q-title">題目 {{ qIndex + 1 }}</span>
+              <button mat-icon-button color="warn" type="button" (click)="removeQuestion(qIndex)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+
+            <div class="q-body">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>題目內容</mat-label>
+                <input matInput formControlName="questName" placeholder="請輸入題目...">
+              </mat-form-field>
+
+              <div class="q-settings">
+                <mat-form-field appearance="outline">
+                  <mat-label>題型</mat-label>
+                  <mat-select formControlName="type" (selectionChange)="onTypeChange(qIndex, $event)">
+                    <mat-option [value]="QuestionType.Single">單選</mat-option>
+                    <mat-option [value]="QuestionType.Multi">多選</mat-option>
+                    <mat-option [value]="QuestionType.Text">文字</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-checkbox formControlName="required">必填</mat-checkbox>
+              </div>
+
+              <div class="options-area" *ngIf="q.get('type')?.value !== QuestionType.Text" formArrayName="options">
+                <div class="option-row" *ngFor="let opt of getOptions(qIndex).controls; let oIndex = index">
+                  <mat-form-field appearance="outline" class="option-input">
+                    <mat-label>選項 {{ oIndex + 1 }}</mat-label>
+                    <input matInput [formControlName]="oIndex">
+                  </mat-form-field>
+
+                  <button mat-icon-button color="warn" type="button" (click)="removeOption(qIndex, oIndex)">
+                    <mat-icon>remove_circle_outline</mat-icon>
+                  </button>
+                </div>
+
+                <button mat-button color="accent" type="button" (click)="addOption(qIndex)">
+                  <mat-icon>add</mat-icon> 增加選項
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="actions">
+            <button mat-button type="button" (click)="selectedIndex = 0">上一步</button>
+            <button mat-flat-button color="primary" type="button" (click)="saveSurvey()">儲存問卷</button>
+          </div>
+
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+  </form>
+</div>

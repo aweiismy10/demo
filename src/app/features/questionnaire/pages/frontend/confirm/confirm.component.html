@@ -1,0 +1,79 @@
+<div class="container" *ngIf="survey && responseData; else loading">
+
+  <mat-card class="survey-header">
+    <mat-card-header>
+      <mat-card-title>{{ survey.title }} (資料確認)</mat-card-title>
+      <mat-card-subtitle>請確認以下填寫內容是否正確，確認無誤後請按下送出。</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+
+  <mat-card class="section-card">
+    <h3>基本資料</h3>
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="label">姓名：</span>
+        <span class="value">{{ responseData.name }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">手機：</span>
+        <span class="value">{{ responseData.phone }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">E-mail：</span>
+        <span class="value">{{ responseData.email }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">年齡：</span>
+        <span class="value">{{ responseData.age || '未填寫' }}</span>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card class="section-card">
+    <h3>作答內容</h3>
+
+    <div class="question-item" *ngFor="let q of survey.questions; let i = index">
+      <h4>{{ i + 1 }}. {{ q.questName }}</h4>
+
+      <ng-container *ngIf="getAnswerByQuestionId(q.questId) as userAnswer; else noAnswer">
+
+        <div [ngSwitch]="q.type" class="answer-box">
+
+          <div *ngSwitchCase="QuestionType.Single">
+            <span class="selected-option">
+              {{ getOptionName(q.questId, userAnswer.answer) }}
+            </span>
+          </div>
+
+          <div *ngSwitchCase="QuestionType.Multi">
+            <ul class="multi-select-list" *ngIf="userAnswer.answer.length > 0; else emptyMulti">
+              <li *ngFor="let code of userAnswer.answer">
+                {{ getOptionName(q.questId, code) }}
+              </li>
+            </ul>
+            <ng-template #emptyMulti><span class="text-muted">未選擇</span></ng-template>
+          </div>
+
+          <div *ngSwitchCase="QuestionType.Text">
+            <p class="text-answer">{{ userAnswer.answer || '未填寫' }}</p>
+          </div>
+
+        </div>
+      </ng-container>
+
+      <ng-template #noAnswer>
+        <div class="answer-box text-muted">未作答</div>
+      </ng-template>
+    </div>
+  </mat-card>
+
+  <div class="actions">
+    <button mat-button type="button" (click)="onEdit()">修改</button>
+    <button mat-flat-button color="primary" type="button" (click)="onSubmit()">送出</button>
+  </div>
+
+</div>
+
+<ng-template #loading>
+  <div class="container">載入中或是無暫存資料...</div>
+</ng-template>

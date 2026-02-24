@@ -9,6 +9,8 @@ import { QuestionModel, QuestionType } from './../models/question-model';
 export class SurveyService {
   private STORAGE_KEY = 'survey_system_data'; // localStorage 的 key
   private questionnaires: QuestionnaireModel[] = []; // 記憶體中的資料暫存
+  // 在類別的最上方，原本的 STORAGE_KEY 下面加上這行
+  private RESPONSES_KEY = 'survey_system_responses';
 
   constructor() {
     // 1. 程式啟動時，先嘗試從 localStorage 讀取資料
@@ -148,5 +150,33 @@ export class SurveyService {
 
     this.questionnaires = mockData;
     this.saveToStorage();
+  }
+
+  // ==========================================
+  //  作答紀錄 (Responses) 相關方法
+  // ==========================================
+
+  // 1. 儲存使用者的作答紀錄
+  addResponse(response: any): Observable<boolean> {
+    // 讀取舊的紀錄 (如果有的話)
+    const saved = localStorage.getItem(this.RESPONSES_KEY);
+    const responses = saved ? JSON.parse(saved) : [];
+
+    // 把新的紀錄推進去
+    responses.push(response);
+
+    // 存回 localStorage
+    localStorage.setItem(this.RESPONSES_KEY, JSON.stringify(responses));
+    return of(true);
+  }
+
+  // 2. 根據問卷 ID 取得所有的作答紀錄 (為了之後畫統計圖表用)
+  getResponsesBySurveyId(surveyId: number): Observable<any[]> {
+    const saved = localStorage.getItem(this.RESPONSES_KEY);
+    const responses = saved ? JSON.parse(saved) : [];
+
+    // 過濾出屬於這份問卷的紀錄
+    const filtered = responses.filter((r: any) => r.surveyId === surveyId);
+    return of(filtered);
   }
 }
