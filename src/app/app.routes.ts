@@ -91,9 +91,9 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       // 前台路由
-      { path: 'list', component: ListComponent, data: { theme: 'theme-sunset' } },
-      { path: 'filling/:id', component: FillingComponent, data: { theme: 'theme-sunset' } },
-      { path: 'confirm', component: ConfirmComponent, data: { theme: 'theme-sunset' } }, // 不帶 ID，因為資料在 Session 裡
+      { path: 'list', component: ListComponent, data: { theme: 'theme-Light-colored' } },
+      { path: 'filling/:id', component: FillingComponent, data: { theme: 'theme-Light-colored' } },
+      { path: 'confirm', component: ConfirmComponent, data: { theme: 'theme-Light-colored' } }, // 不帶 ID，因為資料在 Session 裡
       { path: 'statistics/:id', component: StatisticsComponent },
       // 後台路由
       { path: 'admin/list', component: AdminListComponent, data: { theme: 'theme-skyblue' }  },
