@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { QuestionnaireModel ,SurveyStatus } from '../models/questionnaire-model';
 import { QuestionModel, QuestionType } from './../models/question-model';
 
@@ -26,16 +27,74 @@ export class SurveyService {
   //  讀取 (Read)
   // ==========================================
 
-  // 取得所有問卷列表
+// 取得所有問卷列表 (加上明確型別宣告與動態狀態計算)
   getQuestionnaires(): Observable<QuestionnaireModel[]> {
-    // 使用 'of' 來模擬一個 Observable 回傳，就像 Http 請求一樣
-    return of(this.questionnaires);
+    return of(this.questionnaires).pipe(
+      // 明確告訴 pipe 這裡進來的 dataArray 是 QuestionnaireModel[]
+      map((dataArray: QuestionnaireModel[]) => {
+        const now = new Date().getTime();
+
+        // 明確告訴內部 map 這裡的 survey 是一筆 QuestionnaireModel
+        return dataArray.map((survey: QuestionnaireModel) => {
+          // 強制轉型回 Date 物件 (防範從 localStorage 取出時變字串的問題)
+          const start = new Date(survey.startDate);
+          const end = new Date(survey.endDate);
+          const startTime = start.getTime();
+          const endTime = end.getTime();
+
+          // 動態計算當下狀態
+          let currentStatus = SurveyStatus.NotStarted;
+          if (now < startTime) {
+            currentStatus = SurveyStatus.NotStarted;
+          } else if (now > endTime) {
+            currentStatus = SurveyStatus.Ended;
+          } else {
+            currentStatus = SurveyStatus.Ongoing;
+          }
+
+          // 回傳清洗過的新物件，並使用 as 關鍵字斷言型別
+          return {
+            ...survey,
+            startDate: start,
+            endDate: end,
+            status: currentStatus
+          } as QuestionnaireModel;
+        });
+      })
+    );
   }
 
-  // 根據 ID 取得單一問卷 (用於編輯頁或內頁)
+// 根據 ID 取得單一問卷 (同樣加入動態狀態計算)
   getQuestionnaireById(id: number): Observable<QuestionnaireModel | undefined> {
     const survey = this.questionnaires.find(q => q.id === id);
-    return of(survey);
+
+    // 如果找不到資料，直接回傳 undefined
+    if (!survey) {
+      return of(undefined);
+    }
+
+    // 針對單一問卷也做相同的狀態與日期清洗
+    const now = new Date().getTime();
+    const start = new Date(survey.startDate);
+    const end = new Date(survey.endDate);
+
+    let currentStatus = SurveyStatus.NotStarted;
+    if (now < start.getTime()) {
+      currentStatus = SurveyStatus.NotStarted;
+    } else if (now > end.getTime()) {
+      currentStatus = SurveyStatus.Ended;
+    } else {
+      currentStatus = SurveyStatus.Ongoing;
+    }
+
+    const washedSurvey: QuestionnaireModel = {
+      ...survey,
+      startDate: start,
+      endDate: end,
+      status: currentStatus
+    };
+
+    return of(washedSurvey);
   }
 
   // ==========================================
@@ -107,7 +166,7 @@ export class SurveyService {
         title: '青春洋溢高中生人氣投票戰',
         description: '選出你心目中最受歡迎的高中生！',
         startDate: new Date('2023-08-12'),
-        endDate: new Date('2023-11-01'),
+        endDate: new Date('2027-11-01'),
         status: SurveyStatus.Ongoing,
         questions: [
           {

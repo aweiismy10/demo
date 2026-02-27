@@ -74,10 +74,10 @@ export class ConfirmComponent implements OnInit {
     const sessionData = sessionStorage.getItem('temp_survey_response');
 
     if (sessionData) {
-      const responseData = JSON.parse(sessionData);
+      const responseData:UserResponseModel = JSON.parse(sessionData);
 
       // 加入作答時間
-      responseData.submitTime = new Date().toISOString();
+      responseData.submissionDate = new Date();
 
       // 2. 呼叫 Service 存進「作答紀錄」的假資料庫
       this.surveyService.addResponse(responseData).subscribe(() => {

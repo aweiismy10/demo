@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { SurveyService } from '../../../services/survey.service';
 import { QuestionnaireModel } from '../../../models/questionnaire-model';
 import { QuestionType } from '../../../models/question-model';
+import { UserResponseModel } from '../../../models/user-response-model';
 
 // Models & Service
 
@@ -23,7 +24,7 @@ import { QuestionType } from '../../../models/question-model';
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule, // 必須引入響應式表單模組
+    ReactiveFormsModule, // 引入響應式表單模組
     MatInputModule,
     MatFormFieldModule,
     MatRadioModule,
@@ -71,13 +72,13 @@ export class FillingComponent implements OnInit {
   initForm(): void {
     // A. 嘗試從 Session 抓取之前填過的暫存資料
     const sessionData = sessionStorage.getItem('temp_survey_response');
-    let savedData: any = null;
+    let savedData: UserResponseModel|null = null;
 
     if (sessionData) {
       savedData = JSON.parse(sessionData);
       // 安全防呆：確保 Session 裡面的問卷 ID 跟現在這份問卷是同一份
       // 如果不是同一份（例如使用者填到一半跑去點另一份問卷），就不套用暫存
-      if (savedData.surveyId !== this.survey?.id) {
+      if (savedData?.surveyId !== this.survey?.id) {
         savedData = null;
       }
     }
@@ -100,7 +101,7 @@ export class FillingComponent implements OnInit {
         const previousAnswer = savedData?.answers.find((a: any) => a.questionId === q.questId);
 
         // 決定初始值：有舊答案用舊的，沒有舊答案則多選給 []，單選/文字給 ''
-        let initialValue = q.type === QuestionType.Multi ? [] : '';
+        let initialValue: string | number[] = q.type === QuestionType.Multi ? [] : '';
         if (previousAnswer) {
           initialValue = previousAnswer.answer;
         }

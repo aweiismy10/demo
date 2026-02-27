@@ -35,6 +35,7 @@ import { ConfirmComponent } from './features/questionnaire/pages/frontend/confir
 import { AdminListComponent } from './features/questionnaire/pages/admin/admin-list/admin-list.component';
 import { AdminEditComponent } from './features/questionnaire/pages/admin/admin-edit/admin-edit.component';
 import { StatisticsComponent } from './features/questionnaire/pages/frontend/statistics/statistics.component';
+import { adminGuard } from './features/questionnaire/guards/admin.guard';
 
 export const routes: Routes = [
   { path: 'main-view', component: MainViewComponent, data: { theme: 'theme-main' } },
@@ -96,9 +97,9 @@ export const routes: Routes = [
       { path: 'confirm', component: ConfirmComponent, data: { theme: 'theme-Light-colored' } }, // 不帶 ID，因為資料在 Session 裡
       { path: 'statistics/:id', component: StatisticsComponent },
       // 後台路由
-      { path: 'admin/list', component: AdminListComponent, data: { theme: 'theme-skyblue' }  },
-      { path: 'admin/create', component: AdminEditComponent, data: { theme: 'theme-skyblue' }  }, // 新增
-      { path: 'admin/edit/:id', component: AdminEditComponent, data: { theme: 'theme-skyblue' }  }, // 編輯
+      { path: 'admin/list', component: AdminListComponent, canActivate: [adminGuard], data: { theme: 'theme-skyblue' } },
+      { path: 'admin/create', component: AdminEditComponent, data: { theme: 'theme-skyblue' } }, // 新增
+      { path: 'admin/edit/:id', component: AdminEditComponent, data: { theme: 'theme-skyblue' } }, // 編輯
     ]
   },
   { path: '**', component: PageNotFoundComponent, data: { theme: 'theme-indigo' } }
