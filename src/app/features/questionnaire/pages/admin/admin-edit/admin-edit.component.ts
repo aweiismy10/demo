@@ -27,7 +27,7 @@ import { QuestionnaireModel, SurveyStatus } from '../../../models/questionnaire-
     CommonModule, ReactiveFormsModule, RouterModule,
     MatTabsModule, MatFormFieldModule, MatInputModule,
     MatButtonModule, MatDatepickerModule, MatNativeDateModule,
-    MatIconModule, MatSelectModule, MatCheckboxModule,MatSnackBarModule
+    MatIconModule, MatSelectModule, MatCheckboxModule, MatSnackBarModule
   ],
   templateUrl: './admin-edit.component.html',
   styleUrls: ['./admin-edit.component.scss']
@@ -159,7 +159,11 @@ export class AdminEditComponent implements OnInit {
 
   // 3. 刪除一題
   removeQuestion(index: number): void {
-    this.questions.removeAt(index);
+    if (this.questions.length > 1) {
+      this.questions.removeAt(index);
+    } else {
+      alert('問卷至少要有一個題目喔！');
+    }
   }
 
   // 4. 取得某題的「選項陣列」的捷徑
@@ -169,7 +173,20 @@ export class AdminEditComponent implements OnInit {
 
   // 5. 新增選項 (傳入題目的 Index)
   addOption(questionIndex: number): void {
-    this.getOptions(questionIndex).push(this.fb.control('', Validators.required));
+    const options = this.getOptions(questionIndex);
+
+    // 檢查目前是否有選項還是空白的
+    const hasEmptyOption = options.controls.some(
+      control => !control.value || control.value.trim() === ''
+    );
+
+    if (hasEmptyOption) {
+      alert('請先填寫現有的空白選項，再新增新選項');
+      return; // 提早離開，不新增
+    }
+
+    // 通過檢查才新增
+    options.push(this.fb.control('', Validators.required));
   }
 
   // 6. 刪除選項 (傳入題目的 Index, 以及選項的 Index)
@@ -209,7 +226,10 @@ export class AdminEditComponent implements OnInit {
     const formValue = this.surveyForm.value;
     const now = new Date().getTime();
     const start = new Date(formValue.startDate).getTime();
-    const end = new Date(formValue.endDate).getTime();
+    const endDate = new Date(formValue.endDate);
+    endDate.setHours(23, 59, 59); // 設定為當天最後一秒
+
+    const end = endDate.getTime(); // 用修正後的時間計算狀態
 
     let calculatedStatus = SurveyStatus.NotStarted;
     if (now < start) calculatedStatus = SurveyStatus.NotStarted;
@@ -223,7 +243,7 @@ export class AdminEditComponent implements OnInit {
       description: formValue.description,
       status: calculatedStatus,
       startDate: formValue.startDate,
-      endDate: formValue.endDate,
+      endDate: endDate,  // ← 用修正後的 endDate，不是 formValue.endDate
       questions: formValue.questions.map((q: any, index: number) => {
         return {
           questId: index + 1,
