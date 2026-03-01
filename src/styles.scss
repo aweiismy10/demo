@@ -97,27 +97,30 @@ body {
 
 //==================
 
-// 分頁器內部選單樣式
-.mat-mdc-select-panel {
-  background-color: rgba(20, 0, 30, 0.7) !important;
-  backdrop-filter: blur(8px);
+/* ===================================================
+   限制器：只有在 body 擁有 .theme-main 類別時，
+   才會套用這套「紫色霓虹燈」的分頁器樣式。
+   =================================================== */
+.theme-main {
+  .mat-mdc-select-panel {
+    background-color: rgba(20, 0, 30, 0.7) !important;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 0, 255, 0.5);
 
-  border: 1px solid rgba(255, 0, 255, 0.5);
-
-  .mat-mdc-option {
-    color: rgb(255, 255, 255);
-
-    &:hover:not(.mdc-list-item--disabled) {
-      background-color: rgba(255, 0, 255, 0.3);
-    }
-
-    // 選中狀態的文字顏色
-    &.mdc-list-item--selected {
-      background-color: rgba(255, 0, 255, 0.5) !important;
-
-      .mdc-list-item__primary-text {
-        color: white !important;
+    .mat-mdc-option {
+      color: rgb(255, 255, 255);
+      &:hover:not(.mdc-list-item--disabled) {
+        background-color: rgba(255, 0, 255, 0.3);
+      }
+      &.mdc-list-item--selected {
+        background-color: rgba(255, 0, 255, 0.5) !important;
+        .mdc-list-item__primary-text {
+          color: white !important;
+        }
       }
     }
   }
 }
+
+/* 如果你希望問卷系統（theme-skyblue）有自己的樣式，
+   也可以在這裡另外定義一個 .theme-skyblue { ... } */
