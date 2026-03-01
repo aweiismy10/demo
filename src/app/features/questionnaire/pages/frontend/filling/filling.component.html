@@ -47,7 +47,7 @@
 
         <h4>
           {{ i + 1 }}. {{ q.questName }}
-          <span class="required-mark" *ngIf="q.required">*</span>
+          <span class="required-mark" *ngIf="q.isRequired">*</span>
         </h4>
 
         <div [ngSwitch]="q.type" class="options-container">

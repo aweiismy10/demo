@@ -22,12 +22,12 @@
 
         <div class="option-label">
           <span class="opt-name">{{ opt.optionName }}</span>
-          <span class="opt-count">{{ getCount(q.questId, opt.code) }} 票 ({{ getPercentage(q.questId, opt.code) }}%)</span>
+          <span class="opt-count">{{ getCount(q.id, opt.code) }} 票 ({{ getPercentage(q.id, opt.code) }}%)</span>
         </div>
 
         <mat-progress-bar
           mode="determinate"
-          [value]="getPercentage(q.questId, opt.code)"
+          [value]="getPercentage(q.id, opt.code)"
           color="primary">
         </mat-progress-bar>
 

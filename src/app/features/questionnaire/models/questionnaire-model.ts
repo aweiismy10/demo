@@ -9,11 +9,12 @@ export enum SurveyStatus {
 }
 
 export interface QuestionnaireModel {
-  id: number;           // 問卷編號 (AI)
+  id?: number;           // 問卷編號 (AI)
   title: string;        // 問卷名稱
   description: string;  // 問卷說明 [cite: 19]
-  startDate: Date;      // 開始時間
-  endDate: Date;        // 結束時間
-  status: SurveyStatus; // 狀態
+  startDate: string;      // 開始時間
+  endDate: string;        // 結束時間
+  isPublished: boolean; // 代表這份問卷是否發布
+  status?: SurveyStatus; // 狀態
   questions: QuestionModel[]; // 這份問卷包含的題目陣列
 }

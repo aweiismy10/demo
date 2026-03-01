@@ -89,7 +89,7 @@ export class AdminEditComponent implements OnInit {
           const questionGroup = this.fb.group({
             questName: [q.questName, Validators.required],
             type: [q.type],
-            required: [q.required],
+            required: [q.isRequired],
             options: this.fb.array([]) // 這裡先留空，等一下用迴圈塞
           });
 
@@ -224,62 +224,52 @@ export class AdminEditComponent implements OnInit {
     }
 
     const formValue = this.surveyForm.value;
-    const now = new Date().getTime();
-    const start = new Date(formValue.startDate).getTime();
-    const endDate = new Date(formValue.endDate);
-    endDate.setHours(23, 59, 59); // 設定為當天最後一秒
 
-    const end = endDate.getTime(); // 用修正後的時間計算狀態
-
-    let calculatedStatus = SurveyStatus.NotStarted;
-    if (now < start) calculatedStatus = SurveyStatus.NotStarted;
-    else if (now > end) calculatedStatus = SurveyStatus.Ended;
-    else calculatedStatus = SurveyStatus.Ongoing;
-
-    // 組合 Model
-    const surveyData: QuestionnaireModel = {
-      id: this.isEditMode ? this.editId! : 0,
-      title: formValue.title,
-      description: formValue.description,
-      status: calculatedStatus,
-      startDate: formValue.startDate,
-      endDate: endDate,  // ← 用修正後的 endDate，不是 formValue.endDate
-      questions: formValue.questions.map((q: any, index: number) => {
-        return {
-          questId: index + 1,
-          questName: q.questName,
-          type: q.type,
-          required: q.required,
-          options: q.type === QuestionType.Text ? [] : q.options.map((optName: string, oIndex: number) => ({
-            code: oIndex + 1,
-            optionName: optName
-          }))
-        };
-      })
+    // 1. 小工具：把 Date 轉成 Java 喜歡的 'YYYY-MM-DD' 格式
+    const formatDate = (date: Date) => {
+      const d = new Date(date);
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${d.getFullYear()}-${month}-${day}`;
     };
 
-    // === 重點修改這裡：配合 Service 的參數格式 ===
-    // 判斷要呼叫 Create 還是 Update
-    if (this.isEditMode && this.editId) {
-      // 編輯模式：傳入 editId 以及 surveyData
-      this.surveyService.updateQuestionnaire(this.editId, surveyData).subscribe(() => {
-        // 取代 alert
-        this.snackBar.open('問卷更新成功！', '關閉', {
-          duration: 3000, // 3 秒後自動消失
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        });
+    // 2. 組裝成嚴格對齊後端 DTO 的俄羅斯娃娃
+    const surveyData: QuestionnaireModel = {
+      title: formValue.title,
+      description: formValue.description,
+      startDate: formatDate(formValue.startDate),
+      endDate: formatDate(formValue.endDate),
+      isPublished: true, // 後端 Entity 有設定這欄位，目前前端沒開關，預設給 true
+      questions: formValue.questions.map((q: any) => ({
+        questName: q.questName,
+        type: q.type,
+        isRequired: q.required, // 👈 將表單的 required 轉成後端要的 isRequired
+        options: q.type === QuestionType.Text ? [] : q.options.map((optName: string, oIndex: number) => ({
+          code: oIndex + 1,
+          optionName: optName
+        }))
+      }))
+    };
 
+    // 3. 發送 API 請求給 Java
+    if (this.isEditMode && this.editId) {
+      // ⚠️ 注意：我們後端目前還沒寫 Update (編輯) 的 API，所以這裡如果你按編輯會報錯
+      // 但我們保留你原本的寫法，之後補上後端 API 就會通了！
+      this.surveyService.updateQuestionnaire(this.editId, surveyData).subscribe(() => {
+        this.snackBar.open('問卷更新成功！', '關閉', { duration: 3000 });
         this.router.navigate(['/questionnaire/admin/list']);
       });
     } else {
-      // 新增模式：只傳入 surveyData
-      this.surveyService.createQuestionnaire(surveyData).subscribe(() => {
-        // 取代 alert
-        this.snackBar.open('問卷建立成功！', '關閉', {
-          duration: 3000,
-        });
-        this.router.navigate(['/questionnaire/admin/list']);
+      // 🎯 新增模式：真正呼叫我們剛寫好的 Java API
+      this.surveyService.createQuestionnaire(surveyData).subscribe({
+        next: () => {
+          this.snackBar.open('問卷建立成功！', '關閉', { duration: 3000 });
+          this.router.navigate(['/questionnaire/admin/list']);
+        },
+        error: (err) => {
+          console.error('新增失敗:', err);
+          alert('新增失敗，請檢查 F12 Console 的錯誤訊息！');
+        }
       });
     }
   }

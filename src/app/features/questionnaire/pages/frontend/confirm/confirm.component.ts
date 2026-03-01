@@ -47,7 +47,7 @@ export class ConfirmComponent implements OnInit {
 
   // 輔助方法：根據題目的 ID 與選項的 Code，找出選項的顯示文字
   getOptionName(questionId: number, code: number): string {
-    const question = this.survey?.questions.find(q => q.questId === questionId);
+    const question = this.survey?.questions.find(q => q.id === questionId);
     if (question && question.options) {
       const option = question.options.find(opt => opt.code === code);
       return option ? option.optionName : '';
@@ -68,26 +68,42 @@ export class ConfirmComponent implements OnInit {
     }
   }
 
-  // 送出鈕:寫到資料庫,並跳回問卷列表 [cite: 115]
+  // 送出鈕:寫到資料庫,並跳回問卷列表
   onSubmit(): void {
     // 1. 從 sessionStorage 拿出剛才填寫的暫存資料
     const sessionData = sessionStorage.getItem('temp_survey_response');
 
     if (sessionData) {
-      const responseData:UserResponseModel = JSON.parse(sessionData);
+      const responseData: UserResponseModel = JSON.parse(sessionData);
 
-      // 加入作答時間
-      responseData.submissionDate = new Date();
+      // 🕒 確保送出前的時間是最新的 (同樣轉成字串)
+      const d = new Date();
+      responseData.submissionDate = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 
-      // 2. 呼叫 Service 存進「作答紀錄」的假資料庫
-      this.surveyService.addResponse(responseData).subscribe(() => {
+      // 🛠️ 格式轉換大挪移：在「真正要送給後端」的前一刻，才把陣列轉成字串！
+      const backendAnswers = responseData.answers.map((a: any) => ({
+        questionId: a.questionId,
+        answer: Array.isArray(a.answer) ? a.answer.join(',') : String(a.answer)
+      }));
 
-        // 3. 成功後：清空暫存、跳出提示、回到列表頁
-        sessionStorage.removeItem('temp_survey_response');
-        alert('問卷送出成功！感謝您的填寫！');
+      // 準備發送給後端的最終資料包 (把舊的 answers 替換成轉好字串的 backendAnswers)
+      const payloadToSend = {
+        ...responseData,
+        answers: backendAnswers
+      };
 
-        // 記得改成你正確的列表頁路由
-        this.router.navigate(['/questionnaire/list']);
+      // 🚀 2. 呼叫我們在 Service 剛寫好的真實發射器！
+      this.surveyService.submitSurveyResponse(payloadToSend).subscribe({
+        next: () => {
+          // 3. 成功後：清空暫存、跳出提示、回到列表頁
+          sessionStorage.removeItem('temp_survey_response');
+          alert('問卷送出成功！感謝您的填寫！');
+          this.router.navigate(['/questionnaire/list']);
+        },
+        error: (err) => {
+          console.error('送出失敗，錯誤訊息：', err);
+          alert('伺服器錯誤，送出失敗！');
+        }
       });
     } else {
       alert('找不到問卷資料，請重新填寫！');

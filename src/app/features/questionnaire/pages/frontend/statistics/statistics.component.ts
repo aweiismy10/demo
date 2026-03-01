@@ -66,34 +66,58 @@ export class StatisticsComponent implements OnInit {
 
     // A. 初始化歸零：幫每一個選擇題的每一個選項建立一個計數器，預設為 0
     this.survey.questions.forEach(q => {
-      this.stats[q.questId] = {}; // 建立這題的空物件
+      this.stats[q.id] = {}; // 建立這題的空物件
       if (q.type !== QuestionType.Text && q.options) {
         q.options.forEach(opt => {
-          this.stats[q.questId][opt.code] = 0; // 把每個選項的計數器設為 0
+          this.stats[q.id][opt.code] = 0; // 把每個選項的計數器設為 0
         });
       }
     });
 
+    // // B. 開始計票：跑迴圈看每一張「選票 (response)」
+    // this.responses.forEach(res => {
+    //   res.answers.forEach((ans: any) => {
+    //     const qId = ans.questionId;
+    //     const answerValue = ans.answer;
+
+    //     // 如果這題是多選 (陣列)
+    //     if (Array.isArray(answerValue)) {
+    //       answerValue.forEach(val => {
+    //         if (this.stats[qId] && this.stats[qId][val] !== undefined) {
+    //           this.stats[qId][val]++; // 該選項得票 +1
+    //         }
+    //       });
+    //     }
+    //     // 如果這題是單選 (數字或字串)
+    //     else if (typeof answerValue === 'number' || typeof answerValue === 'string') {
+    //       if (this.stats[qId] && this.stats[qId][answerValue as number] !== undefined) {
+    //         this.stats[qId][answerValue as number]++; // 該選項得票 +1
+    //       }
+    //     }
+    //   });
+    // });
     // B. 開始計票：跑迴圈看每一張「選票 (response)」
     this.responses.forEach(res => {
       res.answers.forEach((ans: any) => {
         const qId = ans.questionId;
         const answerValue = ans.answer;
 
-        // 如果這題是多選 (陣列)
-        if (Array.isArray(answerValue)) {
-          answerValue.forEach(val => {
-            if (this.stats[qId] && this.stats[qId][val] !== undefined) {
-              this.stats[qId][val]++; // 該選項得票 +1
-            }
-          });
+        if (answerValue === null || answerValue === undefined || answerValue === '') {
+          return; // 如果沒填答案就跳過
         }
-        // 如果這題是單選 (數字或字串)
-        else if (typeof answerValue === 'number' || typeof answerValue === 'string') {
-          if (this.stats[qId] && this.stats[qId][answerValue as number] !== undefined) {
-            this.stats[qId][answerValue as number]++; // 該選項得票 +1
+
+        // 🛠️ 關鍵修改：因為後端回傳的都是字串 (例如多選是 "1,3"，單選是 "2")
+        // 我們統一把它轉成字串，再用逗號切成陣列
+        const valArray = String(answerValue).split(',');
+
+        valArray.forEach(val => {
+          const numVal = Number(val); // 轉回數字型態的代碼
+
+          // 檢查這個選項代碼是否存在於我們的 stats 統計板上 (這同時會過濾掉文字題，因為文字題沒有被建立計數器)
+          if (this.stats[qId] && this.stats[qId][numVal] !== undefined) {
+            this.stats[qId][numVal]++; // 該選項得票數 +1
           }
-        }
+        });
       });
     });
   }

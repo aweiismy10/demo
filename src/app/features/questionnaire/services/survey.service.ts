@@ -1,241 +1,86 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { QuestionnaireModel ,SurveyStatus } from '../models/questionnaire-model';
-import { QuestionModel, QuestionType } from './../models/question-model';
+import { QuestionnaireModel } from '../models/questionnaire-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SurveyService {
-  private STORAGE_KEY = 'survey_system_data'; // localStorage 的 key
-  private questionnaires: QuestionnaireModel[] = []; // 記憶體中的資料暫存
-  // 在類別的最上方，原本的 STORAGE_KEY 下面加上這行
+  private http = inject(HttpClient);
+  private apiUrl = 'http://localhost:8080/api/questionnaires';
+
+  // 保留作答紀錄的 key (因為我們還沒接填寫問卷的後端 API，這部分先留著)
   private RESPONSES_KEY = 'survey_system_responses';
 
-  constructor() {
-    // 1. 程式啟動時，先嘗試從 localStorage 讀取資料
-    this.loadFromStorage();
-
-    // 2. 如果 localStorage 裡面是空的（第一次開），我們塞一些假資料進去方便開發
-    if (this.questionnaires.length === 0) {
-      this.generateMockData();
-    }
-  }
-
   // ==========================================
-  //  讀取 (Read)
+  //  與 Java 後端連線的 API
   // ==========================================
 
-// 取得所有問卷列表 (加上明確型別宣告與動態狀態計算)
+  // 1. 取得所有問卷列表
   getQuestionnaires(): Observable<QuestionnaireModel[]> {
-    return of(this.questionnaires).pipe(
-      // 明確告訴 pipe 這裡進來的 dataArray 是 QuestionnaireModel[]
-      map((dataArray: QuestionnaireModel[]) => {
-        const now = new Date().getTime();
-
-        // 明確告訴內部 map 這裡的 survey 是一筆 QuestionnaireModel
-        return dataArray.map((survey: QuestionnaireModel) => {
-          // 強制轉型回 Date 物件 (防範從 localStorage 取出時變字串的問題)
-          const start = new Date(survey.startDate);
-          const end = new Date(survey.endDate);
-          const startTime = start.getTime();
-          const endTime = end.getTime();
-
-          // 動態計算當下狀態
-          let currentStatus = SurveyStatus.NotStarted;
-          if (now < startTime) {
-            currentStatus = SurveyStatus.NotStarted;
-          } else if (now > endTime) {
-            currentStatus = SurveyStatus.Ended;
-          } else {
-            currentStatus = SurveyStatus.Ongoing;
-          }
-
-          // 回傳清洗過的新物件，並使用 as 關鍵字斷言型別
-          return {
-            ...survey,
-            startDate: start,
-            endDate: end,
-            status: currentStatus
-          } as QuestionnaireModel;
-        });
-      })
+    return this.http.get<any>(this.apiUrl).pipe(
+      map(response => response.data)
     );
   }
 
-// 根據 ID 取得單一問卷 (同樣加入動態狀態計算)
+  // 2. 取得單一問卷
   getQuestionnaireById(id: number): Observable<QuestionnaireModel | undefined> {
-    const survey = this.questionnaires.find(q => q.id === id);
+    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
+      map(response => response.data)
+    );
+  }
 
-    // 如果找不到資料，直接回傳 undefined
-    if (!survey) {
-      return of(undefined);
-    }
+  // 3. 新增問卷
+  createQuestionnaire(surveyData: QuestionnaireModel): Observable<any> {
+    return this.http.post<any>(this.apiUrl, surveyData);
+  }
 
-    // 針對單一問卷也做相同的狀態與日期清洗
-    const now = new Date().getTime();
-    const start = new Date(survey.startDate);
-    const end = new Date(survey.endDate);
+  // 4. 更新問卷 (預留給未來編輯功能)
+  updateQuestionnaire(id: number, updatedSurvey: QuestionnaireModel): Observable<any> {
+    // 這裡等後端寫好 PUT API 就可以換成 http.put 了
+    return this.http.put<any>(`${this.apiUrl}/${id}`, updatedSurvey);
+  }
 
-    let currentStatus = SurveyStatus.NotStarted;
-    if (now < start.getTime()) {
-      currentStatus = SurveyStatus.NotStarted;
-    } else if (now > end.getTime()) {
-      currentStatus = SurveyStatus.Ended;
-    } else {
-      currentStatus = SurveyStatus.Ongoing;
-    }
-
-    const washedSurvey: QuestionnaireModel = {
-      ...survey,
-      startDate: start,
-      endDate: end,
-      status: currentStatus
-    };
-
-    return of(washedSurvey);
+  // 5. 刪除問卷 (預留給未來刪除功能)
+  deleteQuestionnaire(id: number): Observable<any> {
+    // 這裡等後端寫好 DELETE API 就可以換成 http.delete 了
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 
   // ==========================================
-  //  寫入 (Create / Update / Delete)
+  //  作答紀錄 (目前暫存於 localStorage)
   // ==========================================
 
-  // 新增問卷
-  createQuestionnaire(survey: QuestionnaireModel): Observable<boolean> {
-    // 模擬後端生成 ID (找目前最大的 ID + 1)
-    const newId = this.questionnaires.length > 0
-      ? Math.max(...this.questionnaires.map(q => q.id)) + 1
-      : 1;
-
-    survey.id = newId;
-    // 預設狀態如果是新增模式，通常是未發佈
-    survey.status = survey.status || SurveyStatus.Draft;
-
-    this.questionnaires.push(survey);
-    this.saveToStorage(); // 存檔
-    return of(true);
-  }
-
-  // 更新問卷
-  updateQuestionnaire(id: number, updatedSurvey: QuestionnaireModel): Observable<boolean> {
-    const index = this.questionnaires.findIndex(q => q.id === id);
-    if (index !== -1) {
-      // 更新資料，但保留 ID
-      this.questionnaires[index] = { ...updatedSurvey, id: id };
-      this.saveToStorage();
-      return of(true);
-    }
-    return of(false);
-  }
-
-  // 刪除問卷
-  deleteQuestionnaire(id: number): Observable<boolean> {
-    const index = this.questionnaires.findIndex(q => q.id === id);
-    if (index !== -1) {
-      this.questionnaires.splice(index, 1);
-      this.saveToStorage();
-      return of(true);
-    }
-    return of(false);
-  }
-
-  // ==========================================
-  //  私有輔助方法 (Private Helpers)
-  // ==========================================
-
-  // 從 localStorage 讀取
-  private loadFromStorage(): void {
-    const data = localStorage.getItem(this.STORAGE_KEY);
-    if (data) {
-      // 注意：JSON parse 出來的日期會變字串，這裡簡化處理，實際專案可能需要轉換回 Date 物件
-      this.questionnaires = JSON.parse(data);
-    }
-  }
-
-  // 存入 localStorage
-  private saveToStorage(): void {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.questionnaires));
-  }
-
-  // 生成假資料 (參考 PDF 內容)
-  private generateMockData(): void {
-    const mockData: QuestionnaireModel[] = [
-      {
-        id: 1,
-        title: '青春洋溢高中生人氣投票戰',
-        description: '選出你心目中最受歡迎的高中生！',
-        startDate: new Date('2023-08-12'),
-        endDate: new Date('2027-11-01'),
-        status: SurveyStatus.Ongoing,
-        questions: [
-          {
-            questId: 1,
-            questName: '請選取最喜歡的人',
-            type: QuestionType.Single,
-            required: true,
-            options: [
-              { optionName: '何廢料(建國中學)', code: 1 },
-              { optionName: '77/77(金甌女中)', code: 2 }
-            ]
-          },
-          {
-            questId: 2,
-            questName: '請說明理由',
-            type: QuestionType.Text,
-            required: false
-          }
-        ]
-      },
-      {
-        id: 2,
-        title: 'E312購買傾向市調',
-        description: '協助我們了解市場需求',
-        startDate: new Date('2023-11-12'),
-        endDate: new Date('2023-12-31'),
-        status: SurveyStatus.NotStarted,
-        questions: []
-      },
-      {
-        id: 3,
-        title: '尾牙餐廳預選',
-        description: '大家想吃什麼？',
-        startDate: new Date('2023-08-01'),
-        endDate: new Date('2023-10-12'),
-        status: SurveyStatus.Ended,
-        questions: []
-      }
-    ];
-
-    this.questionnaires = mockData;
-    this.saveToStorage();
-  }
-
-  // ==========================================
-  //  作答紀錄 (Responses) 相關方法
-  // ==========================================
-
-  // 1. 儲存使用者的作答紀錄
   addResponse(response: any): Observable<boolean> {
-    // 讀取舊的紀錄 (如果有的話)
     const saved = localStorage.getItem(this.RESPONSES_KEY);
     const responses = saved ? JSON.parse(saved) : [];
-
-    // 把新的紀錄推進去
     responses.push(response);
-
-    // 存回 localStorage
     localStorage.setItem(this.RESPONSES_KEY, JSON.stringify(responses));
     return of(true);
   }
 
-  // 2. 根據問卷 ID 取得所有的作答紀錄 (為了之後畫統計圖表用)
-  getResponsesBySurveyId(surveyId: number): Observable<any[]> {
-    const saved = localStorage.getItem(this.RESPONSES_KEY);
-    const responses = saved ? JSON.parse(saved) : [];
+  // getResponsesBySurveyId(surveyId: number): Observable<any[]> {
+  //   const saved = localStorage.getItem(this.RESPONSES_KEY);
+  //   const responses = saved ? JSON.parse(saved) : [];
+  //   const filtered = responses.filter((r: any) => r.surveyId === surveyId);
+  //   return of(filtered);
+  // }
 
-    // 過濾出屬於這份問卷的紀錄
-    const filtered = responses.filter((r: any) => r.surveyId === surveyId);
-    return of(filtered);
+  // 取得特定問卷的所有作答紀錄 (改接後端真實 API)
+  getResponsesBySurveyId(surveyId: number): Observable<any[]> {
+    return this.http.get<any>(`http://localhost:8080/api/responses/survey/${surveyId}`).pipe(
+      map(response => response.data)
+    );
+  }
+
+  // ==========================================
+  //  使用者填寫問卷 (發送答案給後端)
+  // ==========================================
+  submitSurveyResponse(responseData: any): Observable<any> {
+    console.log('準備發送的作答資料包:', responseData);
+    // 這裡我們預計後端會開一條 /api/responses 的新路徑來接收答案
+    return this.http.post<any>('http://localhost:8080/api/responses', responseData);
   }
 }

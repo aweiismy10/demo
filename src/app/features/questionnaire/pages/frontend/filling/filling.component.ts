@@ -97,8 +97,8 @@ export class FillingComponent implements OnInit {
       const answersArray = this.fillForm.get('answers') as FormArray;
 
       this.survey.questions.forEach(q => {
-        // 找出這題之前存過的答案 (如果有的話)
-        const previousAnswer = savedData?.answers.find((a: any) => a.questionId === q.questId);
+        // 找出這題之前存過的答案 (如果有的話) // 03/01 修改 1: q.questId 改成 q.id
+        const previousAnswer = savedData?.answers.find((a: any) => a.questionId === q.id);
 
         // 決定初始值：有舊答案用舊的，沒有舊答案則多選給 []，單選/文字給 ''
         let initialValue: string | number[] = q.type === QuestionType.Multi ? [] : '';
@@ -106,12 +106,12 @@ export class FillingComponent implements OnInit {
           initialValue = previousAnswer.answer;
         }
 
-        // 判斷是否必填
-        const validators = q.required ? [Validators.required] : [];
+        // 判斷是否必填 // 03/01 修改 2: q.required 改成 q.isRequired
+        const validators = q.isRequired ? [Validators.required] : [];
 
         // 把這一題加進 FormArray 裡面
         answersArray.push(this.fb.group({
-          questionId: [q.questId],
+          questionId: [q.id], // 03/01 修改 3: q.questId 改成 q.id
           answer: [initialValue, validators]
         }));
       });
@@ -152,16 +152,20 @@ export class FillingComponent implements OnInit {
       // 1. 取得表單填寫的資料
       const formData = this.fillForm.value;
 
-      // 2. 組合出完整的 UserResponseModel 格式
-      // 注意：這裡我們要把 surveyId 和 submissionDate 補上去
-      const responseData = {
-        surveyId: this.survey!.id,
+      // 🕒 小工具：把當下時間轉成 'YYYY-MM-DD' 字串格式
+      const d = new Date();
+      const dateString = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+
+
+      // 2. 組合出完全符合 UserResponseModel 格式的物件
+      const responseData: UserResponseModel = {
+        surveyId: this.survey!.id!, // 加上 ! 確保有值
         name: formData.name,
         phone: formData.phone,
         email: formData.email,
         age: formData.age,
-        submissionDate: new Date(), // 當下的時間
-        answers: formData.answers
+        submissionDate: dateString, // 這裡已經變字串了，紅線解除！
+        answers: formData.answers // 直接存原始的表單答案
       };
 
       // 3. 存入 SessionStorage (瀏覽器分頁關閉就會消失的暫存)

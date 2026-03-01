@@ -94,7 +94,7 @@ export class AdminListComponent implements OnInit {
       if (result) {
         // 1. 準備一包「所有刪除請求」的 Observable 陣列
         const deleteRequests = selectedItems.map(item =>
-          this.surveyService.deleteQuestionnaire(item.id)
+          this.surveyService.deleteQuestionnaire(item.id!)
         );
 
         // 2. 使用 forkJoin 等待這包請求「全數執行完畢」

@@ -35,20 +35,20 @@
     <div class="question-item" *ngFor="let q of survey.questions; let i = index">
       <h4>{{ i + 1 }}. {{ q.questName }}</h4>
 
-      <ng-container *ngIf="getAnswerByQuestionId(q.questId) as userAnswer; else noAnswer">
+      <ng-container *ngIf="getAnswerByQuestionId(q.id) as userAnswer; else noAnswer">
 
         <div [ngSwitch]="q.type" class="answer-box">
 
           <div *ngSwitchCase="QuestionType.Single">
             <span class="selected-option">
-              {{ getOptionName(q.questId, userAnswer.answer) }}
+              {{ getOptionName(q.id, userAnswer.answer) }}
             </span>
           </div>
 
           <div *ngSwitchCase="QuestionType.Multi">
             <ul class="multi-select-list" *ngIf="userAnswer.answer.length > 0; else emptyMulti">
               <li *ngFor="let code of userAnswer.answer">
-                {{ getOptionName(q.questId, code) }}
+                {{ getOptionName(q.id, code) }}
               </li>
             </ul>
             <ng-template #emptyMulti><span class="text-muted">未選擇</span></ng-template>

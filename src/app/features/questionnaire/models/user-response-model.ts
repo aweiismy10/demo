@@ -4,9 +4,12 @@ export interface UserResponseModel {
   phone: string;    // 手機
   email: string;    // Email
   age?: number;     // 年齡 (選填)
-  submissionDate: Date; // 填寫時間
+  submissionDate: string; // 填寫時間
   answers: {
     questionId: number; // 對應哪一題
-    answer: string | number[]; // 單選存字串或ID，多選存陣列，文字存字串
+    // 為了讓後端好存資料庫，暫時把 answer 統一為 string
+    // 單選/文字直接存，多選題我們會先把陣列變成逗號字串 (例如 "1,3") 再送出
+    // 把這裡改成 any
+    answer: any;
   }[];
 }
