@@ -278,4 +278,9 @@ table {
 h2{
   font-weight: bold;
   font-size: clamp(32px,3vw,40px);
+  color: #0000;
+  /* 文字顏色設定為透明 */
+  background: linear-gradient(135deg, $forest-green, $olive-modern, $fresh-lime);
+  background-clip: text;
+  /* 設定背景裁切為文字形狀 */
 }
