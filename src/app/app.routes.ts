@@ -92,14 +92,14 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       // 前台路由
-      { path: 'list', component: ListComponent, data: { theme: 'theme-Light-colored' } },
-      { path: 'filling/:id', component: FillingComponent, data: { theme: 'theme-Light-colored' } },
-      { path: 'confirm', component: ConfirmComponent, data: { theme: 'theme-Light-colored' } }, // 不帶 ID，因為資料在 Session 裡
+      { path: 'list', component: ListComponent, data: { theme: 'theme-frontend' } },
+      { path: 'filling/:id', component: FillingComponent, data: { theme: 'theme-frontend' } },
+      { path: 'confirm', component: ConfirmComponent, data: { theme: 'theme-frontend' } },
       { path: 'statistics/:id', component: StatisticsComponent },
       // 後台路由
-      { path: 'admin/list', component: AdminListComponent, canActivate: [adminGuard], data: { theme: 'theme-skyblue' } },
-      { path: 'admin/create', component: AdminEditComponent, data: { theme: 'theme-skyblue' } }, // 新增
-      { path: 'admin/edit/:id', component: AdminEditComponent, data: { theme: 'theme-skyblue' } }, // 編輯
+      { path: 'admin/list', component: AdminListComponent, canActivate: [adminGuard], data: { theme: 'theme-backend' } },
+      { path: 'admin/create', component: AdminEditComponent, data: { theme: 'theme-backend' } }, // 新增
+      { path: 'admin/edit/:id', component: AdminEditComponent, data: { theme: 'theme-backend' } }, // 編輯
     ]
   },
   { path: '**', component: PageNotFoundComponent, data: { theme: 'theme-indigo' } }

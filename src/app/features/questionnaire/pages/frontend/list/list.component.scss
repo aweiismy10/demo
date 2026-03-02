@@ -1,3 +1,203 @@
+// 定義顏色顏色等等
+$forest-green: #166534;
+$sage-glow: #86EFAC;
+$olive-modern: #65A30D;
+$mist-green: #F0FDF4;
+$soft-mint: #DCFCE7;
+$dark-moss: rgba(5, 46, 22, 0.7);
+$fresh-lime: #84CC16;
+
+//---------------------------------------------------------
+// 分頁器樣式
+@use '@angular/material' as mat;
+
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+:host {
+  mat-paginator {
+    @include mat.paginator-overrides((container-text-color: rgba(255, 255, 255, 0.7),
+        container-background-color: transparent,
+        enabled-icon-color: $olive-modern,
+      ));
+  }
+}
+
+// 官方未提供的樣式修改
+:host::ng-deep .mat-mdc-paginator {
+
+  // 下拉選單在分頁器中的特殊文字顏色(選中的數字)
+  .mat-mdc-select-value-text {
+    color: white !important;
+  }
+
+  .mat-mdc-select-arrow svg {
+    fill: white !important;
+  }
+}
+
+// 官方未提供(表頭排序箭頭)
+:host::ng-deep.mat-sort-header-arrow svg {
+  fill: white !important;
+}
+
+// 官方未提供的樣式修改(統計Icon)
+:host::ng-deep.mat-mdc-icon-button .mdc-button__label,
+.mat-mdc-icon-button .mat-icon {
+  color: white !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); // 貝塞爾曲線(前慢 中快 後慢)
+
+  &:hover {
+    color: $soft-mint !important;
+    text-shadow: $fresh-lime 0 0 2px;
+    transform: translateY(-2px); // 輕微上浮感
+    cursor: pointer; // 鼠標改手指
+  }
+}
+
+// 表格容器
+.table-container {
+  // 把mat-table修改成圓角
+  border-radius: 24px; // 圓角
+  overflow: hidden; // 超出部分切除
+
+  border: 1px solid rgba($olive-modern, 0.5); // 邊框 粉 半透明
+  background: $dark-moss; // 背景色:深紫色
+  backdrop-filter: blur(16px); // 玻璃感
+  box-shadow:
+    0 0 16px rgba($forest-green, 0.3),
+    inset 0 0 8px rgba($olive-modern, 0.2); // 容器外紫光 內粉光 偏透明
+
+  transition: all 0.5s ease; // 動畫過渡
+
+  &:hover {
+    box-shadow: 0 0 24px rgba($olive-modern, 0.4); // 表格容器發粉光 偏透明
+    border-color: $olive-modern; // 邊框從半透明凝實
+  }
+}
+
+// 表格元素
+table {
+  width: 100%; // 寬度貼父層容器
+  background: transparent !important; // 確保表格背景透明以顯示容器背景
+
+  // 表頭(第一列) 紅紫漸層
+  .mat-mdc-header-row {
+    background: linear-gradient(90deg, rgba($sage-glow, 0.2), rgba($forest-green, 0.2)); // 背景色
+    border-bottom: 2px solid $olive-modern; // 底線 粉
+  }
+
+  // 表頭(第一列) 格內元素
+  .mat-mdc-header-cell {
+    color: white; // 標題文字顏色
+    font-weight: 800; // 粗體
+    text-transform: uppercase; // 定義轉換全大寫(NO)
+    letter-spacing: 2px; // 文字間空隙
+    font-size: clamp(24px, 1vw, 32px); // 自適應文字大小
+    text-shadow: 0 0 4px $olive-modern; // 文字發光
+  }
+
+  // 單元格設計
+  .mat-mdc-cell {
+    color: rgba(255, 255, 255, 0.9); // 文字白色
+    border-bottom: 1px solid rgba($forest-green, 0.2); // 底線 細 紫色
+  }
+
+  // 表格(列)
+  .mat-mdc-row {
+    box-sizing: border-box;
+    transition: all 0.3s ease; // 動畫過渡
+
+    // 鼠標懸停效果
+    &:hover {
+      background-color: rgba($olive-modern, 0.1) !important; // 背景是container的深紫色 鼠標懸停增加粉色(極透明)
+
+      // (列)左側增加一條亮框(紅色)
+      box-shadow: inset 4px 0 0 $sage-glow;
+
+      .mat-mdc-cell {
+        // 單元格
+        color: #fff;
+        text-shadow: 0 0 8px $olive-modern; // 文字發光
+      }
+    }
+  }
+}
+
+// 「查看內容」連結的按鈕化
+.mat-column-link {
+
+  // 控制行的"link"(html定義)
+  a {
+    display: inline-block; // 行內元素(可以處理部分特殊效果)
+    color: white; // 顏色
+    text-decoration: none; // 超連結預設底線去除
+    padding: 8px 16px; // 按鈕內部空隙
+    border: 1px solid rgba($olive-modern, 0.5); // 邊框設計
+    font-size: clamp(12px, 1vw, 20px); // 文字自適應
+    font-weight: bold; // 粗體
+    border-radius: 16px; // 圓角
+    letter-spacing: 1px; // 文字間隙
+    box-shadow: 0 0 4px rgba($olive-modern, 0.2); // 按鈕微弱發光
+    background: rgba(255, 255, 255, 0.1); // 背景色 比背景再微深
+    backdrop-filter: blur(4px); // 模糊背景
+
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); // 貝塞爾曲線(前慢 中快 後慢)
+
+    &:hover {
+      background: $olive-modern; // 背景色(透明>凝實粉色)
+      border-color: $olive-modern; // 邊框顏色 凝實
+      color: #fff; // 文字變白色
+      box-shadow: 0 0 16px $olive-modern; // 按鈕外發光
+      transform: translateY(-2px); // 輕微上浮感
+      text-shadow: 0 0 8px #fff; // 文字發光
+      cursor: pointer; // 鼠標改手指
+    }
+
+    &:active {
+      transform: translateY(0); // 互動彈回
+      box-shadow: 0 0 8px rgba($olive-modern, 0.8); // 外發光
+    }
+  }
+}
+
+// 表頭:字體
+.mat-column-position {
+  // 控制行的"position"(html定義)
+  font-family: 'Courier New', Courier, monospace; // 內建字體
+}
+
+// 表格容器遮罩(動畫)
+.table-container {
+  position: relative; // 相對位置錨定
+
+  &::before {
+    // 建立假元素
+    content: "";
+    position: absolute;
+    // 位置處理(上貼齊左貼齊)
+    top: 0;
+    left: 0;
+    width: 100%; // 寬度貼齊父層
+    height: 2px; // 高度2px(細線感)
+    background: rgba($olive-modern, 0.2); // 背景粉色 偏透明
+    animation: scan 4s linear infinite; // 動畫屬性 掃描(自訂義) 線性無限次播放
+    z-index: 10; // 確保線在表格上方
+    pointer-events: none; // 鼠標穿透元素作用於底層的元素(禁用此元素的互動)
+  }
+}
+
+// 自訂義動畫
+@keyframes scan {
+
+  // 關鍵幀
+  0% {
+    top: 0; // 位置從頂端開始
+  }
+
+  100% {
+    top: 100%; // 到底部
+  }
+}
+
 .container {
   padding: 20px;
   max-width: 1200px;
@@ -6,6 +206,7 @@
 
 .search-box {
   margin-bottom: 20px;
+
   mat-form-field {
     width: 100%;
     max-width: 400px;
@@ -17,13 +218,36 @@ table {
 }
 
 .link-active {
-  color: #3f51b5;
+  color: white;
   text-decoration: none;
   font-weight: bold;
   cursor: pointer;
+
+  position: relative;
+  text-decoration: none;
+  color: white;
+
+  transition: all 0.3s ease;
+
   &:hover {
-    text-decoration: underline;
+    color: $fresh-lime;
   }
+}
+
+.link-active::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 50%;
+  background-color: $fresh-lime;
+  transition: all 0.3s ease;
+}
+
+.link-active:hover::after {
+  width: 100%;
+  left: 0;
 }
 
 .text-muted {
@@ -41,10 +265,17 @@ table {
   &.ongoing {
     background-color: #4caf50; // 綠色
   }
+
   &.ended {
     background-color: #f44336; // 紅色
   }
+
   &.not-started {
     background-color: #ff9800; // 橘色
   }
+}
+
+h2{
+  font-weight: bold;
+  font-size: clamp(32px,3vw,40px);
 }
