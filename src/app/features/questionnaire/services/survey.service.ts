@@ -3,13 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { QuestionnaireModel } from '../models/questionnaire-model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SurveyService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/questionnaires';
+  private apiUrl = `${environment.apiUrl}/api/questionnaires`;
+  private responseApiUrl = `${environment.apiUrl}/api/responses`;
 
   // ==========================================
   //  問卷 CRUD (與 Java 後端連線 API)
@@ -44,12 +46,12 @@ export class SurveyService {
   // ==========================================
 
   getResponsesBySurveyId(surveyId: number): Observable<any[]> {
-    return this.http.get<any>(`http://localhost:8080/api/responses/survey/${surveyId}`).pipe(
+    return this.http.get<any>(`${this.responseApiUrl}/survey/${surveyId}`).pipe(
       map(response => response.data)
     );
   }
 
   submitSurveyResponse(responseData: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8080/api/responses', responseData);
+    return this.http.post<any>(this.responseApiUrl, responseData);
   }
 }
