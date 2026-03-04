@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { SurveyService } from '../../../services/survey.service';
 import { QuestionnaireModel, SurveyStatus } from '../../../models/questionnaire-model';
@@ -25,7 +26,8 @@ import { QuestionnaireModel, SurveyStatus } from '../../../models/questionnaire-
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
