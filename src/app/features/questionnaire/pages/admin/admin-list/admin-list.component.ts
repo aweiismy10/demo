@@ -14,6 +14,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { SurveyService } from '../../../services/survey.service';
 import { QuestionnaireModel, SurveyStatus } from '../../../models/questionnaire-model';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-admin-list',
@@ -22,7 +23,8 @@ import { QuestionnaireModel, SurveyStatus } from '../../../models/questionnaire-
     CommonModule, RouterModule,
     MatTableModule, MatPaginatorModule,
     MatButtonModule, MatIconModule, MatCheckboxModule,
-    MatDialogModule, MatSnackBarModule
+    MatDialogModule, MatSnackBarModule,
+    MatTooltipModule
   ],
   templateUrl: './admin-list.component.html',
   styleUrls: ['./admin-list.component.scss']

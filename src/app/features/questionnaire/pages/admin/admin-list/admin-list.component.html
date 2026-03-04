@@ -66,8 +66,16 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef> 操作 </th>
         <td mat-cell *matCellDef="let row">
-          <button mat-icon-button color="primary" [routerLink]="['/questionnaire/admin/edit', row.id]">
+          <!-- 編輯 -->
+          <button mat-icon-button color="primary" [routerLink]="['/questionnaire/admin/edit', row.id]"
+            matTooltip="編輯問卷">
             <mat-icon>edit</mat-icon>
+          </button>
+          <!-- ✅ 查看回饋（僅進行中或已結束才顯示） -->
+          <button mat-icon-button color="accent"
+            *ngIf="row.status === SurveyStatus.Ongoing || row.status === SurveyStatus.Ended"
+            [routerLink]="['/questionnaire/admin/responses', row.id]" matTooltip="查看填寫紀錄">
+            <mat-icon>people</mat-icon>
           </button>
         </td>
       </ng-container>

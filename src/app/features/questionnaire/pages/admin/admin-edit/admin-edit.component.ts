@@ -98,8 +98,6 @@ export class AdminEditComponent implements OnInit {
     });
   }
 
-  // --- 標籤頁與路由操作 ---
-
   nextTab(): void {
     const basicInfoValid =
       this.surveyForm.get('title')?.valid &&
@@ -118,8 +116,6 @@ export class AdminEditComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/questionnaire/admin/list']);
   }
-
-  // --- 動態表單操作 (FormArray) ---
 
   get questions(): FormArray {
     return this.surveyForm.get('questions') as FormArray;
@@ -184,9 +180,8 @@ export class AdminEditComponent implements OnInit {
     }
   }
 
-  // --- 送出資料 ---
-
-  saveSurvey(): void {
+  // ✅ 加入 publish 參數：true = 儲存並發佈，false = 僅儲存草稿
+  saveSurvey(publish: boolean): void {
     if (this.surveyForm.invalid) {
       this.surveyForm.markAllAsTouched();
       alert('請檢查是否有漏填的欄位！');
@@ -207,7 +202,7 @@ export class AdminEditComponent implements OnInit {
       description: formValue.description,
       startDate: formatDate(formValue.startDate),
       endDate: formatDate(formValue.endDate),
-      isPublished: true,
+      isPublished: publish, // ✅ 由呼叫端決定是否發佈
       questions: formValue.questions.map((q: any) => ({
         questName: q.questName,
         type: q.type,
@@ -219,20 +214,22 @@ export class AdminEditComponent implements OnInit {
       }))
     };
 
+    const successMessage = publish ? '問卷發佈成功！' : '草稿儲存成功！';
+
     if (this.isEditMode && this.editId) {
       this.surveyService.updateQuestionnaire(this.editId, surveyData).subscribe(() => {
-        this.snackBar.open('問卷更新成功！', '關閉', { duration: 3000 });
+        this.snackBar.open(successMessage, '關閉', { duration: 3000 });
         this.router.navigate(['/questionnaire/admin/list']);
       });
     } else {
       this.surveyService.createQuestionnaire(surveyData).subscribe({
         next: () => {
-          this.snackBar.open('問卷建立成功！', '關閉', { duration: 3000 });
+          this.snackBar.open(successMessage, '關閉', { duration: 3000 });
           this.router.navigate(['/questionnaire/admin/list']);
         },
         error: (err) => {
-          console.error('新增失敗:', err);
-          alert('新增失敗，請檢查 F12 Console 的錯誤訊息！');
+          console.error('儲存失敗:', err);
+          alert('儲存失敗，請檢查 F12 Console 的錯誤訊息！');
         }
       });
     }

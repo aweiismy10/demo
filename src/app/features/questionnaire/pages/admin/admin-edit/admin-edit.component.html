@@ -98,9 +98,16 @@
               </div>
             </div>
           </div>
+
+          <!-- ✅ 兩種儲存按鈕 -->
           <div class="actions">
             <button mat-button type="button" (click)="selectedIndex = 0">上一步</button>
-            <button mat-flat-button color="primary" type="button" (click)="saveSurvey()">儲存問卷</button>
+            <button mat-stroked-button color="primary" type="button" (click)="saveSurvey(false)">
+              <mat-icon>save</mat-icon> 僅儲存（草稿）
+            </button>
+            <button mat-flat-button color="primary" type="button" (click)="saveSurvey(true)">
+              <mat-icon>publish</mat-icon> 儲存並發佈
+            </button>
           </div>
 
         </div>

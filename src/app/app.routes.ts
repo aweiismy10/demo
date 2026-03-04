@@ -36,6 +36,7 @@ import { AdminListComponent } from './features/questionnaire/pages/admin/admin-l
 import { AdminEditComponent } from './features/questionnaire/pages/admin/admin-edit/admin-edit.component';
 import { StatisticsComponent } from './features/questionnaire/pages/frontend/statistics/statistics.component';
 import { adminGuard } from './features/questionnaire/guards/admin.guard';
+import { AdminResponsesComponent } from './features/questionnaire/pages/admin/admin-responses/admin-responses.component';
 
 export const routes: Routes = [
   { path: 'main-view', component: MainViewComponent, data: { theme: 'theme-main' } },
@@ -100,6 +101,7 @@ export const routes: Routes = [
       { path: 'admin/list', component: AdminListComponent, canActivate: [adminGuard], data: { theme: 'theme-backend' } },
       { path: 'admin/create', component: AdminEditComponent, data: { theme: 'theme-backend' } }, // 新增
       { path: 'admin/edit/:id', component: AdminEditComponent, data: { theme: 'theme-backend' } }, // 編輯
+      { path: 'admin/responses/:id', component: AdminResponsesComponent, data: { theme: 'theme-backend' } },
     ]
   },
   { path: '**', component: PageNotFoundComponent, data: { theme: 'theme-indigo' } }

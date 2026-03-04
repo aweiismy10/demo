@@ -55,7 +55,6 @@ export class StatisticsComponent implements OnInit {
   calculateStats(): void {
     if (!this.survey) return;
 
-    // 1. 初始化歸零
     this.survey.questions.forEach(q => {
       this.stats[q.id] = {};
       if (q.type !== QuestionType.Text && q.options) {
@@ -65,15 +64,12 @@ export class StatisticsComponent implements OnInit {
       }
     });
 
-    // 2. 開始計票 (處理字串轉陣列)
     this.responses.forEach(res => {
       res.answers.forEach((ans: any) => {
         const qId = ans.questionId;
         const answerValue = ans.answer;
 
-        if (answerValue === null || answerValue === undefined || answerValue === '') {
-          return;
-        }
+        if (answerValue === null || answerValue === undefined || answerValue === '') return;
 
         const valArray = String(answerValue).split(',');
         valArray.forEach(val => {
@@ -89,13 +85,24 @@ export class StatisticsComponent implements OnInit {
   getPercentage(qId: number, optCode: number): number {
     const totalResponses = this.responses.length;
     if (totalResponses === 0) return 0;
-
     const count = this.stats[qId][optCode] || 0;
     return Math.round((count / totalResponses) * 100);
   }
 
   getCount(qId: number, optCode: number): number {
     return this.stats[qId] ? (this.stats[qId][optCode] || 0) : 0;
+  }
+
+  // ✅ 取得某題的所有文字回答
+  getTextAnswers(questionId: number): string[] {
+    const result: string[] = [];
+    this.responses.forEach(res => {
+      const ans = res.answers.find((a: any) => a.questionId === questionId);
+      if (ans && ans.answer && String(ans.answer).trim() !== '') {
+        result.push(ans.answer);
+      }
+    });
+    return result;
   }
 
   goBack(): void {

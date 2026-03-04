@@ -13,29 +13,41 @@
   </mat-card>
 
   <div class="question-stats" *ngFor="let q of survey.questions; let i = index">
-    <h3>{{ i + 1 }}. {{ q.questName }}
-      <span class="q-type-badge">{{ q.type === QuestionType.Single ? '單選' : q.type === QuestionType.Multi ? '多選' : '文字' }}</span>
+    <h3>
+      {{ i + 1 }}. {{ q.questName }}
+      <span class="q-type-badge">
+        {{ q.type === QuestionType.Single ? '單選' : q.type === QuestionType.Multi ? '多選' : '文字' }}
+      </span>
     </h3>
 
+    <!-- 單選 / 多選：長條圖 -->
     <div class="chart-area" *ngIf="q.type !== QuestionType.Text">
       <div class="option-row" *ngFor="let opt of q.options">
-
         <div class="option-label">
           <span class="opt-name">{{ opt.optionName }}</span>
           <span class="opt-count">{{ getCount(q.id, opt.code) }} 票 ({{ getPercentage(q.id, opt.code) }}%)</span>
         </div>
-
         <mat-progress-bar
           mode="determinate"
           [value]="getPercentage(q.id, opt.code)"
           color="primary">
         </mat-progress-bar>
-
       </div>
     </div>
 
+    <!-- ✅ 文字題：列出所有人的回答 -->
     <div class="text-area" *ngIf="q.type === QuestionType.Text">
-      <p class="text-muted">（文字問答題不列入長條圖統計）</p>
+      <div class="text-answers-list">
+        <ng-container *ngFor="let res of responses; let rIndex = index">
+          <ng-container *ngFor="let ans of res.answers">
+            <div class="text-answer-item" *ngIf="ans.questionId === q.id && ans.answer">
+              <span class="answer-index">#{{ rIndex + 1 }}</span>
+              <span class="answer-text">{{ ans.answer }}</span>
+            </div>
+          </ng-container>
+        </ng-container>
+        <p class="text-muted" *ngIf="getTextAnswers(q.id).length === 0">（目前尚無文字回答）</p>
+      </div>
     </div>
 
   </div>
