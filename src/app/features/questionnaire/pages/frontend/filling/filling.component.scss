@@ -1,72 +1,363 @@
+// ============================================================
+// 顏色變數（與 list / confirm 前台主題對齊）
+// ============================================================
+$forest-green:    #166534;
+$sage-glow:       #86EFAC;
+$olive-modern:    #65A30D;
+$fresh-lime:      #84CC16;
+$soft-mint:       #DCFCE7;
+$mist-green:      #F0FDF4;
+$dark-moss:       rgba(5, 46, 22, 0.72);
+$deep-forest:     rgba(3, 30, 14, 0.85);
+$card-surface:    rgba(5, 46, 22, 0.55);
+$border-glow:     rgba(134, 239, 172, 0.35);
+$border-active:   rgba(132, 204, 22, 0.75);
+$text-light:      rgba(240, 253, 244, 0.92);
+$text-muted:      rgba(134, 239, 172, 0.6);
+
+// ============================================================
+// 頁面容器
+// ============================================================
 .container {
-  padding: 20px;
-  max-width: 800px;
+  padding: 28px 20px 60px;
+  max-width: 820px;
   margin: 0 auto;
+  background: transparent;
 }
 
+// ============================================================
+// 問卷標頭卡片
+// ============================================================
 .survey-header {
-  margin-bottom: 24px;
-  background-color: #f5f5f5;
-}
+  margin-bottom: 28px;
+  padding: 28px 32px !important;
+  background: linear-gradient(135deg, $forest-green 0%, $olive-modern 100%) !important;
+  border-radius: 16px !important;
+  border: 1px solid $border-active !important;
+  box-shadow:
+    0 0 32px rgba(132, 204, 22, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  position: relative;
+  overflow: hidden;
 
-.section-card {
-  margin-bottom: 24px;
+  // 光暈裝飾
+  &::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    right: -5%;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(132, 204, 22, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
 
-  h3 {
-    margin-top: 0;
-    margin-bottom: 16px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
+  mat-card-title {
+    font-size: clamp(20px, 2.5vw, 28px);
+    font-weight: 700;
+    color: #fff !important;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 1;
+  }
+
+  mat-card-subtitle {
+    color: $soft-mint !important;
+    font-size: 14px;
+    margin-top: 6px !important;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
   }
 }
 
+// ============================================================
+// 通用卡片區塊（基本資料 / 問題卡片）
+// ============================================================
+.section-card {
+  margin-bottom: 20px;
+  padding: 24px 28px !important;
+  background: $card-surface !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 14px !important;
+  border: 1px solid $border-glow !important;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(134, 239, 172, 0.1) !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    border-color: $border-active !important;
+    box-shadow:
+      0 6px 28px rgba(0, 0, 0, 0.35),
+      0 0 12px rgba(132, 204, 22, 0.12),
+      inset 0 1px 0 rgba(134, 239, 172, 0.15) !important;
+  }
+
+  h3 {
+    margin: 0 0 20px;
+    font-size: 16px;
+    font-weight: 700;
+    color: $sage-glow;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(134, 239, 172, 0.25);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 13px;
+  }
+}
+
+// ============================================================
+// 問題卡片（多一條左側光條）
+// ============================================================
+.question-card {
+  border-left: 3px solid $fresh-lime !important;
+  padding-left: 26px !important;
+
+  h4 {
+    margin: 0 0 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: $text-light;
+    line-height: 1.5;
+  }
+}
+
+// ============================================================
+// 必填星號
+// ============================================================
+.required-mark {
+  color: $fresh-lime;
+  margin-left: 4px;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(132, 204, 22, 0.6);
+}
+
+// ============================================================
+// 表單行（兩欄並排）
+// ============================================================
 .form-row {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+  margin-bottom: 4px;
 
   mat-form-field {
     flex: 1;
-    min-width: 250px;
+    min-width: 240px;
   }
 }
 
-.question-card {
-  h4 {
-    margin-top: 0;
-    font-size: 16px;
+// ============================================================
+// Material Form Field 全面 Override（深色主題）
+// ============================================================
+:host::ng-deep {
+
+  // Outline 邊框顏色
+  .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper,
+  .mat-mdc-text-field-wrapper {
+    background: rgba(5, 46, 22, 0.4) !important;
+    border-radius: 10px;
+  }
+
+  // Label 顏色
+  .mat-mdc-form-field label,
+  .mdc-floating-label {
+    color: $text-muted !important;
+  }
+
+  // Focus 時 label 顏色
+  .mat-mdc-form-field.mat-focused label,
+  .mat-mdc-form-field.mat-focused .mdc-floating-label {
+    color: $fresh-lime !important;
+  }
+
+  // Input 文字顏色
+  .mat-mdc-input-element,
+  input.mat-mdc-input-element,
+  textarea.mat-mdc-input-element {
+    color: $text-light !important;
+    caret-color: $fresh-lime;
+  }
+
+  // Outline 邊框：預設
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-color: $border-glow !important;
+  }
+
+  // Outline 邊框：hover
+  .mat-mdc-form-field:hover .mdc-notched-outline__leading,
+  .mat-mdc-form-field:hover .mdc-notched-outline__notch,
+  .mat-mdc-form-field:hover .mdc-notched-outline__trailing {
+    border-color: rgba(134, 239, 172, 0.6) !important;
+  }
+
+  // Outline 邊框：focus
+  .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+  .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+  .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+    border-color: $fresh-lime !important;
+    border-width: 2px !important;
+  }
+
+  // 錯誤提示文字
+  .mat-mdc-form-field-error {
+    color: #fca5a5 !important;
+  }
+
+  // Radio button 顏色
+  .mat-mdc-radio-button {
+    --mdc-radio-unselected-icon-color: #{$border-active};
+    --mdc-radio-selected-icon-color: #{$fresh-lime};
+    --mdc-radio-selected-focus-icon-color: #{$fresh-lime};
+    --mdc-radio-selected-hover-icon-color: #{$sage-glow};
+    --mat-radio-label-text-color: #{$text-light};
+  }
+
+  // Checkbox 顏色
+  .mat-mdc-checkbox {
+    --mdc-checkbox-unselected-icon-color: #{$border-active};
+    --mdc-checkbox-selected-checkmark-color: #fff;
+    --mdc-checkbox-selected-focus-icon-color: #{$fresh-lime};
+    --mdc-checkbox-selected-hover-icon-color: #{$fresh-lime};
+    --mdc-checkbox-selected-icon-color: #{$fresh-lime};
+    --mdc-checkbox-selected-pressed-icon-color: #{$olive-modern};
+    --mat-checkbox-label-text-color: #{$text-light};
   }
 }
 
-.required-mark {
-  color: red;
-  margin-left: 4px;
-}
-
+// ============================================================
+// 選項容器
+// ============================================================
 .options-container {
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
-.radio-group, .checkbox-group {
+.radio-group,
+.checkbox-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+  padding: 14px 18px;
+  background: rgba(5, 46, 22, 0.35);
+  border-radius: 10px;
+  border: 1px solid rgba(134, 239, 172, 0.2);
 }
 
+// ============================================================
+// 全寬 textarea
+// ============================================================
 .full-width {
   width: 100%;
 }
 
+// ============================================================
+// 錯誤提示（問題層級）
+// ============================================================
 .question-error {
-  font-size: 12px;
-  margin-top: 8px;
   display: block;
+  font-size: 12px;
+  color: #fca5a5;
+  margin-top: 8px;
+  padding-left: 4px;
 }
 
+// ============================================================
+// 操作按鈕區
+// ============================================================
 .actions {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 16px;
-  margin-top: 24px;
+  margin-top: 32px;
   margin-bottom: 40px;
+  padding: 20px 24px;
+  background: rgba(5, 46, 22, 0.5);
+  border-radius: 14px;
+  border: 1px solid $border-glow;
+  backdrop-filter: blur(12px);
+
+  // 取消按鈕
+  button[mat-button] {
+    color: $text-muted;
+    border: 1px solid rgba(134, 239, 172, 0.3);
+    border-radius: 8px;
+    padding: 6px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $sage-glow;
+      border-color: $sage-glow;
+      background: rgba(134, 239, 172, 0.08);
+    }
+  }
+
+  // 下一步按鈕
+  button[mat-flat-button] {
+    background: linear-gradient(135deg, $fresh-lime 0%, $olive-modern 100%) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    padding: 6px 28px !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 16px rgba(132, 204, 22, 0.35) !important;
+    transition: all 0.3s ease !important;
+
+    &:hover {
+      background: linear-gradient(135deg, $olive-modern 0%, $forest-green 100%) !important;
+      box-shadow: 0 6px 20px rgba(132, 204, 22, 0.5) !important;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(132, 204, 22, 0.3) !important;
+    }
+  }
+}
+
+// ============================================================
+// RWD
+// ============================================================
+@media (max-width: 768px) {
+  .container {
+    padding: 16px 12px 48px;
+  }
+
+  .survey-header {
+    padding: 20px !important;
+
+    mat-card-title {
+      font-size: 20px;
+    }
+  }
+
+  .section-card {
+    padding: 18px 16px !important;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+
+    mat-form-field {
+      min-width: 0;
+    }
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+    padding: 16px;
+
+    button {
+      width: 100%;
+    }
+  }
 }

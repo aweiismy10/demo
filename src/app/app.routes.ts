@@ -96,7 +96,8 @@ export const routes: Routes = [
       { path: 'list', component: ListComponent, data: { theme: 'theme-frontend' } },
       { path: 'filling/:id', component: FillingComponent, data: { theme: 'theme-frontend' } },
       { path: 'confirm', component: ConfirmComponent, data: { theme: 'theme-frontend' } },
-      { path: 'statistics/:id', component: StatisticsComponent },
+      { path: 'statistics/:id', component: StatisticsComponent, data: { theme: 'theme-frontend' } },
+
       // 後台路由
       { path: 'admin/list', component: AdminListComponent, canActivate: [adminGuard], data: { theme: 'theme-backend' } },
       { path: 'admin/create', component: AdminEditComponent, data: { theme: 'theme-backend' } }, // 新增

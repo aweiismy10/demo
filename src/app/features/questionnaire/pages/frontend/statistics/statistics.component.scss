@@ -1,74 +1,230 @@
+// ============================================================
+// 顏色變數（前台深色森林主題）
+// ============================================================
+$forest-green:   #166534;
+$sage-glow:      #86EFAC;
+$olive-modern:   #65A30D;
+$fresh-lime:     #84CC16;
+$soft-mint:      #DCFCE7;
+$mist-green:     #F0FDF4;
+$dark-moss:      rgba(5, 46, 22, 0.72);
+$card-surface:   rgba(5, 46, 22, 0.55);
+$border-glow:    rgba(134, 239, 172, 0.3);
+$border-active:  rgba(132, 204, 22, 0.7);
+$text-light:     rgba(240, 253, 244, 0.92);
+$text-muted:     rgba(134, 239, 172, 0.55);
+$accent-bar:     #84CC16;
+
+// ============================================================
+// 頁面容器
+// ============================================================
 .container {
-  max-width: 800px;
+  max-width: 820px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 28px 20px 60px;
+  background: transparent;
 }
 
+// ============================================================
+// 頂部標題列（返回 + 標題）
+// ============================================================
 .header {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 12px;
+  margin-bottom: 28px;
+
+  // 返回按鈕 override
+  button[mat-icon-button] {
+    color: $sage-glow !important;
+    border: 1px solid $border-glow;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(134, 239, 172, 0.12) !important;
+      border-color: $border-active;
+      box-shadow: 0 0 12px rgba(132, 204, 22, 0.25);
+    }
+  }
 
   h2 {
     margin: 0;
-    font-weight: bold;
-    color: #333;
+    font-weight: 700;
+    font-size: clamp(22px, 3vw, 32px);
+
+    // 漸層文字（跟 list 的 h2 一致）
+    color: transparent;
+    background: linear-gradient(135deg, $forest-green, $olive-modern, $fresh-lime);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 
+// ============================================================
+// 問卷基本資訊卡
+// ============================================================
 .survey-info-card {
-  margin-bottom: 32px;
-  background-color: #f5f7fb;
-  border-left: 6px solid #3f51b5;
+  margin-bottom: 28px;
+  padding: 22px 28px !important;
+  background: linear-gradient(135deg, $forest-green 0%, $olive-modern 100%) !important;
+  border-radius: 14px !important;
+  border: 1px solid $border-active !important;
+  box-shadow:
+    0 0 28px rgba(132, 204, 22, 0.15),
+    0 6px 20px rgba(0, 0, 0, 0.4) !important;
+  position: relative;
+  overflow: hidden;
+
+  // 光暈
+  &::after {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -5%;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(132, 204, 22, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  mat-card-title {
+    font-size: clamp(16px, 2vw, 22px) !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+    position: relative;
+    z-index: 1;
+  }
+
+  mat-card-subtitle {
+    color: $soft-mint !important;
+    font-size: 14px !important;
+    margin-top: 6px !important;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
 }
 
+// ============================================================
+// 每一題的統計區塊
+// ============================================================
 .question-stats {
-  background: white;
-  padding: 24px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  margin-bottom: 24px;
+  background: $card-surface;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 24px 28px;
+  border-radius: 14px;
+  border: 1px solid $border-glow;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(134, 239, 172, 0.08);
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
+  &:hover {
+    border-color: $border-active;
+    box-shadow:
+      0 6px 28px rgba(0, 0, 0, 0.35),
+      0 0 14px rgba(132, 204, 22, 0.1),
+      inset 0 1px 0 rgba(134, 239, 172, 0.12);
+  }
+
+  // 題目標題（題號 + 題型 badge）
   h3 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-    color: #222;
+    margin: 0 0 22px;
+    font-size: 15px;
+    font-weight: 600;
+    color: $text-light;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    line-height: 1.5;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(134, 239, 172, 0.2);
   }
 }
 
+// 題型標籤
 .q-type-badge {
-  font-size: 0.8rem;
-  background-color: #e0e0e0;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-weight: normal;
-  color: #555;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(132, 204, 22, 0.18);
+  color: $fresh-lime;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(132, 204, 22, 0.35);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+// ============================================================
+// 選擇題：長條圖區
+// ============================================================
+.chart-area {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .option-row {
-  margin-bottom: 16px;
-
   .option-label {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 6px;
-    font-size: 0.95rem;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 13px;
+
+    .opt-name {
+      color: $text-light;
+      font-weight: 500;
+    }
 
     .opt-count {
-      font-weight: bold;
-      color: #3f51b5;
+      font-weight: 700;
+      color: $fresh-lime;
+      font-size: 12px;
+      padding: 2px 10px;
+      background: rgba(132, 204, 22, 0.12);
+      border-radius: 20px;
+      border: 1px solid rgba(132, 204, 22, 0.25);
     }
   }
 }
 
-/* ✅ 文字題回答列表 */
+// Progress bar override
+::ng-deep {
+  .mat-mdc-progress-bar {
+    height: 10px !important;
+    border-radius: 5px !important;
+    background: rgba(5, 46, 22, 0.6) !important;
+
+    // 進度條本體
+    .mdc-linear-progress__bar-inner {
+      border-color: $fresh-lime !important;
+    }
+
+    // 背景軌道
+    .mdc-linear-progress__buffer-bar {
+      background: rgba(134, 239, 172, 0.12) !important;
+    }
+
+    // 緩衝點
+    .mdc-linear-progress__buffer-dots {
+      background: none !important;
+    }
+  }
+}
+
+// ============================================================
+// 文字題：回答列表
+// ============================================================
 .text-area {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .text-answers-list {
@@ -81,33 +237,74 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  padding: 12px 16px;
-  background-color: #f8f9fa;
-  border-left: 3px solid #3f51b5;
-  border-radius: 4px;
+  padding: 14px 18px;
+  background: rgba(5, 46, 22, 0.45);
+  border-left: 3px solid $fresh-lime;
+  border-radius: 8px;
+  border: 1px solid rgba(134, 239, 172, 0.18);
+  border-left: 3px solid $fresh-lime;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: rgba(5, 46, 22, 0.6);
+    border-color: rgba(134, 239, 172, 0.35);
+    border-left-color: $sage-glow;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  }
 
   .answer-index {
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: #3f51b5;
+    font-size: 11px;
+    font-weight: 700;
+    color: $fresh-lime;
     min-width: 28px;
-    padding-top: 2px;
+    padding-top: 3px;
+    padding: 2px 7px;
+    background: rgba(132, 204, 22, 0.15);
+    border-radius: 20px;
+    border: 1px solid rgba(132, 204, 22, 0.3);
+    white-space: nowrap;
+    align-self: flex-start;
   }
 
   .answer-text {
-    font-size: 0.95rem;
-    color: #333;
-    line-height: 1.6;
+    font-size: 14px;
+    color: $text-light;
+    line-height: 1.7;
     white-space: pre-wrap;
+    word-break: break-word;
   }
 }
 
+// 暫無資料
 .text-muted {
-  color: #888;
+  color: $text-muted;
   font-style: italic;
+  font-size: 13px;
+  padding: 12px 16px;
+  background: rgba(5, 46, 22, 0.3);
+  border-radius: 8px;
+  border: 1px dashed rgba(134, 239, 172, 0.2);
 }
 
-::ng-deep .mat-progress-bar {
-  height: 12px !important;
-  border-radius: 6px;
+// ============================================================
+// RWD
+// ============================================================
+@media (max-width: 768px) {
+  .container {
+    padding: 16px 12px 48px;
+  }
+
+  .question-stats {
+    padding: 18px 16px;
+  }
+
+  .survey-info-card {
+    padding: 18px !important;
+  }
+
+  .option-row .option-label {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
 }
