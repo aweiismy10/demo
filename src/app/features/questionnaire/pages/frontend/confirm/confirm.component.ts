@@ -87,7 +87,9 @@ export class ConfirmComponent implements OnInit {
         },
         error: (err) => {
           console.error('送出失敗，錯誤訊息：', err);
-          alert('伺服器錯誤，送出失敗！');
+          // 顯示後端回傳的錯誤訊息（例如：「您已填寫過這份問卷」）
+          const message = err?.error?.message || '伺服器錯誤，送出失敗！';
+          alert(message);
         }
       });
     } else {
