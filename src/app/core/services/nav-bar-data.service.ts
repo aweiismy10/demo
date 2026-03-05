@@ -27,5 +27,6 @@ export class NavBarDataService {
     { label: '@angular/material(radio)', link: '/mat-radio-demo' },
     { label: 'checkbox陣列練習', link: '/checkbox-demo' },
     { label: '動態問卷', link: '/questionnaire' },
+    { label: '動態問卷後台', link: '/questionnaire/admin/list'},
   ];
 }
