@@ -93,7 +93,7 @@ export class StatisticsComponent implements OnInit {
     return this.stats[qId] ? (this.stats[qId][optCode] || 0) : 0;
   }
 
-  // ✅ 取得某題的所有文字回答
+  // 取得某題的所有文字回答
   getTextAnswers(questionId: number): string[] {
     const result: string[] = [];
     this.responses.forEach(res => {
