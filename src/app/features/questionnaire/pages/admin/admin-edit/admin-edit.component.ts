@@ -180,7 +180,7 @@ export class AdminEditComponent implements OnInit {
     }
   }
 
-  // ✅ 加入 publish 參數：true = 儲存並發佈，false = 僅儲存草稿
+  // 加入 publish 參數：true = 儲存並發佈，false = 僅儲存草稿
   saveSurvey(publish: boolean): void {
     if (this.surveyForm.invalid) {
       this.surveyForm.markAllAsTouched();
@@ -202,7 +202,7 @@ export class AdminEditComponent implements OnInit {
       description: formValue.description,
       startDate: formatDate(formValue.startDate),
       endDate: formatDate(formValue.endDate),
-      isPublished: publish, // ✅ 由呼叫端決定是否發佈
+      isPublished: publish, // 由呼叫端決定是否發佈
       questions: formValue.questions.map((q: any) => ({
         questName: q.questName,
         type: q.type,

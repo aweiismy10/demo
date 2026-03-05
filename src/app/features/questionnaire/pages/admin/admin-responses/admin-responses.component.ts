@@ -57,7 +57,7 @@ export class AdminResponsesComponent implements OnInit {
     });
 
     this.surveyService.getResponsesBySurveyId(id).subscribe(data => {
-      // ✅ 倒序顯示（最新的在最上面）
+      // 倒序顯示（最新的在最上面）
       this.responses = [...data].reverse();
       this.dataSource.data = this.responses;
       setTimeout(() => {

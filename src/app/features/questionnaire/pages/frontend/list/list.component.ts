@@ -43,7 +43,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   constructor(private surveyService: SurveyService) { }
 
   ngOnInit(): void {
-    // 💡 整理 1：自訂過濾邏輯只要設定一次，搬到初始化這裡
+    // 自訂過濾邏輯只要設定一次，搬到初始化這裡
     this.dataSource.filterPredicate = (data: QuestionnaireModel, filter: string) => {
       return data.title.toLowerCase().includes(filter);
     };
@@ -52,14 +52,14 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // 💡 整理 2：統一在這裡綁定分頁與排序器
+    // 整理 2：統一在這裡綁定分頁與排序器
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
   loadSurveys(): void {
     this.surveyService.getQuestionnaires().subscribe(data => {
-      // 💡 整理 3：代碼更精簡，直接將過濾好的結果塞給資料來源
+      // 整理 3：直接將過濾好的結果塞給資料來源
       this.dataSource.data = data.filter(q => q.status !== SurveyStatus.Draft);
     });
   }
