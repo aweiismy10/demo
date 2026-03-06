@@ -1,101 +1,493 @@
+// ============================================================
+// 顏色變數（後台 Indigo 主題，與 admin-list / admin-responses 對齊）
+// ============================================================
+$royal-indigo:   #6366F1;
+$indigo-strong:  #4F46E5;
+$indigo-soft:    #A5B4FC;
+$cool-violet:    #8B5CF6;
+$violet-glow:    #C4B5FD;
+$night-indigo:   rgba(30, 41, 59, 0.75);
+$card-surface:   rgba(15, 23, 42, 0.65);
+$deep-surface:   rgba(10, 15, 30, 0.75);
+$border-glow:    rgba(99, 102, 241, 0.35);
+$border-active:  rgba(165, 180, 252, 0.7);
+$text-light:     rgba(226, 232, 240, 0.95);
+$text-muted:     rgba(165, 180, 252, 0.6);
+$accent-cyan:    rgb(34, 243, 250);
+$danger-red:     #f87171;
+
+// ============================================================
+// 頁面主容器
+// ============================================================
 .container {
-  padding: 24px;
-  max-width: 900px;
+  padding: 28px 24px 60px;
+  max-width: 920px;
   margin: 0 auto;
+  background: transparent;
 }
 
+// ============================================================
+// 頂部標題列
+// ============================================================
 .header-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
+
+  h2 {
+    margin: 0;
+    font-weight: 700;
+    font-size: clamp(24px, 3vw, 36px);
+    color: transparent;
+    background: linear-gradient(135deg, $accent-cyan, rgb(126, 236, 255), #09f);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  // 取消並返回按鈕 override
+  button[mat-stroked-button] {
+    border-color: rgba($danger-red, 0.5) !important;
+    color: $danger-red !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+
+    &:hover {
+      background: rgba($danger-red, 0.1) !important;
+      border-color: $danger-red !important;
+      box-shadow: 0 0 12px rgba($danger-red, 0.25) !important;
+    }
+  }
 }
 
+// ============================================================
+// Material Tab Group 全面 Override
+// ============================================================
+:host::ng-deep {
+
+  // Tab 列背景
+  .mat-mdc-tab-group {
+    background: transparent;
+  }
+
+  .mat-mdc-tab-header {
+    background: $deep-surface;
+    border-radius: 12px 12px 0 0;
+    border: 1px solid $border-glow;
+    border-bottom: none;
+    backdrop-filter: blur(16px);
+  }
+
+  // 每個 Tab 標籤
+  .mat-mdc-tab {
+    min-width: 120px;
+
+    .mdc-tab__text-label {
+      color: $text-muted !important;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease;
+    }
+
+    &.mdc-tab--active .mdc-tab__text-label {
+      color: $indigo-soft !important;
+    }
+
+    // Ripple 顏色
+    .mat-ripple-element {
+      background: rgba($royal-indigo, 0.2) !important;
+    }
+  }
+
+  // 底部活動指示線
+  .mdc-tab-indicator__content--underline {
+    border-color: $royal-indigo !important;
+    border-width: 2px !important;
+  }
+
+  // Tab 底部分隔線
+  .mat-mdc-tab-header-pagination-chevron {
+    border-color: $text-muted;
+  }
+
+  .mdc-tab-indicator--active .mdc-tab-indicator__content {
+    opacity: 1;
+  }
+}
+
+// ============================================================
+// Tab 內容區
+// ============================================================
 .tab-content {
-  padding: 24px;
-  background: white;
-  border: 1px solid #e0e0e0;
-  border-top: none; /* 為了和 Tab 接合得更好看 */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  padding: 28px;
+  background: $night-indigo;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid $border-glow;
+  border-top: none;
+  border-radius: 0 0 14px 14px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 -1px 0 rgba($royal-indigo, 0.2);
 }
 
+// ============================================================
+// Material Form Field Override（後台深色）
+// ============================================================
+:host::ng-deep {
+
+  // wrapper 背景
+  .mat-mdc-text-field-wrapper {
+    background: rgba(15, 23, 42, 0.55) !important;
+    border-radius: 10px;
+  }
+
+  // label
+  .mdc-floating-label,
+  .mat-mdc-form-field label {
+    color: $text-muted !important;
+  }
+
+  .mat-mdc-form-field.mat-focused .mdc-floating-label {
+    color: $indigo-soft !important;
+  }
+
+  // input / textarea 文字
+  .mat-mdc-input-element {
+    color: $text-light !important;
+    caret-color: $royal-indigo;
+  }
+
+  // outline 邊框：預設
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-color: $border-glow !important;
+  }
+
+  // outline 邊框：hover
+  .mat-mdc-form-field:hover {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: rgba($indigo-soft, 0.6) !important;
+    }
+  }
+
+  // outline 邊框：focus
+  .mat-mdc-form-field.mat-focused {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: $royal-indigo !important;
+      border-width: 2px !important;
+    }
+  }
+
+  // 錯誤
+  .mat-mdc-form-field-error {
+    color: $danger-red !important;
+  }
+
+  // Select 下拉箭頭
+  .mat-mdc-select-arrow svg {
+    fill: $text-muted !important;
+  }
+
+  .mat-mdc-select-value-text {
+    color: $text-light !important;
+  }
+
+  // Datepicker icon
+  .mat-datepicker-toggle-default-icon {
+    fill: $text-muted !important;
+  }
+
+  // Checkbox（必填）
+  .mat-mdc-checkbox {
+    --mdc-checkbox-unselected-icon-color:       #{$border-active};
+    --mdc-checkbox-selected-icon-color:         #{$royal-indigo};
+    --mdc-checkbox-selected-checkmark-color:    #fff;
+    --mdc-checkbox-selected-focus-icon-color:   #{$royal-indigo};
+    --mdc-checkbox-selected-hover-icon-color:   #{$indigo-soft};
+    --mat-checkbox-label-text-color:            #{$text-light};
+  }
+}
+
+// ============================================================
+// 全寬輸入框
+// ============================================================
 .full-width {
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
+// ============================================================
+// 日期行（並排）
+// ============================================================
 .date-row {
   display: flex;
-  gap: 24px;
+  gap: 20px;
   flex-wrap: wrap;
 
   mat-form-field {
     flex: 1;
-    min-width: 250px;
+    min-width: 220px;
   }
 }
 
+// ============================================================
+// 操作按鈕區（下一步 / 上一步 / 儲存 / 發佈）
+// ============================================================
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: 16px;
-  margin-top: 24px;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+  padding: 18px 22px;
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 12px;
+  border: 1px solid $border-glow;
+  backdrop-filter: blur(8px);
+  flex-wrap: wrap;
+
+  // 上一步
+  button[mat-button] {
+    color: $text-muted;
+    border: 1px solid $border-glow;
+    border-radius: 8px;
+    padding: 6px 18px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $indigo-soft;
+      border-color: $border-active;
+      background: rgba($royal-indigo, 0.08);
+    }
+  }
+
+  // 草稿按鈕
+  button[mat-stroked-button] {
+    border-color: $border-active !important;
+    color: $indigo-soft !important;
+    border-radius: 8px !important;
+    padding: 6px 20px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+
+    mat-icon {
+      color: $indigo-soft !important;
+    }
+
+    &:hover {
+      background: rgba($royal-indigo, 0.12) !important;
+      border-color: $indigo-soft !important;
+      box-shadow: 0 0 14px rgba($royal-indigo, 0.25) !important;
+    }
+  }
+
+  // 發佈 / 下一步 按鈕
+  button[mat-flat-button] {
+    background: linear-gradient(135deg, $royal-indigo 0%, $indigo-strong 100%) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    padding: 6px 24px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 14px rgba($indigo-strong, 0.45) !important;
+    transition: all 0.3s ease !important;
+
+    mat-icon {
+      color: #fff !important;
+    }
+
+    &:hover {
+      background: linear-gradient(135deg, $cool-violet 0%, $royal-indigo 100%) !important;
+      box-shadow: 0 6px 20px rgba($royal-indigo, 0.55) !important;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
 }
 
-.text-muted {
-  color: #777;
-}
-
-/* 題目編輯器相關樣式 */
+// ============================================================
+// 新增題目工具列
+// ============================================================
 .q-toolbar {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+
+  button[mat-stroked-button] {
+    border-color: $border-active !important;
+    color: $indigo-soft !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+
+    mat-icon {
+      color: $indigo-soft !important;
+    }
+
+    &:hover {
+      background: rgba($royal-indigo, 0.12) !important;
+      box-shadow: 0 0 12px rgba($royal-indigo, 0.2) !important;
+    }
+  }
 }
 
+// ============================================================
+// 題目卡片
+// ============================================================
 .question-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 24px;
-  background-color: #fafafa;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  background: $card-surface;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid $border-glow;
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
+  &:hover {
+    border-color: $border-active;
+    box-shadow:
+      0 6px 24px rgba(0, 0, 0, 0.35),
+      0 0 12px rgba($royal-indigo, 0.15);
+  }
+
+  // 題目 header（編號 + 刪除）
   .q-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-    margin-bottom: 16px;
+    border-bottom: 1px solid rgba($royal-indigo, 0.25);
+    padding-bottom: 12px;
+    margin-bottom: 18px;
 
     .q-title {
-      font-size: 18px;
-      font-weight: bold;
-      color: #3f51b5;
+      font-size: 15px;
+      font-weight: 700;
+      color: $indigo-soft;
+      letter-spacing: 0.5px;
+    }
+
+    // 刪除按鈕
+    button[mat-icon-button] {
+      color: rgba($danger-red, 0.7) !important;
+      transition: all 0.3s ease !important;
+
+      &:hover {
+        color: $danger-red !important;
+        background: rgba($danger-red, 0.1) !important;
+      }
     }
   }
 
+  // 題目設定行（題型 + 必填）
   .q-settings {
     display: flex;
     align-items: center;
     gap: 16px;
     margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .q-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 }
 
+// ============================================================
+// 選項區
+// ============================================================
 .options-area {
-  background-color: #fff;
-  border: 1px dashed #ccc;
-  padding: 16px;
-  border-radius: 4px;
+  background: rgba(10, 15, 30, 0.45);
+  border: 1px dashed rgba($royal-indigo, 0.4);
+  padding: 18px 20px;
+  border-radius: 10px;
+  margin-top: 4px;
 
   .option-row {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: -10px; /* 抵消 mat-form-field 預設的底部 margin */
+    margin-bottom: -8px;
 
     .option-input {
       flex: 1;
     }
+
+    // 刪除選項按鈕
+    button[mat-icon-button] {
+      color: rgba($danger-red, 0.6) !important;
+      transition: all 0.3s ease !important;
+      flex-shrink: 0;
+
+      &:hover {
+        color: $danger-red !important;
+        background: rgba($danger-red, 0.1) !important;
+      }
+    }
+  }
+
+  // 增加選項 button
+  button[mat-button] {
+    color: $indigo-soft !important;
+    font-weight: 600 !important;
+    margin-top: 8px;
+    transition: all 0.3s ease !important;
+
+    mat-icon {
+      color: $indigo-soft !important;
+    }
+
+    &:hover {
+      color: $violet-glow !important;
+      background: rgba($royal-indigo, 0.1) !important;
+    }
+  }
+}
+
+// ============================================================
+// RWD
+// ============================================================
+@media (max-width: 768px) {
+  .container {
+    padding: 16px 12px 48px;
+  }
+
+  .tab-content {
+    padding: 18px 16px;
+  }
+
+  .date-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+
+    button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .q-settings {
+    flex-direction: column;
+    align-items: flex-start !important;
   }
 }
