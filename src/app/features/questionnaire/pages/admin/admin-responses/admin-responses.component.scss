@@ -1,165 +1,352 @@
-$royal-indigo: #6366F1;
-$indigo-strong: #4F46E5;
-$night-indigo: rgba(30, 41, 59, 0.7);
+// ============================================================
+// 顏色變數（後台 Indigo 主題，與 admin-list / admin-edit 對齊）
+// ============================================================
+$royal-indigo:   #6366F1;
+$indigo-strong:  #4F46E5;
+$indigo-soft:    #A5B4FC;
+$cool-violet:    #8B5CF6;
+$violet-glow:    #C4B5FD;
+$night-indigo:   rgba(30, 41, 59, 0.70);
+$card-surface:   rgba(15, 23, 42, 0.65);
+$deep-surface:   rgba(10, 15, 30, 0.75);
+$border-glow:    rgba(99, 102, 241, 0.35);
+$border-active:  rgba(165, 180, 252, 0.70);
+$text-light:     rgba(226, 232, 240, 0.95);
+$text-muted:     rgba(165, 180, 252, 0.55);
+$accent-cyan:    rgb(34, 243, 250);
+$danger-red:     #f87171;
 
+// ============================================================
+// 頁面容器
+// ============================================================
 .container {
-  padding: 20px;
+  padding: 20px 24px 60px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+// ============================================================
+// 頁首：標題列
+// ============================================================
 .header-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 
   .header-left {
     display: flex;
     align-items: center;
     gap: 12px;
 
+    // 返回按鈕
+    button[mat-icon-button] {
+      color: $indigo-soft !important;
+      border: 1px solid $border-glow;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba($royal-indigo, 0.15) !important;
+        border-color: $border-active;
+        box-shadow: 0 0 12px rgba($royal-indigo, 0.3);
+      }
+    }
+
     h2 {
       margin: 0;
-      font-weight: bold;
-      font-size: clamp(24px, 3vw, 32px);
-      color: #0000;
-      background: linear-gradient(135deg, rgb(34, 243, 250), rgb(126, 236, 255), #09f);
+      font-weight: 700;
+      font-size: clamp(22px, 3vw, 32px);
+      color: transparent;
+      background: linear-gradient(135deg, $accent-cyan, rgb(126, 236, 255), #09f);
       background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .survey-title {
       margin: 4px 0 0;
-      color: rgba(255,255,255,0.6);
-      font-size: 14px;
+      color: $text-muted;
+      font-size: 13px;
     }
   }
 
   .response-count {
-    color: rgba(255,255,255,0.7);
-    font-size: 14px;
-    padding: 4px 12px;
-    border: 1px solid rgba($royal-indigo, 0.5);
+    color: $text-muted;
+    font-size: 13px;
+    padding: 4px 14px;
+    border: 1px solid $border-glow;
     border-radius: 20px;
+    background: rgba($royal-indigo, 0.08);
   }
 }
 
+// ============================================================
+// 列表：表格容器（同 admin-list 風格）
+// ============================================================
 .table-container {
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
   border: 1px solid rgba($royal-indigo, 0.5);
   background: $night-indigo;
   backdrop-filter: blur(16px);
-  box-shadow: 0 0 16px rgba($indigo-strong, 0.3);
+  box-shadow:
+    0 0 16px rgba($indigo-strong, 0.3),
+    inset 0 0 8px rgba($royal-indigo, 0.15);
+  transition: all 0.4s ease;
+
+  &:hover {
+    box-shadow: 0 0 24px rgba($royal-indigo, 0.4);
+    border-color: $royal-indigo;
+  }
 
   table {
     width: 100%;
     background: transparent !important;
 
+    // 表頭
     .mat-mdc-header-row {
-      background: linear-gradient(90deg, rgba(165, 180, 252, 0.2), rgba($indigo-strong, 0.2));
+      background: linear-gradient(90deg,
+        rgba($indigo-soft, 0.2),
+        rgba($indigo-strong, 0.2)
+      );
       border-bottom: 2px solid $royal-indigo;
     }
 
     .mat-mdc-header-cell {
       color: white;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      text-shadow: 0 0 4px $royal-indigo;
     }
 
     .mat-mdc-cell {
-      color: rgba(255,255,255,0.9);
+      color: $text-light;
       border-bottom: 1px solid rgba($indigo-strong, 0.2);
     }
 
     .mat-mdc-row {
       transition: all 0.3s ease;
+      cursor: pointer;
+
       &:hover {
         background-color: rgba($royal-indigo, 0.1) !important;
-        box-shadow: inset 4px 0 0 rgba(165, 180, 252, 0.8);
+        box-shadow: inset 4px 0 0 $indigo-soft;
+
+        .mat-mdc-cell {
+          color: #fff;
+          text-shadow: 0 0 6px $royal-indigo;
+        }
+      }
+    }
+
+    // 空行
+    tr.mat-row td.mat-cell {
+      color: $text-muted;
+      font-style: italic;
+    }
+  }
+}
+
+// 分頁器 override
+:host::ng-deep {
+  .mat-mdc-paginator {
+    background: transparent !important;
+    color: $text-muted !important;
+
+    .mat-mdc-select-value-text {
+      color: white !important;
+    }
+
+    .mat-mdc-select-arrow svg {
+      fill: $indigo-soft !important;
+    }
+
+    .mat-mdc-icon-button svg {
+      fill: $royal-indigo !important;
+    }
+  }
+}
+
+// ============================================================
+// 詳情頁
+// ============================================================
+.detail-view {
+  .detail-header {
+    margin-bottom: 20px;
+
+    // 返回列表按鈕
+    button[mat-stroked-button] {
+      border-color: $border-active !important;
+      color: $indigo-soft !important;
+      border-radius: 8px !important;
+      font-weight: 600 !important;
+      transition: all 0.3s ease !important;
+
+      mat-icon {
+        color: $indigo-soft !important;
+      }
+
+      &:hover {
+        background: rgba($royal-indigo, 0.12) !important;
+        box-shadow: 0 0 12px rgba($royal-indigo, 0.25) !important;
       }
     }
   }
 }
 
-/* 詳情頁 */
-.detail-view {
-  .detail-header {
-    margin-bottom: 20px;
-  }
-}
-
-.user-info-card, .answers-card {
+// ============================================================
+// 基本資料卡（深色毛玻璃）
+// ============================================================
+.user-info-card,
+.answers-card {
   margin-bottom: 24px;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
+  padding: 22px 26px;
+  background: $card-surface;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 14px;
+  border: 1px solid $border-glow;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba($indigo-soft, 0.08);
+  transition: border-color 0.3s ease;
+
+  &:hover {
+    border-color: $border-active;
+  }
 
   h3 {
-    margin-top: 0;
-    margin-bottom: 16px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #3f51b5;
-    border-bottom: 2px solid #e8eaf6;
-    padding-bottom: 8px;
+    margin: 0 0 18px;
+    font-size: 14px;
+    font-weight: 700;
+    color: $indigo-soft;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba($royal-indigo, 0.3);
   }
 }
 
+// ============================================================
+// 基本資料格線
+// ============================================================
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  gap: 14px;
 
   .info-item {
-    padding: 10px 14px;
-    background: #f8f9fa;
-    border-radius: 6px;
-    border-left: 3px solid #3f51b5;
+    padding: 12px 16px;
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 10px;
+    border: 1px solid $border-glow;
+    border-left: 3px solid $royal-indigo;
+    transition: all 0.25s ease;
+
+    &:hover {
+      border-color: $border-active;
+      border-left-color: $indigo-soft;
+      background: rgba(15, 23, 42, 0.65);
+    }
 
     .label {
       display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: #3f51b5;
-      margin-bottom: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: $indigo-soft;
+      margin-bottom: 5px;
       text-transform: uppercase;
+      letter-spacing: 0.8px;
     }
 
     .value {
       display: block;
-      color: #333;
+      color: $text-light;
       font-weight: 500;
+      font-size: 14px;
+      word-break: break-word;
     }
   }
 }
 
+// ============================================================
+// 作答項目
+// ============================================================
 .answer-item {
-  margin-bottom: 20px;
-  padding: 14px;
-  background: #f8f9fa;
-  border-radius: 6px;
-  border-left: 3px solid #c5cae9;
+  margin-bottom: 18px;
+  padding: 16px 20px;
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 10px;
+  border: 1px solid $border-glow;
+  border-left: 3px solid $cool-violet;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: rgba(15, 23, 42, 0.58);
+    border-color: rgba($cool-violet, 0.6);
+    border-left-color: $violet-glow;
+  }
 
   h4 {
-    margin: 0 0 10px;
-    font-size: 15px;
-    color: #333;
+    margin: 0 0 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-light;
+    line-height: 1.5;
   }
 
   .answer-content {
-    color: #555;
+    color: $indigo-soft;
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 1.7;
+    padding: 10px 14px;
+    background: rgba(99, 102, 241, 0.08);
+    border-radius: 8px;
+    border: 1px solid rgba($royal-indigo, 0.2);
 
     ul {
       margin: 0;
       padding-left: 20px;
+
+      li {
+        margin-bottom: 6px;
+        color: $indigo-soft;
+      }
     }
   }
 }
 
+// 未作答
 .text-muted {
-  color: #999;
+  color: $text-muted;
   font-style: italic;
+  font-size: 13px;
+}
+
+// ============================================================
+// RWD
+// ============================================================
+@media (max-width: 768px) {
+  .container {
+    padding: 16px 12px 48px;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .user-info-card,
+  .answers-card {
+    padding: 18px 16px;
+  }
 }
